@@ -1,71 +1,60 @@
+import java.util.*;
+import java.io.Serializable;
+
 /**
  * DESCREVER ESTA CLASSE DE UMA MANEIRA PANELEIRA 
  */
-public class USER
+public abstract class USER implements Serializable
 {
   private String email;
-  private String nome;
+  private String name;
   private String password;
-  private String morada;
-  //data
+  private String address;
+  private String date;
 
-  /**
-  * Construtor por omissão - sem parametros/vazio
-  **/
   public USER()
   {
      this.email = "";
-     this.nome = "";
+     this.name = "";
      this.password = "";
-     this.morada = "";
-        //data
+     this.address = "";
+     this.date = "";
   }
      
-  /**
-  * Construtor parametrizado - define um valor incial para 
-  * cada variavel
-  **/
-   
-  public USER(String new_email, String new_nome, String new_password, String new_morada)
+  public USER(String new_email, String new_name, String new_password, String new_address, String new_date)
   {
-     this.email = new_email;
-     this.nome = new_nome;
-     this.password = new_password;
-     this.morada = new_morada;
-        //data
+    this.email = new_email;
+    this.name = new_name;
+    this.password = new_password;
+    this.address = new_address;
+    this.date = new_date;
   }
     
-  /**
-  * Construtor de cópia - recebe um objeto e cria uma cópia dele
-  **/
-  public USER(USER outro)
+  public USER(USER u)
   {
-     this.email = outro.getEmail();
-     this.nome = outro.getNome();
-     this.password = outro.getPassword();
-     this.morada = outro.getMorada();
-        //data
+   this.email = u.getEmail();
+   this.name = u.getName();
+   this.password = u.getPassword();
+   this.address = u.getAddress();
+   this.date = u.getDate();
   }
     
     /************************* GETTERS *************************/
   public String getEmail(){return this.email;}
-  public String getNome(){return this.nome;}
+  public String getName(){return this.name;}
   public String getPassword(){return this.password;}
-  public String getMorada(){return this.morada;}
-    //data
+  public String getAddress(){return this.address;}
+  public String getDate(){return this.date;}
     
    /************************* SETTERS *************************/
   public void setEmail(String newEmail){this.email = newEmail;}
-  public void setNome(String newNome){this.nome = newNome;}
+  public void setNoame(String newName){this.name = newName;}
   public void setPassword(String newPassword){this.password = newPassword;}
-  public void setMorada(String newMorada){this.morada = newMorada;} 
-  //data
+  public void setAddress(String newAdd){this.address = newAdd;} 
+  public void setDate(String newDate){this.date = newDate;}
   
    /************************* CLONE *************************/
-  public USER clone()
-  {
-    return new USER(this);
-  }
+  public abstract USER clone();
     
     /************************* EQUALS *************************/
   public boolean equals(Object o)
@@ -73,10 +62,11 @@ public class USER
       if(this == o) return true;
       if(o != null && this.getClass() != o.getClass()) return false;
       USER u = (USER) o;     
-       return this.nome == u.getNome() &&
+       return this.name == u.getName() &&
               this.email == u.getEmail() &&
               this.password == u.getPassword() &&
-              this.morada == u.getMorada(); //DATA
+              this.address == u.getAddress() &&
+              this.date == u.getDate();
                
   }
     
@@ -84,10 +74,10 @@ public class USER
   public String toString()
   {
       return "email: " + email +
-             "nome: " + nome +
+             "nome: " + name +
              "password: " + password +
-             "morada: " + morada;
-             //data
+             "morada: " + address +
+             "Data de nascimento " + date;
   }
     
 }
