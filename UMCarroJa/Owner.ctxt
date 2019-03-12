@@ -1,14 +1,14 @@
 #BlueJ class context
-comment0.target=Proprietario
+comment0.target=Owner
 comment0.text=\n\ DESCREVER\ ESTA\ CLASSE\ DE\ UMA\ MANEIRA\ PANELEIRA\ \n
 comment1.params=
-comment1.target=Proprietario()
+comment1.target=Owner()
 comment1.text=\n\ Construtor\ por\ omiss\u00E3o\ -\ sem\ parametros/vazio\n
 comment2.params=new_rating
-comment2.target=Proprietario(int)
+comment2.target=Owner(int)
 comment2.text=\n\ Construtor\ parametrizado\ -\ define\ um\ valor\ incial\ para\ \n\ cada\ variavel\n
 comment3.params=outro
-comment3.target=Proprietario(Proprietario)
+comment3.target=Owner(Owner)
 comment3.text=\n\ Construtor\ de\ c\u00F3pia\ -\ recebe\ um\ objeto\ e\ cria\ uma\ c\u00F3pia\ dele\n
 comment4.params=
 comment4.target=int\ getRating()
@@ -17,7 +17,7 @@ comment5.params=newRating
 comment5.target=void\ setRating(int)
 comment5.text=SETTERS\ ************************
 comment6.params=
-comment6.target=Proprietario\ clone()
+comment6.target=Owner\ clone()
 comment6.text=CLONE\ ************************
 comment7.params=o
 comment7.target=boolean\ equals(java.lang.Object)

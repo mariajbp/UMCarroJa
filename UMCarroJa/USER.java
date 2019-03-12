@@ -1,7 +1,9 @@
+import java.io.Serializable;
+
 /**
  * DESCREVER ESTA CLASSE DE UMA MANEIRA PANELEIRA 
  */
-public class USER
+public abstract class USER implements Serializable
 {
   private String email;
   private String nome;
@@ -62,10 +64,7 @@ public class USER
   //data
   
    /************************* CLONE *************************/
-  public USER clone()
-  {
-    return new USER(this);
-  }
+  public abstract USER clone();
     
     /************************* EQUALS *************************/
   public boolean equals(Object o)

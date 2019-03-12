@@ -1,19 +1,19 @@
+import java.util.*;
+import java.io.Serializable;
 /**
  * DESCREVER ESTA CLASSE DE UMA MANEIRA PANELEIRA 
  */
-public class Cliente
+public class Owner extends USER implements Serializable
 {
-  private int x;
-  private int y;
+  private int rating;
   //HISTORICA VAI SER UMA ESTRUTURA QQ
 
   /**
   * Construtor por omissão - sem parametros/vazio
   **/
-  public Cliente()
+  public Owner()
   {
-     this.x = 0;
-     this.y = 0;
+     this.rating= 0;
   }
      
   /**
@@ -21,34 +21,29 @@ public class Cliente
   * cada variavel
   **/
    
-  public Cliente(int new_x, int new_y)
+  public Owner(int new_rating)
   {
-     this.x = new_x;
-     this.y = new_y;
+     this.rating = new_rating;
   }
     
   /**
   * Construtor de cópia - recebe um objeto e cria uma cópia dele
   **/
-  public Cliente(Cliente outro)
+  public Owner(Owner outro)
   {
-     this.x = outro.getX();
-     this.y = outro.getY();
-     
+     this.rating = outro.getRating();
   }
     
     /************************* GETTERS *************************/
-  public int getX(){return this.x;}
-  public int getY(){return this.y;}
+  public int getRating(){return this.rating;}
   
    /************************* SETTERS *************************/
-  public void setX(int newX){this.x = newX;}
-  public void setNome(int newY){this.y = newY;}
+  public void setRating(int newRating){this.rating = newRating;}
 
    /************************* CLONE *************************/
-  public Cliente clone()
+  public Owner clone()
   {
-    return new Cliente(this);
+    return new Owner(this);
   }
     
     /************************* EQUALS *************************/
@@ -56,18 +51,18 @@ public class Cliente
   {
       if(this == o) return true;
       if(o != null && this.getClass() != o.getClass()) return false;
-      Cliente c = (Cliente) o;     
-       return this.x == c.getX() &&
-              this.y == c.getY() ;
+      Owner p = (Owner) o;     
+       return this.rating == p.getRating();
                
   }
     
     /************************* TOSTRING *************************/
   public String toString()
   {
-      return "Cordernadas: (" + x + "," + y + ")";
+      return "Classificação: " + rating;
              
   }
     
 }
+
 

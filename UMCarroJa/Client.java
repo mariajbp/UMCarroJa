@@ -1,17 +1,22 @@
+import java.util.*;
+import java.io.Serializable;
+
 /**
  * DESCREVER ESTA CLASSE DE UMA MANEIRA PANELEIRA 
  */
-public class Proprietario
+public class Client extends USER implements Serializable
 {
-  private int rating;
+  private int x; //CLASSE POINT2D??
+  private int y;
   //HISTORICA VAI SER UMA ESTRUTURA QQ
 
   /**
   * Construtor por omissão - sem parametros/vazio
   **/
-  public Proprietario()
+  public Client()
   {
-     this.rating= 0;
+     this.x = 0;
+     this.y = 0;
   }
      
   /**
@@ -19,29 +24,34 @@ public class Proprietario
   * cada variavel
   **/
    
-  public Proprietario(int new_rating)
+  public Client(int new_x, int new_y)
   {
-     this.rating = new_rating;
+     this.x = new_x;
+     this.y = new_y;
   }
     
   /**
   * Construtor de cópia - recebe um objeto e cria uma cópia dele
   **/
-  public Proprietario(Proprietario outro)
+  public Client(Client outro)
   {
-     this.rating = outro.getRating();
+     this.x = outro.getX();
+     this.y = outro.getY();
+     
   }
     
     /************************* GETTERS *************************/
-  public int getRating(){return this.rating;}
+  public int getX(){return this.x;}
+  public int getY(){return this.y;}
   
    /************************* SETTERS *************************/
-  public void setRating(int newRating){this.rating = newRating;}
+  public void setX(int newX){this.x = newX;}
+  public void setNome(int newY){this.y = newY;}
 
    /************************* CLONE *************************/
-  public Proprietario clone()
+  public Client clone()
   {
-    return new Proprietario(this);
+    return new Client(this);
   }
     
     /************************* EQUALS *************************/
@@ -49,18 +59,18 @@ public class Proprietario
   {
       if(this == o) return true;
       if(o != null && this.getClass() != o.getClass()) return false;
-      Proprietario p = (Proprietario) o;     
-       return this.rating == p.getRating();
+      Client c = (Client) o;     
+       return this.x == c.getX() &&
+              this.y == c.getY() ;
                
   }
     
     /************************* TOSTRING *************************/
   public String toString()
   {
-      return "Classificação: " + rating;
+      return "Cordernadas: (" + x + "," + y + ")";
              
   }
     
 }
-
 
