@@ -1,0 +1,27 @@
+#BlueJ class context
+comment0.target=Point2D
+comment1.params=
+comment1.target=Point2D()
+comment10.params=dest
+comment10.target=double\ distanceTo(Point2D)
+comment11.params=
+comment11.target=Point2D\ clone()
+comment12.params=
+comment12.target=java.lang.String\ toString()
+comment2.params=x\ y
+comment2.target=Point2D(double,\ double)
+comment3.params=p
+comment3.target=Point2D(Point2D)
+comment4.params=
+comment4.target=double\ getX()
+comment5.params=
+comment5.target=double\ getY()
+comment6.params=newX
+comment6.target=void\ setX(int)
+comment7.params=newY
+comment7.target=void\ setNome(int)
+comment8.params=p
+comment8.target=void\ travelTo(Point2D)
+comment9.params=x\ y
+comment9.target=void\ travelTo(double,\ double)
+numComments=13
