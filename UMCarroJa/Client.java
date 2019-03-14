@@ -6,8 +6,9 @@ import java.io.Serializable;
  */
 public class Client extends USER implements Serializable
 {
-  private int x; //CLASSE POINT2D??
-  private int y;
+  private double walk; //CLASSE POINT2D??
+  private Point2D location;
+  private Point2D destination;
   //HISTORICA VAI SER UMA ESTRUTURA QQ
 
   /**

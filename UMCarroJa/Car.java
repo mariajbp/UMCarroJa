@@ -11,7 +11,8 @@ public abstract class Car implements Serializable
   private double consumption;
   //HISTORICO VAI SER UMA ESTRUTURA
   private int rating;
-
+  // ADD LOCATION
+  
   public Car()
   {
     this.speed = 0.0;

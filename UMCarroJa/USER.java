@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 import java.util.*;
->>>>>>> d014108950af8a6bf7756c4b8fb7399f1ef019a6
 import java.io.Serializable;
 
 /**

@@ -1,12 +1,4 @@
-<<<<<<< HEAD
-import java.io.Serializable;
- 
-public class Gas extends Car implements Serializable
-{
-   
-=======
-import java.util.*;
-import java.io.Serializable;
+import java.io.Serializable; 
 /**
  * Escreva a descrição da classe Gasolina aqui.
  * 
@@ -21,5 +13,4 @@ public class Gas extends Car implements Serializable
      super(speed,price,consumption,rating);
    }
 
->>>>>>> d014108950af8a6bf7756c4b8fb7399f1ef019a6
 }
