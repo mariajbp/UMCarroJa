@@ -51,8 +51,8 @@ public abstract class Car implements Serializable
   public void setRating(int newR){this.rating = newR;}
 
    /************************* CLONE *************************/
-   public abstract Car clone();  //IMPLEMENTAÇAO DIFERENTE
-    
+  public abstract Car clone();  
+   
     /************************* EQUALS *************************/
   public boolean equals(Object o)
   {

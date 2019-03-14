@@ -14,7 +14,7 @@ public class Owner extends USER implements Serializable
   **/
   public Owner()
   {
-   }
+  }
 
   public Owner(String email,String name,String password,String address,String date,int rating)
 
@@ -22,25 +22,11 @@ public class Owner extends USER implements Serializable
      super(email, name,password,address,date);
      this.rating= 0;
   }
-     
 
-  /**
-  * Construtor parametrizado - define um valor incial para 
-  * cada variavel
-  **/
-   
-  public Owner(int new_rating)
-  {
-     this.rating = new_rating;
-  }
-    
 
   /**
   * Construtor de cópia - recebe um objeto e cria uma cópia dele
   **/
-  public Owner(Owner outro)
-  {}
-
   public Owner(Owner o)
   {
      this.rating = o.getRating();

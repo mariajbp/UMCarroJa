@@ -7,7 +7,8 @@ import java.io.Serializable;
  */
 public class Gas extends Car implements Serializable
 {
-    
+   private static String fuel = "fossil fuel";
+   
    public Gas(double speed,double price,double consumption, int rating)
    {
      super(speed,price,consumption,rating);

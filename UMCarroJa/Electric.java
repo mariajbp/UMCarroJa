@@ -8,8 +8,15 @@ import java.io.Serializable;
  */
 public class Electric extends Car implements Serializable
 {
-   public Electric(double speed,double price,double consumption, int rating)
-    {
+  private static String fuel = "Electricity";
+  
+    public Electric(double speed,double price,double consumption, int rating,String fuel)
+  {
      super(speed,price,consumption,rating);
-    } 
+  }
+      
+  public Electric clone()
+  {
+     return new Electric(this); //IMPLEMENTAR DIFERENTE
+  }
 }

@@ -6,53 +6,65 @@ import java.io.Serializable;
  */
 public class Client extends USER implements Serializable
 {
-  private double walk; //CLASSE POINT2D??
+  private double walk;  //4km por hora
   private Point2D location;
   private Point2D destination;
-  //HISTORICA VAI SER UMA ESTRUTURA QQ
+  //HISTORICO VAI SER UMA ESTRUTURA QQ
 
-  /**
-  * Construtor por omissão - sem parametros/vazio
-  **/
   public Client()
   {
-     this.x = 0;
-     this.y = 0;
+     this.walk = 0.0;
   }
-     
-  /**
-  * Construtor parametrizado - define um valor incial para 
-  * cada variavel
-  **/
    
-  public Client(int new_x, int new_y)
+  public Client(String email,String name,String password,String address,String date,int rating, int new_walk)
   {
-     this.x = new_x;
-     this.y = new_y;
+      super(email, name,password,address,date);
+      this.walk = new_walk;
   }
     
-  /**
-  * Construtor de cópia - recebe um objeto e cria uma cópia dele
-  **/
-  public Client(Client outro)
+  public Client(Client c)
   {
-     this.x = outro.getX();
-     this.y = outro.getY();
+     this.walk = c.getWalk();
      
   }
     
     /************************* GETTERS *************************/
-  public int getX(){return this.x;}
-  public int getY(){return this.y;}
+  public double getWalk()
+  {
+      return this.walk;
+  }
+  
+  public Point2D getLocation()
+  {
+      return this.location;
+  }
+  
+  public Point2D getDestination()
+  {
+      return this.destination;
+  }
   
    /************************* SETTERS *************************/
-  public void setX(int newX){this.x = newX;}
-  public void setNome(int newY){this.y = newY;}
+  public void setWalk(double newW)
+  {
+      this.walk = newW;
+  }
+  
+  public void setLocation(double x, double y)
+  {
+      this.location = new Point2D(x,y);
+  }
+  
+  public void setDestination(double x, double y)
+  {
+      this.destination = new Point2D(x,y);
+  }
+
 
    /************************* CLONE *************************/
   public Client clone()
   {
-    return new Client(this);
+    return new Client(this); //IMPLEMENTAR DIFERENTE
   }
     
     /************************* EQUALS *************************/
@@ -61,17 +73,16 @@ public class Client extends USER implements Serializable
       if(this == o) return true;
       if(o != null && this.getClass() != o.getClass()) return false;
       Client c = (Client) o;     
-       return this.x == c.getX() &&
-              this.y == c.getY() ;
-               
+       return this.walk == c.getWalk();
   }
     
     /************************* TOSTRING *************************/
   public String toString()
   {
-      return "Cordernadas: (" + x + "," + y + ")";
-             
+      return "Distancia que pode percorrer a pé: " + walk;         
   }
+  
+  //metodo que recebe a distancia e calcula o tempo que demora a pé (sendo 4km/h)
     
 }
 
