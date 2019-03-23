@@ -1,26 +1,24 @@
 import java.util.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+
 /**
  * DESCREVER ESTA CLASSE DE UMA MANEIRA PANELEIRA 
  */
 public class Owner extends USER implements Serializable
 {
-  private int rating;
-  //HISTORICA VAI SER UMA ESTRUTURA QQ
+  private double rating;
 
-
-  /**
-  * Construtor por omissão - sem parametros/vazio
-  **/
   public Owner()
   {
+      this.rating = 0;
   }
 
-  public Owner(String email,String name,String password,String address,String date,int rating)
+  public Owner(String email,String name,String password,String address,String date,double n_rating)
 
   {
      super(email, name,password,address,date);
-     this.rating= 0;
+     this.rating = n_rating;
   }
 
 
@@ -29,20 +27,22 @@ public class Owner extends USER implements Serializable
   **/
   public Owner(Owner o)
   {
-     this.rating = o.getRating();
+      super(o);
+      this.rating = o.getRating();
   }
     
     /************************* GETTERS *************************/
-  public int getRating(){return this.rating;}
+  public double getRating(){return this.rating;}
   
    /************************* SETTERS *************************/
-  public void setRating(int newRating){this.rating = newRating;}
+  public void setRating(double newRating){this.rating = newRating;}
 
    /************************* CLONE *************************/
   public Owner clone()
   {
     return new Owner(this); //IMPLEMENTAR DIFERENTE!!!
   }
+  
     
     /************************* EQUALS *************************/
   public boolean equals(Object o)

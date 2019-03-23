@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * DESCREVER ESTA CLASSE DE UMA MANEIRA PANELEIRA 
@@ -9,11 +10,10 @@ public class Client extends USER implements Serializable
   private double walk;  //4km por hora
   private Point2D location;
   private Point2D destination;
-  //HISTORICO VAI SER UMA ESTRUTURA QQ
 
   public Client()
   {
-     this.walk = 0.0;
+     this.walk = 0.0;   
   }
    
   public Client(String email,String name,String password,String address,String date,int rating, int new_walk)
@@ -24,8 +24,8 @@ public class Client extends USER implements Serializable
     
   public Client(Client c)
   {
-     this.walk = c.getWalk();
-     
+      super(c);
+      this.walk = c.getWalk();
   }
     
     /************************* GETTERS *************************/
@@ -43,6 +43,7 @@ public class Client extends USER implements Serializable
   {
       return this.destination;
   }
+ 
   
    /************************* SETTERS *************************/
   public void setWalk(double newW)
@@ -60,7 +61,7 @@ public class Client extends USER implements Serializable
       this.destination = new Point2D(x,y);
   }
 
-
+  
    /************************* CLONE *************************/
   public Client clone()
   {
@@ -82,7 +83,6 @@ public class Client extends USER implements Serializable
       return "Distancia que pode percorrer a pé: " + walk;         
   }
   
-  //metodo que recebe a distancia e calcula o tempo que demora a pé (sendo 4km/h)
     
 }
 
