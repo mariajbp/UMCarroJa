@@ -4,7 +4,7 @@ import java.io.Serializable;
  * DESCREVER ESTA CLASSE DE UMA MANEIRA PANELEIRA 
  */
 
-public abstract class Car implements Serializable
+public abstract class CAR implements Serializable
 {
   private double speed;
   private double price;
@@ -13,7 +13,7 @@ public abstract class Car implements Serializable
   private int rating;
   // ADD LOCATION
   
-  public Car()
+  public CAR()
   {
     this.speed = 0.0;
     this.price = 0.0;
@@ -22,7 +22,7 @@ public abstract class Car implements Serializable
   }
      
    
-  public Car(double new_speed, double new_price, double new_consumption, int new_rating )
+  public CAR(double new_speed, double new_price, double new_consumption, int new_rating )
   {
     this.speed = new_speed;
     this.price = new_price;
@@ -30,7 +30,7 @@ public abstract class Car implements Serializable
     this.rating = new_rating;
   }
     
-  public Car(Car c)
+  public CAR(CAR c)
   {
     this.speed = c.getSpeed();
     this.price = c.getPrice();
@@ -51,14 +51,14 @@ public abstract class Car implements Serializable
   public void setRating(int newR){this.rating = newR;}
 
    /************************* CLONE *************************/
-  public abstract Car clone();  
+  public abstract CAR clone();  
    
     /************************* EQUALS *************************/
   public boolean equals(Object o)
   {
       if(this == o) return true;
       if(o != null && this.getClass() != o.getClass()) return false;
-      Car c = (Car) o;     
+      CAR c = (CAR) o;     
        return this.speed == c.getSpeed() &&
               this.price == c.getPrice() &&
               this.consumption == c.getConsumption() &&

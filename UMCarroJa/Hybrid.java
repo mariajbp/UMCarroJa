@@ -7,13 +7,23 @@ import java.io.Serializable;
  * @version (número de versão ou data)
  */
 
-public class Hybrid extends Car implements Serializable
+public class Hybrid extends CAR implements Serializable
 {
     private static String fuel = "plugin";
     
-    public Hybrid(double speed,double price,double consumption, int rating)
-    {
+    public Hybrid()
+   {
+       super();
+   }
+   
+   public Hybrid(double speed,double price,double consumption, int rating)
+   {
      super(speed,price,consumption,rating);
-    }
+   }
+   
+   public Hybrid(Hybrid h)
+   {
+      super(h);
+   }
 
 }

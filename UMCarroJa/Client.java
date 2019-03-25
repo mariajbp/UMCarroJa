@@ -13,7 +13,8 @@ public class Client extends USER implements Serializable
 
   public Client()
   {
-     this.walk = 0.0;   
+      super();
+      this.walk = 0.0;   
   }
    
   public Client(String email,String name,String password,String address,String date,int rating, int new_walk)

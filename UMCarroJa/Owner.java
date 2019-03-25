@@ -11,11 +11,11 @@ public class Owner extends USER implements Serializable
 
   public Owner()
   {
+      super();
       this.rating = 0;
   }
 
   public Owner(String email,String name,String password,String address,String date,double n_rating)
-
   {
      super(email, name,password,address,date);
      this.rating = n_rating;
