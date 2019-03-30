@@ -1,3 +1,12 @@
 #BlueJ class context
 comment0.target=Gas
-numComments=1
+comment0.text=\n\ Escreva\ a\ descri\u00E7\u00E3o\ da\ classe\ Gasolina\ aqui.\n\ \n\ @author\ (seu\ nome)\ \n\ @version\ (n\u00FAmero\ de\ vers\u00E3o\ ou\ data)\n
+comment1.params=
+comment1.target=Gas()
+comment2.params=speed\ price\ consumption\ rating
+comment2.target=Gas(double,\ double,\ double,\ int)
+comment3.params=g
+comment3.target=Gas(Gas)
+comment4.params=
+comment4.target=Gas\ clone()
+numComments=5

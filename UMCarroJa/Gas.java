@@ -5,7 +5,7 @@ import java.io.Serializable;
  * @author (seu nome) 
  * @version (número de versão ou data)
  */
-public class Gas extends CAR implements Serializable
+public class Gas extends CAR implements Serializable 
 {
    private static String fuel = "fossil fuel";
    
@@ -22,5 +22,10 @@ public class Gas extends CAR implements Serializable
    public Gas(Gas g)
   {
       super(g);
+  }
+  
+  public Gas clone()
+  {
+    return new Gas(this); //IMPLEMENTAR DIFERENTE!!!
   }
 }

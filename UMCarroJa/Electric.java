@@ -6,7 +6,7 @@ import java.io.Serializable;
  * @author (seu nome) 
  * @version (número de versão ou data)
  */
-public class Electric extends CAR implements Serializable
+public class Electric extends CAR implements Serializable 
 {
   private static String fuel = "Electricity";
   
@@ -23,5 +23,10 @@ public class Electric extends CAR implements Serializable
   public Electric(Electric e)
   {
       super(e);
+  }
+  
+  public Electric clone()
+  {
+    return null;
   }
 }

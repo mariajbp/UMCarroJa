@@ -7,8 +7,8 @@ public class Point2D implements Serializable{
   
   public Point2D()
   {
-    this.x = 0;
-    this.y = 0;
+    this.x = 0.0;
+    this.y = 0.0;
   }
 
   public Point2D(double x, double y)

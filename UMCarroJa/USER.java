@@ -50,7 +50,7 @@ public abstract class USER implements Serializable
   public String getAddress(){return this.address;}
   public String getDate(){return this.date;}
   
-    public List<Renting> getRentedH()
+  public List<Renting> getRentedH()
   {
       List<Renting> rt = new ArrayList<>();
       for(Renting r : rentedh)
@@ -70,7 +70,7 @@ public abstract class USER implements Serializable
   public void setRentedH(List<Renting> rentedh)
   {
       this.rentedh = new ArrayList<>();
-      rentedh.forEach(r ->{this.rentedh.add(r);});
+      rentedh.forEach(r ->{this.rentedh.add(r);}); //NOT WORKING
   }
   
    /************************* CLONE *************************/

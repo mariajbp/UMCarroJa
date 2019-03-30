@@ -7,9 +7,9 @@ import java.io.Serializable;
  * @version (número de versão ou data)
  */
 
-public class Hybrid extends CAR implements Serializable
+public class Hybrid extends CAR implements Serializable 
 {
-    private static String fuel = "plugin";
+   private static String fuel = "plugin";
     
     public Hybrid()
    {
@@ -25,5 +25,8 @@ public class Hybrid extends CAR implements Serializable
    {
       super(h);
    }
-
+   
+   public  Hybrid clone(){
+       return null;
+    }
 }
