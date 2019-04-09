@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=UserDoesntExistException
+comment1.params=
+comment1.target=UserDoesntExistException()
+comment2.params=message
+comment2.target=UserDoesntExistException(java.lang.String)
+numComments=3

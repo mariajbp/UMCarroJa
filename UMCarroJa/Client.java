@@ -10,6 +10,7 @@ public class Client extends USER implements Serializable
   private double walk;  //4km por hora
   private Point2D location;
   private Point2D destination;
+  private List<CAR> historyCL; 
 
   public Client()
   {
@@ -21,6 +22,7 @@ public class Client extends USER implements Serializable
   {
       super(email, name,password,address,date);
       this.walk = new_walk;
+      this.historyCL = new ArrayList<CAR>();
   }
     
   public Client(Client c)

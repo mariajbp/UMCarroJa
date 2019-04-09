@@ -4,7 +4,8 @@ import java.io.Serializable;
  */
 public class Renting implements Serializable
 {
-     private double price;
+    private double price;
+     private CAR car;
      private Point2D start;
      private Point2D destination;
      private double distance;
@@ -12,6 +13,9 @@ public class Renting implements Serializable
      private double walktime;
      private double expectime;
      //ADICIONAR VARS PARA SABER O OWNER E O CLIENTE??
+     
+     
+     
      /** o cliente indica as coordenadas x e y em que se encontra e para
      * onde se pretende deslocar;
      */ 

@@ -9,7 +9,7 @@ public abstract class CAR implements Serializable
   private double speed;
   private double price;
   private double consumption;
-  //HISTORICO VAI SER UMA ESTRUTURA
+  private List<CAR> history;
   private int rating;
   // ADD LOCATION
   

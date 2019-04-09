@@ -37,6 +37,26 @@ public class Menu implements Serializable
         this.op = readOption();
      } while (this.op == -1);
   }
+  //run cliente menu
+  public void runOwnerMenu() 
+  {
+     this.chosenMenu = 3;
+     do 
+     {
+        showMenu();
+        this.op = readOption();
+     } while (this.op == -1);
+  }
+  //run signup menu
+  public void runSignUpMenu() 
+  {
+     this.chosenMenu = 4;
+     do 
+     {
+        showMenu();
+        this.op = readOption();
+     } while (this.op == -1);
+  }
   
   //Apresentar Menu
   private void showMenu()
@@ -51,7 +71,32 @@ public class Menu implements Serializable
           System.out.println("Clique 0 para sair");
           break;
           
-          //case 2: System.out.println("");
+          case 2: System.out.println("\n Cliente");
+          for (int i=0; i<this.options.size(); i++) {
+              System.out.print((i+1));
+              System.out.print(" - ");
+              System.out.println(this.options.get(i));
+          }
+          System.out.println("Clique 0 para sair");
+          break;
+          
+          case 3: System.out.println("\n Proprietário");
+          for (int i=0; i<this.options.size(); i++) {
+              System.out.print((i+1));
+              System.out.print(" - ");
+              System.out.println(this.options.get(i));
+          }
+          System.out.println("Clique 0 para sair");
+          break;
+          
+          case 5: System.out.println("\n Efetuar Registo");
+          for (int i=0; i<this.options.size(); i++) {
+              System.out.print((i+1));
+              System.out.print(" - ");
+              System.out.println(this.options.get(i));
+          }
+          System.out.println( "Clique 0 para sair");
+          break;
       }
   }
   

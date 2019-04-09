@@ -11,8 +11,7 @@ public abstract class USER implements Serializable
   private String password;
   private String address;
   private String date;
-  private List<Renting> rentedh; //PASSAR ISTO PELO SUPER PARA O OWNER E O CLIENTE
-
+  
   public USER()
   {
      this.email = "";
@@ -20,7 +19,6 @@ public abstract class USER implements Serializable
      this.password = "";
      this.address = "";
      this.date = "";
-     this.rentedh = new ArrayList<Renting>();
   }
      
   public USER(String new_email, String new_name, String new_password, String new_address, String new_date)
@@ -30,7 +28,6 @@ public abstract class USER implements Serializable
     this.password = new_password;
     this.address = new_address;
     this.date = new_date;
-    setRentedH(rentedh);
   }
     
   public USER(USER u)
@@ -40,7 +37,6 @@ public abstract class USER implements Serializable
    this.password = u.getPassword();
    this.address = u.getAddress();
    this.date = u.getDate();
-   this.rentedh = u.getRentedH();
   }
     
     /************************* GETTERS *************************/
@@ -49,16 +45,6 @@ public abstract class USER implements Serializable
   public String getPassword(){return this.password;}
   public String getAddress(){return this.address;}
   public String getDate(){return this.date;}
-  
-  public List<Renting> getRentedH()
-  {
-      List<Renting> rt = new ArrayList<>();
-      for(Renting r : rentedh)
-      {
-          rt.add(r);
-      }
-      return rt;
-  }
     
    /************************* SETTERS *************************/
   public void setEmail(String newEmail){this.email = newEmail;}
@@ -67,11 +53,6 @@ public abstract class USER implements Serializable
   public void setAddress(String newAdd){this.address = newAdd;} 
   public void setDate(String newDate){this.date = newDate;}
   
-  public void setRentedH(List<Renting> rentedh)
-  {
-      this.rentedh = new ArrayList<>();
-      rentedh.forEach(r ->{this.rentedh.add(r);}); //NOT WORKING
-  }
   
    /************************* CLONE *************************/
   public abstract USER clone();

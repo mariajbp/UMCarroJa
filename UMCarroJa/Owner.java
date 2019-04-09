@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Owner extends USER implements Serializable
 {
   private double rating;
+  private List<CAR> historyOW; 
 
   public Owner()
   {
@@ -59,8 +60,7 @@ public class Owner extends USER implements Serializable
   {
       return "Classificação: " + rating;
              
-  }
-    
+  }  
 }
 
 
