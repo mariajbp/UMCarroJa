@@ -10,7 +10,7 @@ public abstract class USER implements Serializable
   private String name;
   private String password;
   private String address;
-  private String date;
+  private String bday;
   
   public USER()
   {
@@ -18,16 +18,16 @@ public abstract class USER implements Serializable
      this.name = "";
      this.password = "";
      this.address = "";
-     this.date = "";
+     this.bday = "";
   }
      
-  public USER(String new_email, String new_name, String new_password, String new_address, String new_date)
+  public USER(String new_email, String new_name, String new_password, String new_address, String new_bday)
   {
     this.email = new_email;
     this.name = new_name;
     this.password = new_password;
     this.address = new_address;
-    this.date = new_date;
+    this.bday = new_bday;
   }
     
   public USER(USER u)
@@ -36,7 +36,7 @@ public abstract class USER implements Serializable
    this.name = u.getName();
    this.password = u.getPassword();
    this.address = u.getAddress();
-   this.date = u.getDate();
+   this.bday = u.getBday();
   }
     
     /************************* GETTERS *************************/
@@ -44,14 +44,14 @@ public abstract class USER implements Serializable
   public String getName(){return this.name;}
   public String getPassword(){return this.password;}
   public String getAddress(){return this.address;}
-  public String getDate(){return this.date;}
+  public String getBday(){return this.bday;}
     
    /************************* SETTERS *************************/
   public void setEmail(String newEmail){this.email = newEmail;}
   public void setNoame(String newName){this.name = newName;}
   public void setPassword(String newPassword){this.password = newPassword;}
   public void setAddress(String newAdd){this.address = newAdd;} 
-  public void setDate(String newDate){this.date = newDate;}
+  public void setBday(String newBday){this.bday = newBday;}
   
   
    /************************* CLONE *************************/
@@ -67,7 +67,7 @@ public abstract class USER implements Serializable
               this.email == u.getEmail() &&
               this.password == u.getPassword() &&
               this.address == u.getAddress() &&
-              this.date == u.getDate();
+              this.bday == u.getBday();
                
   }
     
@@ -78,7 +78,7 @@ public abstract class USER implements Serializable
              "nome: " + name +
              "password: " + password +
              "morada: " + address +
-             "Data de nascimento " + date;
+             "Data de nascimento " + bday;
   }
     
 }

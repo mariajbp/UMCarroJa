@@ -11,7 +11,7 @@ public class Renting implements Serializable
      private double distance;
      private double autonomy;
      private double walktime;
-     private double expectime;
+     private double expectedime;
      //ADICIONAR VARS PARA SABER O OWNER E O CLIENTE??
      
      

@@ -24,7 +24,7 @@ public class App  implements Serializable
         {
             String[] main = {"Iniciar Sessão", "Registar utilizador", "Registar Proprietário"}; //more to be added
             
-            String[] client = {"Mostrar perfil", "Mostrar histórico" };
+            String[] client = {"Mostrar perfil", "Mostrar histórico" }; //DATAS NO HISTORICO
             
             String[] owner = {"Mostrar perfil", "Mostrar histórico"};
             
@@ -145,6 +145,6 @@ public class App  implements Serializable
        
        public void StartApp(){}
 
-    public void EndApp(){}
+        public void EndApp(){}
        
 }
