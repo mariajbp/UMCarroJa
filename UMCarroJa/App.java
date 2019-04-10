@@ -17,8 +17,7 @@ public class App  implements Serializable
 		catch (NullPointerException e){System.out.println("Problema ao carregar Menu inicial");}
 		EndApp();
 	}
-	
-	public UMCJ(){}
+
 	
         private void loadMenus()
         {

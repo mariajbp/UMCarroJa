@@ -1,18 +1,53 @@
 import java.io.Serializable; 
-/**
- * 
- */
+
 public class Renting implements Serializable
 {
-    private double price;
+     private String ownerEmail;
+     private String clientEmail;
      private CAR car;
+     private double price;
      private Point2D start;
      private Point2D destination;
      private double distance;
      private double autonomy;
      private double walktime;
      private double expectedime;
-     //ADICIONAR VARS PARA SABER O OWNER E O CLIENTE??
+     
+     public Renting()
+     {}
+     
+     public Renting(String ownerEmail, String clientEmail, CAR car, double price, Point2D destination, Point2D start, double distance, 
+                    double autonomy, double walktime, double expectedtime)
+     {
+         this.ownerEmail = ownerEmail;
+     }
+
+     public Renting(Renting r)
+     {
+     }
+     
+     /**gets**/
+     public String getDriverEmail(){return this.ownerEmail;}
+     public String getClientEmail(){return this.clientEmail;}
+     public CAR getCar(){return this.car;}
+     public double getPrice(){return this.price;}
+     public Point2D getStart() {return this.start;}
+     public Point2D getDestination() {return this.destination;}
+     public double getDistance() {return this.distance;}
+     public double getAutonomy() {return this.autonomy;}
+     public double getWalkTime() {return this.walktime;}
+     public double getExpectedTime() {return this.expectedime;}
+     
+
+     /**sets**/
+     public void setStart(Point2D start) {this.start = start;}
+     public void setDestination(Point2D destination) {this.destination = destination;}
+     //finish
+    
+     
+     /**CLONE**/
+     /**ToString**/
+     /**há mais um que não me lembro**/
      
      
      
