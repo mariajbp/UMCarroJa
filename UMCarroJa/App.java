@@ -6,20 +6,32 @@ import java.util.InputMismatchException;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class App  implements Serializable
 {
    private static Menu homeMenu,clientMenu,ownerMenu,signupMenu;
+   private UMCarroJa umcj;
    
     public void run() 
    {
         StartApp();
         loadMenus();
         try {runHomeMenu();} 
-        catch (NullPointerException e){System.out.println("Problema ao carregar Menu inicial");}
+        catch (NullPointerException e){System.out.println("Houve algum problema ao carregar o menu inicial");}
         EndApp();
     }
-
+   
+   public void UMCJ_App()
+   {
+	File f = new File("data");
+	this.umcj = new UMCarroJa();
+	if(!f.exists()) 
+	{
+	    new Test(this.umcj);
+	}
+   }
     
    private void loadMenus()
    {
@@ -82,7 +94,7 @@ public class App  implements Serializable
      }while(ownerMenu.getOption() != 0);
    }
         
-       /**MORE MENUS TO BE ADDED*/
+   /**MORE MENUS TO BE ADDED*/
    private void signUp() 
    {
        String email, name, pass, address, date;
@@ -143,8 +155,32 @@ public class App  implements Serializable
    private void showOwnerProfile(Owner o)
    {}
        
-   public void StartApp(){}
+   public void StartApp()
+   {
+       try {
+             File f = new File("data");
+             if (f.exists())
+             {
+	        FileInputStream fis = new FileInputStream("data");
+		ObjectInputStream ois = new ObjectInputStream(fis);
+		this.umcj = (UMCarroJa) ois.readObject();
+		ois.close();
+		System.out.println("Carregado com sucesso.");
+             }
+       } catch (Exception e) {System.out.println(e.getMessage());}
+   }
 
-   public void EndApp(){}
-       
+   public void EndApp()
+   {
+       try {
+		FileOutputStream fos = new FileOutputStream("data");
+		ObjectOutputStream oos = new ObjectOutputStream(fos);
+		oos.writeObject(this.umcj);
+		oos.flush();
+		oos.close();
+		System.out.println("Guardado");
+       } catch (Exception e) {System.out.println(e.getMessage());}
+   }
 }
+   
+
