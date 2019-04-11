@@ -3,6 +3,7 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 
 public class Menu implements Serializable
 {
@@ -37,7 +38,8 @@ public class Menu implements Serializable
         this.op = readOption();
      } while (this.op == -1);
   }
-  //run cliente menu
+  
+  //run owner menu
   public void runOwnerMenu() 
   {
      this.chosenMenu = 3;
@@ -47,6 +49,7 @@ public class Menu implements Serializable
         this.op = readOption();
      } while (this.op == -1);
   }
+
   //run signup menu
   public void runSignUpMenu() 
   {
@@ -105,26 +108,20 @@ public class Menu implements Serializable
   {
      int option;
      Scanner input = new Scanner(System.in);
-      
+    
      System.out.print("Opção: ");
-      /**
-      try
-      {
-          option = input.nextInt();
-      }
-      catch(NOME DA EXCEPTION DO INPUT A CRIAR) // caso não escreve um int manda-a
-      {
-          option = -1;
-      }
-      if(op<0 || op>this.options.size())
-      {
-          System.out.println("Opção Inválida");
-          option = -1
-      }
-      
-      */
-     return option;
+     
+     try {option = input.nextInt();}
+     catch (InputMismatchException e) {option = -1;} //Não foi escrito um int
+     
+     if (option<0 || option>this.options.size()) 
+     {
+            System.out.println("Opção Inválida!");
+            op = -1;
+     }
+        return op;
   }
+  
   
   //obter a ultima opção lida
   public int getOption()

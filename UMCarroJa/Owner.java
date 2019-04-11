@@ -41,7 +41,7 @@ public class Owner extends USER implements Serializable
    /************************* CLONE *************************/
   public Owner clone()
   {
-    return new Owner(this); //IMPLEMENTAR DIFERENTE!!!
+    return new Owner(this); //IMPLEMENTAR DIFERENTE????
   }
   
     

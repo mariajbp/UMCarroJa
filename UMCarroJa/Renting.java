@@ -9,7 +9,7 @@ public class Renting implements Serializable
      private Point2D start;
      private Point2D destination;
      private double distance;
-     private double autonomy;
+     private double autonomy; //pode ser boolean??
      private double walktime;
      private double expectedime;
      
@@ -47,6 +47,9 @@ public class Renting implements Serializable
      
      /**CLONE**/
      /**ToString**/
+     
+     
+     
      /**há mais um que não me lembro**/
      
      

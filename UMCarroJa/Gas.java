@@ -19,13 +19,9 @@ public class Gas extends CAR implements Serializable
      super(speed,price,consumption,rating);
    }
    
-   public Gas(Gas g)
-  {
-      super(g);
-  }
+   public Gas(Gas g){super(g);}
   
   public Gas clone()
-  {
-    return new Gas(this); //IMPLEMENTAR DIFERENTE!!!
-  }
+  {return new Gas(this);}//IMPLEMENTAR DIFERENTE??
+  
 }

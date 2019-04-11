@@ -27,6 +27,6 @@ public class Hybrid extends CAR implements Serializable
    }
    
    public  Hybrid clone(){
-       return null;
+       return new Hybrid(this); //IMPLEMENTAR DIFERENTE??
     }
 }

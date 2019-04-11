@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.Serializable;
 
 /**
- * Isto é uma especie de main
+ * Isto é a main
  */
 public class UMCarroJa implements Serializable
 {

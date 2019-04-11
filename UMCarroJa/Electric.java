@@ -27,6 +27,6 @@ public class Electric extends CAR implements Serializable
   
   public Electric clone()
   {
-    return null;
+    return new Electric(this); //IMPLEMENTAR DIFERENTE??
   }
 }
