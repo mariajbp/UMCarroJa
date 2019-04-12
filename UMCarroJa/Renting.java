@@ -11,7 +11,7 @@ public class Renting implements Serializable
      private double distance;
      private double autonomy; //pode ser boolean??
      private double walktime;
-     private double expectedime;
+     private double expectedtime;
      
      public Renting()
      {}
@@ -24,10 +24,20 @@ public class Renting implements Serializable
 
      public Renting(Renting r)
      {
+         this.ownerEmail = r.getOwnerEmail();
+         this.clientEmail = r.getClientEmail();
+         this.car = r.getCar();
+         this.price = r.getPrice();
+         this.start = r.getStart();
+         this.destination = r.getDestination();
+         this.distance = r.getDistance();
+         this.autonomy = r.getAutonomy();
+         this.walktime = r.getWalkTime();
+         this.expectedtime = r.getExpectedTime();
      }
      
      /**gets**/
-     public String getDriverEmail(){return this.ownerEmail;}
+     public String getOwnerEmail(){return this.ownerEmail;}
      public String getClientEmail(){return this.clientEmail;}
      public CAR getCar(){return this.car;}
      public double getPrice(){return this.price;}
@@ -36,16 +46,25 @@ public class Renting implements Serializable
      public double getDistance() {return this.distance;}
      public double getAutonomy() {return this.autonomy;}
      public double getWalkTime() {return this.walktime;}
-     public double getExpectedTime() {return this.expectedime;}
+     public double getExpectedTime() {return this.expectedtime;}
      
 
      /**sets**/
+     public void setOwnerEmail(String ownerEmail) {this.ownerEmail = ownerEmail;}
+     public void setClientEmail(String clientEmail) {this.clientEmail = clientEmail;}
+     public void setCAR(CAR car) {this.car = car;}
+     public void setPrice(double price) {this.price = price;}
      public void setStart(Point2D start) {this.start = start;}
      public void setDestination(Point2D destination) {this.destination = destination;}
-     //finish
+     public void setDistance(double distance) {this.distance = distance;}
+     public void setAutonomy(double autonomy) {this.autonomy = autonomy;}
+     public void setWalkTime(double walktime) {this.walktime = walktime;}
+     public void setExpectedTime(double expectedtime) {this.expectedtime = expectedtime;}
+     
     
      
      /**CLONE**/
+     
      /**ToString**/
      
      
