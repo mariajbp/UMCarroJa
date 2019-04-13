@@ -1,5 +1,5 @@
 import java.io.Serializable; 
-
+/*** Carateristicas basicas de um aluguer ***/
 public class RentedCar implements Serializable
 {
      private String ownerEmail;

@@ -41,7 +41,8 @@ public class UMCarroJa implements Serializable
     }
   }
   
-  public Map<String, Owner> getDrivers() throws NoOwnersException{
+  public Map<String, Owner> getDrivers() throws NoOwnersException
+  {
     if(this.owners.isEmpty()) throw new NoOwnersException("Não existem proprietários na base de dados");
     else
     {
@@ -54,7 +55,8 @@ public class UMCarroJa implements Serializable
     }
   }
   
-  public Map<String, CAR> getVehicles() throws NoCarsAvailableException{
+  public Map<String, CAR> getVehicles() throws NoCarsAvailableException
+  {
     if(this.vehicles.isEmpty()) throw new NoCarsAvailableException("Não existem veículos na base de dados");
     else
     {
@@ -101,14 +103,16 @@ public class UMCarroJa implements Serializable
  
   
   
-  public void printClient(Client c){
+  public void printClient(Client c)
+  {
     System.out.println(this.clients.get(c.getEmail()).getName());
     System.out.println(this.clients.get(c.getEmail()).getEmail());
     System.out.println(this.clients.get(c.getEmail()).getAddress());
     System.out.println(this.clients.get(c.getEmail()).getBday());
   }
   
-   public void printDriver(Owner o){
+  public void printDriver(Owner o)
+  {
     System.out.println(this.owners.get(o.getEmail()).getName());
     System.out.println(this.owners.get(o.getEmail()).getEmail());
     System.out.println(this.owners.get(o.getEmail()).getAddress());
