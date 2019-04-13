@@ -1,7 +1,7 @@
 #BlueJ class context
-comment0.target=Renting
+comment0.target=RentedCar
 comment1.params=
-comment1.target=Renting()
+comment1.target=RentedCar()
 comment10.params=
 comment10.target=double\ getDistance()
 comment11.params=
@@ -24,7 +24,7 @@ comment18.target=void\ setStart(Point2D)
 comment19.params=destination
 comment19.target=void\ setDestination(Point2D)
 comment2.params=ownerEmail\ clientEmail\ car\ price\ destination\ start\ distance\ autonomy\ walktime\ expectedtime
-comment2.target=Renting(java.lang.String,\ java.lang.String,\ CAR,\ double,\ Point2D,\ Point2D,\ double,\ double,\ double,\ double)
+comment2.target=RentedCar(java.lang.String,\ java.lang.String,\ CAR,\ double,\ Point2D,\ Point2D,\ double,\ double,\ double,\ double)
 comment20.params=distance
 comment20.target=void\ setDistance(double)
 comment21.params=autonomy
@@ -34,7 +34,7 @@ comment22.target=void\ setWalkTime(double)
 comment23.params=expectedtime
 comment23.target=void\ setExpectedTime(double)
 comment3.params=r
-comment3.target=Renting(Renting)
+comment3.target=RentedCar(RentedCar)
 comment4.params=
 comment4.target=java.lang.String\ getOwnerEmail()
 comment4.text=gets*

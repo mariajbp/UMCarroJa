@@ -1,6 +1,6 @@
 import java.io.Serializable; 
 
-public class Renting implements Serializable
+public class RentedCar implements Serializable
 {
      private String ownerEmail;
      private String clientEmail;
@@ -13,16 +13,16 @@ public class Renting implements Serializable
      private double walktime;
      private double expectedtime;
      
-     public Renting()
+     public RentedCar()
      {}
      
-     public Renting(String ownerEmail, String clientEmail, CAR car, double price, Point2D destination, Point2D start, double distance, 
+     public RentedCar(String ownerEmail, String clientEmail, CAR car, double price, Point2D destination, Point2D start, double distance, 
                     double autonomy, double walktime, double expectedtime)
      {
          this.ownerEmail = ownerEmail;
      }
 
-     public Renting(Renting r)
+     public RentedCar(RentedCar r)
      {
          this.ownerEmail = r.getOwnerEmail();
          this.clientEmail = r.getClientEmail();
