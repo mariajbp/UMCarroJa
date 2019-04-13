@@ -7,36 +7,57 @@ import java.util.ArrayList;
  */
 public class Owner extends USER implements Serializable
 {
-  private double rating;
-  private List<CAR> historyOW; 
+  private ArrayList<Double> rating;
+  double beforeRating;
 
-  public Owner()
-  {
-      super();
-      this.rating = 0;
-  }
-
-  public Owner(String email,String name,String password,String address,String date,double n_rating)
+  public Owner(String email,String name,String password,String address,String date,ArrayList<Double> rating, double beforeRating)
   {
      super(email, name,password,address,date);
-     this.rating = n_rating;
+     this.rating = new ArrayList<Double>();
+     this.beforeRating = beforeRating;
   }
-
-
-  /**
-  * Construtor de cópia - recebe um objeto e cria uma cópia dele
-  **/
+  
   public Owner(Owner o)
   {
       super(o);
-      this.rating = o.getRating();
+      this.rating = new ArrayList<Double>();
+      this.beforeRating = o.getBeforeRating();
   }
     
-    /************************* GETTERS *************************/
-  public double getRating(){return this.rating;}
+  /************************* GETTERS *************************/
+  public ArrayList<Double> getRating() throws NoRatingsException
+  {
+      if(this.rating.isEmpty()) throw new NoRatingsException("Sem Avaliações");
+      else
+      {
+        ArrayList<Double> neo = new ArrayList<Double>();
+        for(double d : this.rating){neo.add(d);}
+        return neo;
+      }
+  }
   
-   /************************* SETTERS *************************/
-  public void setRating(double newRating){this.rating = newRating;}
+  public double getBeforeRating(){return this.beforeRating;}
+  
+  /************************* SETTERS *************************/
+  public void setRatingList(ArrayList<Double> list)
+  {
+      for(double d : list){ this.rating.add(d);}
+  }
+  
+  public void setBeforeRating(double bf){this.beforeRating = bf;}
+  
+    
+  public void updateRating()
+  {
+      double c = 0;
+      for(double d : this.rating){c+=d;}
+      this.beforeRating = c/this.rating.size();
+  }
+  
+  public void addRating(double n)
+  {
+      this.rating.add(n);
+  }
 
    /************************* CLONE *************************/
   public Owner clone()
@@ -45,22 +66,22 @@ public class Owner extends USER implements Serializable
   }
   
     
-    /************************* EQUALS *************************/
-  public boolean equals(Object o)
-  {
+    /************************* EQUALS ********************
+   public boolean equals(Object o)
+   {
       if(this == o) return true;
       if(o != null && this.getClass() != o.getClass()) return false;
       Owner p = (Owner) o;     
        return this.rating == p.getRating();
                
-  }
+  } ****/
     
-    /************************* TOSTRING *************************/
+    /************************* TOSTRING ************
   public String toString()
   {
       return "Classificação: " + rating;
              
-  }  
+  }  *************/
 }
 
 

@@ -13,8 +13,7 @@ public class RentedCar implements Serializable
      private double walktime;
      private double expectedtime;
      
-     public RentedCar()
-     {}
+     public RentedCar(){}
      
      public RentedCar(String ownerEmail, String clientEmail, CAR car, double price, Point2D destination, Point2D start, double distance, 
                     double autonomy, double walktime, double expectedtime)
@@ -64,6 +63,11 @@ public class RentedCar implements Serializable
     
      
      /**CLONE**/
+     public RentedCar clone()
+     {
+         return new RentedCar(this); //IMPLEMENTAR DIFERENTE!!!!! foi só para funcionar no historico do cliente
+     }
+     
      
      /**ToString**/
      

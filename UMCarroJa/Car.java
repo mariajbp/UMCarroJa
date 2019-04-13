@@ -11,6 +11,7 @@ public abstract class CAR implements Serializable
   private double consumption;
   private List<CAR> history;
   private int rating;
+  private String plate;
   // ADD LOCATION
   
   public CAR()
@@ -19,15 +20,17 @@ public abstract class CAR implements Serializable
     this.price = 0.0;
     this.consumption = 0.0;
     this.rating = 0;
+    this.plate = "";
   }
      
    
-  public CAR(double new_speed, double new_price, double new_consumption, int new_rating )
+  public CAR(double speed, double price, double consumption, int rating, String plate)
   {
-    this.speed = new_speed;
-    this.price = new_price;
-    this.consumption = new_consumption;
-    this.rating = new_rating;
+    this.speed = speed;
+    this.price = price;
+    this.consumption = consumption;
+    this.rating = rating;
+    this.plate = plate;
   }
     
   public CAR(CAR c)
@@ -36,6 +39,7 @@ public abstract class CAR implements Serializable
     this.price = c.getPrice();
     this.consumption = c.getConsumption();
     this.rating = c.getRating();
+    this.plate = c.getPlate();
   }
     
     /************************* GETTERS *************************/
@@ -43,16 +47,18 @@ public abstract class CAR implements Serializable
   public double getPrice(){return this.price;}
   public double getConsumption(){return this.consumption;}
   public int getRating(){return this.rating;}
+  public String getPlate(){return  this.plate;}
   
    /************************* SETTERS *************************/
   public void setSpeed(double newS){this.speed = newS;}
   public void setPrice(double newP){this.price = newP;}
   public void setConsumption(double newC){this.consumption = newC;}
   public void setRating(int newR){this.rating = newR;}
+  public void setPlate(String newPlate){this.plate = newPlate;}
 
    /************************* CLONE *************************/
   public abstract CAR clone();  
-   
+
     /************************* EQUALS *************************/
   public boolean equals(Object o)
   {

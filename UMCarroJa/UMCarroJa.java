@@ -75,16 +75,29 @@ public class UMCarroJa implements Serializable
   
   public void addOwner(Owner neo) throws UserExistsException
   {
-    if(this.owners.containsKey(neo.getEmail())) throw new UserExistsException("Proprietário já existe");
+    if(this.owners.containsKey(neo.getEmail())) throw new UserExistsException("O proprietário já existe");
     this.owners.put(neo.getEmail(), neo);
   }
   
- 
+  public void addVehicle(CAR neo) throws VehicleExistsException
+  {
+    if(this.vehicles.containsKey(neo.getPlate())) throw new VehicleExistsException("O veículo já existe");
+    this.vehicles.put(neo.getPlate(),neo);
+  }
   
-  //get closest car
+  /**** vai estar no menu dos clientes ****/
+  //ALGUGER DO CARRO MAIS PROX DAS SUAS COORDENADAS
+  //ALGUGER DO CARRO MAIS barato
+  //ALGUGER DO CARRO MAIS barato num distancia que queiram percorrer a pé
+  //aluger de um carro especifico
+  //aluguer de carro com autonomia desejada
   
-  
-  
+  /****vai estar no menu dos proprietários ****/
+  //sinalizar se carro está disponivel para aluguer
+  //abastecer o carro
+  //alterar preço por km
+  //aceitar ou rejeitar um aluguer
+  //registar o custo de um viagem
  
   
   

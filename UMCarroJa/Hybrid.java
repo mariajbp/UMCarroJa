@@ -16,9 +16,9 @@ public class Hybrid extends CAR implements Serializable
        super();
    }
    
-   public Hybrid(double speed,double price,double consumption, int rating)
+   public Hybrid(double speed,double price,double consumption, int rating, String plate)
    {
-     super(speed,price,consumption,rating);
+     super(speed,price,consumption,rating,plate);
    }
    
    public Hybrid(Hybrid h)

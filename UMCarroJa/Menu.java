@@ -20,12 +20,12 @@ public class Menu implements Serializable
   //runs home menu
   public void runHome()
   {
-     this.chosenMenu = 1;
-     do
-     {
-         showMenu();
-         this.op = readOption();
-     }while(this.op == -1);
+    this.chosenMenu = 1;
+    do
+    {
+        showMenu();
+        this.op = readOption();
+    }while(this.op == -1);
   }
   
   //run cliente menu
@@ -61,35 +61,39 @@ public class Menu implements Serializable
      } while (this.op == -1);
   }
   
+  
+  
   //Apresentar Menu
   private void showMenu()
   {
       switch(this.chosenMenu)
       {
-          case 1: System.out.println("Bem-vindo à UMCarrojá!");
+          case 1: System.out.println("********* Bem-vindo à UMCarrojá! *********\n");
           for(int i = 0; i<this.options.size(); i++)
           {
               System.out.print((i+1));
+              System.out.print(" - ");
+              System.out.println(this.options.get(i));
           }
-          System.out.println("Clique 0 para sair");
+          System.out.println("\nClique 0 para sair");
           break;
           
-          case 2: System.out.println("\n Cliente");
+          case 2: System.out.println("\nCliente");
           for (int i=0; i<this.options.size(); i++) {
               System.out.print((i+1));
               System.out.print(" - ");
               System.out.println(this.options.get(i));
           }
-          System.out.println("Clique 0 para sair");
+          System.out.println("\nClique 0 para sair");
           break;
           
-          case 3: System.out.println("\n Proprietário");
+          case 3: System.out.println("\nProprietário");
           for (int i=0; i<this.options.size(); i++) {
               System.out.print((i+1));
               System.out.print(" - ");
               System.out.println(this.options.get(i));
           }
-          System.out.println("Clique 0 para sair");
+          System.out.println("\nClique 0 para sair");
           break;
           
           case 5: System.out.println("\n Efetuar Registo");
@@ -98,7 +102,7 @@ public class Menu implements Serializable
               System.out.print(" - ");
               System.out.println(this.options.get(i));
           }
-          System.out.println( "Clique 0 para sair");
+          System.out.println( "\nClique 0 para sair");
           break;
       }
   }

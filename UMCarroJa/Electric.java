@@ -15,9 +15,9 @@ public class Electric extends CAR implements Serializable
        super();
    }
    
-    public Electric(double speed,double price,double consumption, int rating,String fuel)
+  public Electric(double speed,double price,double consumption, int rating, String plate)
   {
-     super(speed,price,consumption,rating);
+     super(speed,price,consumption,rating,plate);
   }
   
   public Electric(Electric e)

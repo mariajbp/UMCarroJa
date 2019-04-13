@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Ride
+comment1.params=r
+comment1.target=Ride(Ride)
+comment2.params=
+comment2.target=Ride()
+comment3.params=
+comment3.target=java.lang.String\ availableToString()
+comment3.text=gets\ e\ sets\ **
+numComments=4

@@ -14,9 +14,9 @@ public class Gas extends CAR implements Serializable
        super();
    }
    
-   public Gas(double speed,double price,double consumption, int rating)
+   public Gas(double speed,double price,double consumption, int rating, String plate)
    {
-     super(speed,price,consumption,rating);
+     super(speed,price,consumption,rating,plate);
    }
    
    public Gas(Gas g){super(g);}
