@@ -17,6 +17,7 @@ comment6.params=bf
 comment6.target=void\ setBeforeRating(double)
 comment7.params=
 comment7.target=void\ updateRating()
+comment7.text=Outros\ **
 comment8.params=n
 comment8.target=void\ addRating(double)
 comment9.params=

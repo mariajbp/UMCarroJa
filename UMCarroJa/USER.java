@@ -21,13 +21,13 @@ public abstract class USER implements Serializable
      this.bday = "";
   }
      
-  public USER(String new_email, String new_name, String new_password, String new_address, String new_bday)
+  public USER(String email, String name, String password, String address, String bday)
   {
-    this.email = new_email;
-    this.name = new_name;
-    this.password = new_password;
-    this.address = new_address;
-    this.bday = new_bday;
+    this.email = email;
+    this.name = name;
+    this.password = password;
+    this.address = address;
+    this.bday = bday;
   }
     
   public USER(USER u)

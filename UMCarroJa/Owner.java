@@ -35,7 +35,7 @@ public class Owner extends USER implements Serializable
         return neo;
       }
   }
-  
+
   public double getBeforeRating(){return this.beforeRating;}
   
   /************************* SETTERS *************************/
@@ -46,7 +46,7 @@ public class Owner extends USER implements Serializable
   
   public void setBeforeRating(double bf){this.beforeRating = bf;}
   
-    
+  /*** Outros ***/
   public void updateRating()
   {
       double c = 0;
@@ -58,7 +58,9 @@ public class Owner extends USER implements Serializable
   {
       this.rating.add(n);
   }
-
+  
+  
+  
    /************************* CLONE *************************/
   public Owner clone()
   {
@@ -66,7 +68,7 @@ public class Owner extends USER implements Serializable
   }
   
     
-    /************************* EQUALS ********************
+   /************************* EQUALS ********************
    public boolean equals(Object o)
    {
       if(this == o) return true;
@@ -76,7 +78,7 @@ public class Owner extends USER implements Serializable
                
   } ****/
     
-    /************************* TOSTRING ************
+  /************************* TOSTRING ************
   public String toString()
   {
       return "Classificação: " + rating;

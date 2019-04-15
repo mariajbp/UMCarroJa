@@ -10,7 +10,7 @@ public class UMCarroJa implements Serializable
   private int nVehicles;
   private TreeMap<String, Client> clients;
   private TreeMap<String, Owner> owners; //not sure its needed
-  private TreeMap<String, CAR> vehicles;
+  private TreeMap<String, Vehicle> vehicles;
   private double totalProfit; //num determinado periodo
   
   //construtores tostrings clones etc idk if will be used
@@ -55,13 +55,13 @@ public class UMCarroJa implements Serializable
     }
   }
   
-  public Map<String, CAR> getVehicles() throws NoCarsAvailableException
+  public Map<String, Vehicle> getVehicles() throws NoCarsAvailableException
   {
     if(this.vehicles.isEmpty()) throw new NoCarsAvailableException("Não existem veículos na base de dados");
     else
     {
-      Map<String,CAR> neo = new TreeMap<String,CAR>();
-      for(Map.Entry<String,CAR> entrys : this.vehicles.entrySet())
+      Map<String,Vehicle> neo = new TreeMap<String,Vehicle>();
+      for(Map.Entry<String,Vehicle> entrys : this.vehicles.entrySet())
       {
         neo.put(entrys.getKey(), entrys.getValue());
       }
@@ -81,7 +81,7 @@ public class UMCarroJa implements Serializable
     this.owners.put(neo.getEmail(), neo);
   }
   
-  public void addVehicle(CAR neo) throws VehicleExistsException
+  public void addVehicle (Vehicle neo) throws VehicleExistsException
   {
     if(this.vehicles.containsKey(neo.getPlate())) throw new VehicleExistsException("O veículo já existe");
     this.vehicles.put(neo.getPlate(),neo);

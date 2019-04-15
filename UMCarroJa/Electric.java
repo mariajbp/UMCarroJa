@@ -6,19 +6,14 @@ import java.io.Serializable;
  * @author (seu nome) 
  * @version (número de versão ou data)
  */
-public class Electric extends CAR implements Serializable 
+public class Electric extends Vehicle implements Serializable 
 {
   private static String fuel = "Electricity";
-  
-  public Electric()
-   {
-       super();
-   }
    
-  public Electric(double speed,double price,double consumption, int rating, String plate)
-  {
-     super(speed,price,consumption,rating,plate);
-  }
+  public Electric(double speed,double price,double autonomy,Point2D location, double consumption, int rating, String plate)
+   {
+     super(speed,price,autonomy, location,consumption,rating,plate); 
+   }
   
   public Electric(Electric e)
   {
