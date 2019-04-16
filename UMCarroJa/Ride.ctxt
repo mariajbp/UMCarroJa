@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Ride
-comment0.text=Carateristicas\ basicas\ de\ um\ aluguer\ **
+comment0.text=\n\ Representa\u00E7\u00E3o\ de\ um\ viagem\n
 comment1.params=vehicle\ owner\ client\ location\ available\ totalProfit
 comment1.target=Ride(Vehicle,\ Owner,\ Client,\ Point2D,\ boolean,\ double)
 comment10.params=o

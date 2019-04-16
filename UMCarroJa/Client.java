@@ -3,8 +3,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * DESCREVER ESTA CLASSE DE UMA MANEIRA PANELEIRA 
- */
+* Representação da classe cliente, subclasse de USER
+**/
 public class Client extends USER implements Serializable
 {
   private double walk;  //4km por hora

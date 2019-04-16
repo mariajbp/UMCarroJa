@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Owner
-comment0.text=\n\ DESCREVER\ ESTA\ CLASSE\ DE\ UMA\ MANEIRA\ PANELEIRA\ \n
+comment0.text=\n\ Representa\u00E7\u00E3o\ da\ classe\ propiet\u00E1rio,\ subclasse\ de\ USER\n
 comment1.params=email\ name\ password\ address\ date\ rating\ beforeRating
 comment1.target=Owner(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.util.ArrayList,\ double)
 comment2.params=o

@@ -1,6 +1,9 @@
 import java.lang.Math;
 import java.io.Serializable;
 
+/**
+* Classe que representa um ponto, pertende exprimir a localização das entidades da aplicação
+**/
 public class Point2D implements Serializable{
   private double x;
   private double y;

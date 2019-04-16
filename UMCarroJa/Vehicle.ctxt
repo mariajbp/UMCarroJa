@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Vehicle
-comment0.text=\n\ DESCREVER\ ESTA\ CLASSE\ DE\ UMA\ MANEIRA\ PANELEIRA\ \n
+comment0.text=\n\ Representa\u00E7\u00E3o\ abstrata\ da\ superclasse\ Vehicle(cont\u00E9m\ os\ dados\ comuns\ a\ todas\ as\ viaturas\ do\ sistema)\n
 comment1.params=speed\ price\ autonomy\ location\ consumption\ rating\ plate
 comment1.target=Vehicle(double,\ double,\ double,\ Point2D,\ double,\ int,\ java.lang.String)
 comment10.params=

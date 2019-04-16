@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=USER
-comment0.text=\n\ DESCREVER\ ESTA\ CLASSE\ DE\ UMA\ MANEIRA\ PANELEIRA\ \n
+comment0.text=\n\ Representa\u00E7\u00E3o\ abstrata\ da\ superclasse\ da\ entidade\ USER(o\ utilizador\ da\ aplica\u00E7\u00E3o)\n
 comment1.params=
 comment1.target=USER()
 comment10.params=newName

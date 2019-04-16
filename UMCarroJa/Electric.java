@@ -1,11 +1,8 @@
 import java.util.*;
 import java.io.Serializable;
 /**
- * Escreva a descrição da classe Eletrico aqui.
- * 
- * @author (seu nome) 
- * @version (número de versão ou data)
- */
+* Representação da classe Electric, subclasse de Vehicle
+**/
 public class Electric extends Vehicle implements Serializable 
 {
   private static String fuel = "Electricity";

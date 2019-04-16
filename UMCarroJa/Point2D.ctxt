@@ -1,5 +1,6 @@
 #BlueJ class context
 comment0.target=Point2D
+comment0.text=\n\ Classe\ que\ representa\ um\ ponto,\ pertende\ exprimir\ a\ localiza\u00E7\u00E3o\ das\ entidades\ da\ aplica\u00E7\u00E3o\n
 comment1.params=
 comment1.target=Point2D()
 comment10.params=dest

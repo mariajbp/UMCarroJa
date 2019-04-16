@@ -3,8 +3,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * DESCREVER ESTA CLASSE DE UMA MANEIRA PANELEIRA 
- */
+* Representação da classe propietário, subclasse de USER
+**/
 public class Owner extends USER implements Serializable
 {
   private ArrayList<Double> rating;

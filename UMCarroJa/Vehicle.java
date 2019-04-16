@@ -1,9 +1,9 @@
 import java.util.*;
 import java.io.Serializable;
-/**
- * DESCREVER ESTA CLASSE DE UMA MANEIRA PANELEIRA 
- */
 
+/**
+* Representação abstrata da superclasse Vehicle(contém os dados comuns a todas as viaturas do sistema)
+**/
 public abstract class Vehicle implements Serializable
 {
   private double speed;

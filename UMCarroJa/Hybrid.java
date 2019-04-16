@@ -1,19 +1,16 @@
 import java.util.*;
 import java.io.Serializable;
-/**
- * Escreva a descrição da classe Hibrido aqui.
- * 
- * @author (seu nome) 
- * @version (número de versão ou data)
- */
 
+/**
+* Representação da classe Hybrid, subclasse de Vehicle
+**/
 public class Hybrid extends Vehicle implements Serializable 
 {
    private static String fuel = "plugin";
 
    public Hybrid(double speed,double price,double autonomy,Point2D location, double consumption, int rating, String plate)
    {
-     super(speed,price,autonomy, location,consumption,rating,plate);
+      super(speed,price,autonomy, location,consumption,rating,plate);
    }
    
    public Hybrid(Hybrid h)
@@ -23,6 +20,6 @@ public class Hybrid extends Vehicle implements Serializable
    
    public  Hybrid clone()
    {
-       return new Hybrid(this); //IMPLEMENTAR DIFERENTE??
+      return new Hybrid(this); //IMPLEMENTAR DIFERENTE??
    }
 }

@@ -1,5 +1,8 @@
 import java.io.Serializable; 
-/*** Carateristicas basicas de um aluguer ***/
+
+/**
+* Representação de um viagem
+**/
 public class Ride implements Serializable
 {
     private Vehicle vehicle;

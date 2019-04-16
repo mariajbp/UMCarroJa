@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=UMCarroJa
-comment0.text=\n\ Isto\ \u00E9\ a\ main\n
+comment0.text=\n\ MAIN\n
 comment1.params=
 comment1.target=int\ getUserType()
 comment10.params=neo
@@ -23,7 +23,7 @@ comment18.params=c
 comment18.target=void\ printClient(Client)
 comment18.text=vai\ estar\ no\ menu\ dos\ propriet\u00E1rios\ ***
 comment19.params=o
-comment19.target=void\ printDriver(Owner)
+comment19.target=void\ printOwner(Owner)
 comment2.params=
 comment2.target=int\ getNCars()
 comment20.params=email\ password
@@ -43,7 +43,7 @@ comment6.target=void\ updateDriver(Owner)
 comment7.params=
 comment7.target=java.util.Map\ getClients()
 comment8.params=
-comment8.target=java.util.Map\ getDrivers()
+comment8.target=java.util.Map\ getOwners()
 comment9.params=
 comment9.target=java.util.Map\ getVehicles()
 numComments=23

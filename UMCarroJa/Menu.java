@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 
+/**
+*
+**/
+
 public class Menu implements Serializable
 {
   private List<String> options;

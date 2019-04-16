@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Hybrid
-comment0.text=\n\ Escreva\ a\ descri\u00E7\u00E3o\ da\ classe\ Hibrido\ aqui.\n\ \n\ @author\ (seu\ nome)\ \n\ @version\ (n\u00FAmero\ de\ vers\u00E3o\ ou\ data)\n
+comment0.text=\n\ Representa\u00E7\u00E3o\ da\ classe\ Hybrid,\ subclasse\ de\ Vehicle\n
 comment1.params=speed\ price\ autonomy\ location\ consumption\ rating\ plate
 comment1.target=Hybrid(double,\ double,\ double,\ Point2D,\ double,\ int,\ java.lang.String)
 comment2.params=h

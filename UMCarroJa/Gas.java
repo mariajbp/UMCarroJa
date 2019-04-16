@@ -1,11 +1,9 @@
 import java.util.*;
 import java.io.Serializable;
+
 /**
- * Escreva a descrição da classe Gasolina aqui.
- * 
- * @author (seu nome) 
- * @version (número de versão ou data)
- */
+* Representação da classe Gas, subclasse de Vehicle
+**/
 public class Gas extends Vehicle implements Serializable 
 {
    private static String fuel = "fossil fuel";

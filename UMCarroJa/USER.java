@@ -2,8 +2,8 @@ import java.util.*;
 import java.io.Serializable;
 
 /**
- * DESCREVER ESTA CLASSE DE UMA MANEIRA PANELEIRA 
- */
+* Representação abstrata da superclasse da entidade USER(o utilizador da aplicação)
+**/
 public abstract class USER implements Serializable
 {
   private String email;
