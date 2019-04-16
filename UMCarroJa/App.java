@@ -1,3 +1,4 @@
+
 import java.util.*;
 import java.io.File;
 import java.io.Serializable;
@@ -12,7 +13,10 @@ import java.io.ObjectOutputStream;
 public class App  implements Serializable
 {
    private static Menu homeMenu,clientMenu,ownerMenu,signupMenu;
+   private Client client;
+   private Owner owner;
    private UMCarroJa umcj;
+   private int userType;
    
     public void run() 
    {
@@ -78,7 +82,7 @@ public class App  implements Serializable
           clientMenu.runClientMenu();
           switch(clientMenu.getOption()) 
           {
-               case 1: /**SOMETHING HERE*/; break;
+               case 1: showClientProfile(this.client.clone()); break;
           }
      }while(clientMenu.getOption() != 0);
    }
@@ -121,7 +125,7 @@ public class App  implements Serializable
        address = input.nextLine();
        System.out.print("Data de nascimento (dd-mm-yyyy): ");
        date = input.next();
-            //incomplete
+       //incomplete
    }
         
    //obtaining email
@@ -141,19 +145,63 @@ public class App  implements Serializable
        
        /*** LOGIN ***/
    private void login() 
-   {}
+   {
+       Scanner input = new Scanner(System.in);
+       String email, password;
+
+       System.out.print("Email: ");
+       email = input.nextLine();
+       System.out.print("Password: ");
+       password = input.nextLine();
+       
+       try
+       {
+            try
+            {
+                umcj.login(email, password);
+            } catch (NullPointerException e){System.out.println("Problema no login");}
+            switch (umcj.getUserType()) 
+            {
+                case 1: saveClientData(email);
+                runClientMenu();
+                break;
+                case 2: saveOwnerData(email);
+                runOwnerMenu();
+                break;
+            }
+       }
+       catch(UserDoesntExistException e){System.out.println(e.getMessage());}
+   }
 
    private void saveClientData(String email)
-   {}
+   {
+       try
+       {
+	   Client c = this.umcj.getClients().get(email).clone();
+	   this.client = c;
+	   this.userType = 1;
+       }catch (NoClientsException e){System.out.println("Não foi possivel aceder aos clientes");}
+   }
        
    private void showClientProfile(Client c)
-   {}
+   {
+       this.umcj.printClient(c);
+   }
        
    private void saveOwnerData(String email)
-   {}
+   {
+     try
+     {
+         Owner o = this.umcj.getOwners().get(email).clone();
+         this.owner = o;
+         this.userType = 2;
+     }catch (NoOwnersException e){System.out.println("Não foi possivel aceder aos propriertários");}
+   }
        
    private void showOwnerProfile(Owner o)
-   {}
+   {
+       this.umcj.printOwner(o); 
+   }
    
   
    
@@ -169,11 +217,11 @@ public class App  implements Serializable
              File f = new File("data");
              if (f.exists())
              {
-	        FileInputStream fis = new FileInputStream("data");
-		ObjectInputStream ois = new ObjectInputStream(fis);
-		this.umcj = (UMCarroJa) ois.readObject();
-		ois.close();
-		System.out.println("Carregado com sucesso.");
+            FileInputStream fis = new FileInputStream("data");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        this.umcj = (UMCarroJa) ois.readObject();
+        ois.close();
+        System.out.println("Carregado com sucesso.");
              }
        } catch (Exception e) {System.out.println(e.getMessage());}
    }
@@ -181,12 +229,12 @@ public class App  implements Serializable
    public void EndApp()
    {
        try {
-		FileOutputStream fos = new FileOutputStream("data");
-		ObjectOutputStream oos = new ObjectOutputStream(fos);
-		oos.writeObject(this.umcj);
-		oos.flush();
-		oos.close();
-		System.out.println("Guardado");
+        FileOutputStream fos = new FileOutputStream("data");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(this.umcj);
+        oos.flush();
+        oos.close();
+        System.out.println("Guardado");
        } catch (Exception e) {System.out.println(e.getMessage());}
    }
 }

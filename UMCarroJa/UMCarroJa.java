@@ -6,11 +6,12 @@ import java.io.Serializable;
  */
 public class UMCarroJa implements Serializable
 {
-  private int userType; // 1 client // 2 is driver
+  private int userType; // 1 client // 2 is owner
   private int nVehicles;
   private TreeMap<String, Client> clients;
   private TreeMap<String, Owner> owners; //not sure its needed
   private TreeMap<String, Vehicle> vehicles;
+  private TreeSet<Ride> ride;
   private double totalProfit; //num determinado periodo
   
   //construtores tostrings clones etc idk if will be used
@@ -41,7 +42,7 @@ public class UMCarroJa implements Serializable
     }
   }
   
-  public Map<String, Owner> getDrivers() throws NoOwnersException
+  public Map<String, Owner> getOwners() throws NoOwnersException
   {
     if(this.owners.isEmpty()) throw new NoOwnersException("Não existem proprietários na base de dados");
     else
@@ -87,15 +88,143 @@ public class UMCarroJa implements Serializable
     this.vehicles.put(neo.getPlate(),neo);
   }
   
+  public Ride getSpecificCar(String plate)
+  {
+     Iterator<Ride> it = this.ride.iterator();
+     Boolean f = false;
+     Ride r = null;
+     while(it.hasNext() && !f)
+     {
+        r = it.next();
+        if(r.getVehicle().getPlate().equals(plate)) f = true;
+     }
+    return r;
+  }
+  
+  //carro mais proximo no geral
+  public Ride getClosestCar(Client c)
+  {
+    Iterator<Ride> it = this.ride.iterator();
+    Ride r = null;
+    double distance = 0.0; 
+    double tmp = 0.0;
+    int f = 0;
+    if(it.hasNext())
+    {
+      r = it.next();
+      distance = r.getLocation().distanceTo(c.getLocation());
+    }
+    else System.out.println("Não existem carros disponiveis");
+    while(it.hasNext())
+    {
+      r = it.next();
+      tmp = r.getLocation().distanceTo(c.getLocation());
+      if(distance > tmp) distance = tmp;
+    }
+    return r;
+  }
+  
+  //carro eletrico mais proximo
+  public Ride getClosestElectric(Client c)
+  {
+    Iterator<Ride> it = this.ride.iterator();
+    Ride r = null;
+    double distance = 0.0;
+    double tmp = 0.0;
+    int f = 0;
+    while(it.hasNext() && f==0)
+    {
+      r = it.next();
+      if(r.getVehicle() instanceof Electric)
+      {
+        f=1;
+        distance = r.getLocation().distanceTo(c.getLocation());
+      }
+    }
+    if(it.hasNext() == false && r.getVehicle() instanceof Electric) return r;
+    else if(it.hasNext() == false && !(r.getVehicle() instanceof Electric)) return null;
+    while(it.hasNext())
+    {
+      r = it.next();
+      if(r.getVehicle() instanceof Electric)
+      {
+        tmp = r.getLocation().distanceTo(c.getLocation());
+        if(distance > tmp) distance = tmp;
+      }
+    }
+    return r;
+  }
+  
+  public Ride getClosestGas(Client c)
+  {
+    Iterator<Ride> it = this.ride.iterator();
+    Ride r = null;
+    double distance = 0.0;
+    double tmp = 0.0;
+    int f = 0;
+    while(it.hasNext() && f==0)
+    {
+      r = it.next();
+      if(r.getVehicle() instanceof Gas)
+      {
+        f=1;
+        distance = r.getLocation().distanceTo(c.getLocation());
+      }
+    }
+    if(it.hasNext() == false && r.getVehicle() instanceof Gas) return r;
+    else if(it.hasNext() == false && !(r.getVehicle() instanceof Gas)) return null;
+    while(it.hasNext())
+    {
+      r = it.next();
+      if(r.getVehicle() instanceof Gas)
+      {
+        tmp = r.getLocation().distanceTo(c.getLocation());
+        if(distance > tmp) distance = tmp;
+      }
+    }
+    return r;
+  }
+  
+  public Ride getClosestHybrid(Client c)
+  {
+    Iterator<Ride> it = this.ride.iterator();
+    Ride r = null;
+    double distance = 0.0;
+    double tmp = 0.0;
+    int f = 0;
+    while(it.hasNext() && f==0)
+    {
+      r = it.next();
+      if(r.getVehicle() instanceof Hybrid)
+      {
+        f=1;
+        distance = r.getLocation().distanceTo(c.getLocation());
+      }
+    }
+    if(it.hasNext() == false && r.getVehicle() instanceof Hybrid) return r;
+    else if(it.hasNext() == false && !(r.getVehicle() instanceof Hybrid)) return null;
+    while(it.hasNext())
+    {
+      r = it.next();
+      if(r.getVehicle() instanceof Hybrid)
+      {
+        tmp = r.getLocation().distanceTo(c.getLocation());
+        if(distance > tmp) distance = tmp;
+      }
+    }
+    return r;
+  }
+  
+  
   /**** vai estar no menu dos clientes ****/
-  //ALGUGER DO CARRO MAIS PROX DAS SUAS COORDENADAS
+  
   //ALGUGER DO CARRO MAIS barato
   //ALGUGER DO CARRO MAIS barato num distancia que queiram percorrer a pé
   //aluger de um carro especifico
   //aluguer de carro com autonomia desejada
   
   /****vai estar no menu dos proprietários ****/
-  //sinalizar se carro está disponivel para aluguer
+  //sinalizar se carro está disponivel para aluguer, é só chamar o isocupied da ride
   //abastecer o carro
   //alterar preço por km
   //aceitar ou rejeitar um aluguer
@@ -111,7 +240,7 @@ public class UMCarroJa implements Serializable
     System.out.println(this.clients.get(c.getEmail()).getBday());
   }
   
-  public void printDriver(Owner o)
+  public void printOwner(Owner o)
   {
     System.out.println(this.owners.get(o.getEmail()).getName());
     System.out.println(this.owners.get(o.getEmail()).getEmail());
