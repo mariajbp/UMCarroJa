@@ -70,7 +70,7 @@ public class Ride implements Serializable
         return r;
     }
 
-    public String toString()
+    public String toString() //ADICIONAR O TIPO DO CARRO
     {
         return "-- O carro: " + this.vehicle.getPlate() + 
                "do proprietário " + this.owner.toString() + 

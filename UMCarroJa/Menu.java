@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
+import static java.lang.System.out;
 
 /**
 *
@@ -43,7 +44,6 @@ public class Menu implements Serializable
      } while (this.op == -1);
   }
   
-  //run owner menu
   public void runOwnerMenu() 
   {
      this.chosenMenu = 3;
@@ -54,7 +54,6 @@ public class Menu implements Serializable
      } while (this.op == -1);
   }
 
-  //run signup menu
   public void runSignUpMenu() 
   {
      this.chosenMenu = 4;
@@ -64,6 +63,40 @@ public class Menu implements Serializable
         this.op = readOption();
      } while (this.op == -1);
   }
+  
+  public void runRefuelMenu()
+  {
+      this.chosenMenu = 5;
+      do 
+      {
+         showMenu();
+         this.op = readOption();
+      } while (this.op == -1);
+  }
+  
+  public void runSignUpVehicleMenu() 
+  {
+      this.chosenMenu = 6;
+      do 
+      {
+         showMenu();
+         this.op = readOption();
+      } while (this.op == -1);
+   }
+  
+  public void runSpecificVehicleMenu() 
+  {
+      this.chosenMenu = 7;
+      do 
+      {
+         showMenu();
+         this.op = readOption();
+      } while (this.op == -1);
+  }
+  
+  
+  
+  
   
   
   
@@ -97,17 +130,19 @@ public class Menu implements Serializable
               System.out.print(" - ");
               System.out.println(this.options.get(i));
           }
-          System.out.println("\nClique 0 para sair");
+          out.println("\nClique 0 para sair");
           break;
           
-          case 5: System.out.println("\n Efetuar Registo");
+          case 4:out.println("\n Efetuar Registo");
           for (int i=0; i<this.options.size(); i++) {
               System.out.print((i+1));
               System.out.print(" - ");
               System.out.println(this.options.get(i));
           }
-          System.out.println( "\nClique 0 para sair");
+          out.println( "\nClique 0 para sair");
           break;
+          
+          
       }
   }
   

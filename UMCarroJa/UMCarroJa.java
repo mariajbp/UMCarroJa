@@ -1,5 +1,6 @@
 import java.util.*;
 import java.io.Serializable;
+import static java.lang.System.out;
 
 /**
 * MAIN
@@ -234,20 +235,50 @@ public class UMCarroJa implements Serializable
   
   public void printClient(Client c)
   {
-    System.out.println(this.clients.get(c.getEmail()).getName());
-    System.out.println(this.clients.get(c.getEmail()).getEmail());
-    System.out.println(this.clients.get(c.getEmail()).getAddress());
-    System.out.println(this.clients.get(c.getEmail()).getBday());
+    out.println(this.clients.get(c.getEmail()).getName());
+    out.println(this.clients.get(c.getEmail()).getEmail());
+    out.println(this.clients.get(c.getEmail()).getAddress());
+    out.println(this.clients.get(c.getEmail()).getBday());
   }
   
   public void printOwner(Owner o)
   {
-    System.out.println(this.owners.get(o.getEmail()).getName());
-    System.out.println(this.owners.get(o.getEmail()).getEmail());
-    System.out.println(this.owners.get(o.getEmail()).getAddress());
-    System.out.println(this.owners.get(o.getEmail()).getBday());
+    out.println(this.owners.get(o.getEmail()).getName());
+    out.println(this.owners.get(o.getEmail()).getEmail());
+    out.println(this.owners.get(o.getEmail()).getAddress());
+    out.println(this.owners.get(o.getEmail()).getBday());
   }
   
+  
+  public String insertPlate()
+  {
+    Scanner input = new Scanner(System.in);
+    String plate = null;
+    String apl = null;
+    if(this.ride.isEmpty()==false)
+    {
+      Iterator<Ride> it = this.ride.iterator();
+      Ride r;
+      int f = 0;
+      do
+      {
+        out.print("Escolha a matrícula do carro pretendido: ");
+        plate = input.nextLine();
+        while(it.hasNext() && f==0)
+        {
+          r = it.next();
+          apl = r.getVehicle().getPlate();
+          if(apl.equals(plate)) f=1;
+        }
+        if(f==0)
+        {
+          out.println("Matrícula inválida. Tente outra vez!");
+          it = this.ride.iterator();
+        }
+      }while(f==0);
+    }
+    return plate;
+  }
   
   public void login(String email, String password) throws UserDoesntExistException
   {
@@ -267,7 +298,8 @@ public class UMCarroJa implements Serializable
     }
   }
   
-  public boolean checkEmail(String email){
+  public boolean checkEmail(String email)
+  {
     if(!this.clients.isEmpty())
     {
       if(this.clients.containsKey(email)) return true;
