@@ -77,7 +77,7 @@ public abstract class Vehicle implements Serializable
   }
   
   
-  /*** Outros**/
+  /*** Outros Métodos **/
   public void addToRHistory(Date d, Ride rc)
   {
     if(this.history.containsKey(d))

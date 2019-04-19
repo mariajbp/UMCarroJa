@@ -23,7 +23,7 @@ public class Menu implements Serializable
   }
   
   //runs home menu
-  public void runHome()
+  public void rHome()
   {
     this.chosenMenu = 1;
     do
@@ -34,7 +34,7 @@ public class Menu implements Serializable
   }
   
   //run cliente menu
-  public void runClientMenu() 
+  public void rClientMenu() 
   {
      this.chosenMenu = 2;
      do 
@@ -44,7 +44,7 @@ public class Menu implements Serializable
      } while (this.op == -1);
   }
   
-  public void runOwnerMenu() 
+  public void rOwnerMenu() 
   {
      this.chosenMenu = 3;
      do 
@@ -54,7 +54,7 @@ public class Menu implements Serializable
      } while (this.op == -1);
   }
 
-  public void runSignUpMenu() 
+  public void rSignUpMenu() 
   {
      this.chosenMenu = 4;
      do 
@@ -64,7 +64,7 @@ public class Menu implements Serializable
      } while (this.op == -1);
   }
   
-  public void runRefuelMenu()
+  public void rRefuelMenu()
   {
       this.chosenMenu = 5;
       do 
@@ -74,7 +74,7 @@ public class Menu implements Serializable
       } while (this.op == -1);
   }
   
-  public void runSignUpVehicleMenu() 
+  public void rSignUpVehicleMenu() 
   {
       this.chosenMenu = 6;
       do 
@@ -84,7 +84,7 @@ public class Menu implements Serializable
       } while (this.op == -1);
    }
   
-  public void runSpecificVehicleMenu() 
+  public void rSpecificVehicleMenu() 
   {
       this.chosenMenu = 7;
       do 
@@ -149,20 +149,19 @@ public class Menu implements Serializable
   //ler opção valida
   private int readOption()
   {
-     int option;
+     int op;
      Scanner input = new Scanner(System.in);
-    
      System.out.print("Opção: ");
      
-     try {option = input.nextInt();}
-     catch (InputMismatchException e) {option = -1;} //Não foi escrito um int
-     
-     if (option<0 || option>this.options.size()) 
+     try {op = input.nextInt();}
+     catch (InputMismatchException e) {op = -1;} //Não foi escrito um int
+     if (op<0 || op>this.options.size()) 
      {
             System.out.println("Opção Inválida!");
             op = -1;
      }
-        return op;
+
+     return op;
   }
   
   

@@ -108,7 +108,7 @@ public class UMCarroJa implements Serializable
     Iterator<Ride> it = this.ride.iterator();
     Ride r = null;
     double distance = 0.0; 
-    double tmp = 0.0;
+    double dst = 0.0;
     int f = 0;
     if(it.hasNext())
     {
@@ -119,8 +119,8 @@ public class UMCarroJa implements Serializable
     while(it.hasNext())
     {
       r = it.next();
-      tmp = r.getLocation().distanceTo(c.getLocation());
-      if(distance > tmp) distance = tmp;
+      dst = r.getLocation().distanceTo(c.getLocation());
+      if(distance > dst) distance = dst;
     }
     return r;
   }
@@ -131,7 +131,7 @@ public class UMCarroJa implements Serializable
     Iterator<Ride> it = this.ride.iterator();
     Ride r = null;
     double distance = 0.0;
-    double tmp = 0.0;
+    double dst = 0.0;
     int f = 0;
     while(it.hasNext() && f==0)
     {
@@ -149,8 +149,8 @@ public class UMCarroJa implements Serializable
       r = it.next();
       if(r.getVehicle() instanceof Electric)
       {
-        tmp = r.getLocation().distanceTo(c.getLocation());
-        if(distance > tmp) distance = tmp;
+        dst = r.getLocation().distanceTo(c.getLocation());
+        if(distance > dst) distance = dst;
       }
     }
     return r;
@@ -161,7 +161,7 @@ public class UMCarroJa implements Serializable
     Iterator<Ride> it = this.ride.iterator();
     Ride r = null;
     double distance = 0.0;
-    double tmp = 0.0;
+    double dst = 0.0;
     int f = 0;
     while(it.hasNext() && f==0)
     {
@@ -179,8 +179,8 @@ public class UMCarroJa implements Serializable
       r = it.next();
       if(r.getVehicle() instanceof Gas)
       {
-        tmp = r.getLocation().distanceTo(c.getLocation());
-        if(distance > tmp) distance = tmp;
+        dst = r.getLocation().distanceTo(c.getLocation());
+        if(distance > dst) distance = dst;
       }
     }
     return r;
@@ -191,7 +191,7 @@ public class UMCarroJa implements Serializable
     Iterator<Ride> it = this.ride.iterator();
     Ride r = null;
     double distance = 0.0;
-    double tmp = 0.0;
+    double dst = 0.0;
     int f = 0;
     while(it.hasNext() && f==0)
     {
@@ -209,8 +209,8 @@ public class UMCarroJa implements Serializable
       r = it.next();
       if(r.getVehicle() instanceof Hybrid)
       {
-        tmp = r.getLocation().distanceTo(c.getLocation());
-        if(distance > tmp) distance = tmp;
+        dst = r.getLocation().distanceTo(c.getLocation());
+        if(distance > dst) distance = dst;
       }
     }
     return r;

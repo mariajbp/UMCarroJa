@@ -22,28 +22,28 @@ public class App  implements Serializable
    private UMCarroJa umcj;
    private int userType;
    
-    public void run() 
+   public void run() 
    {
         StartApp();
         loadMenus();
         try {runHomeMenu();} 
         catch (NullPointerException e){out.println("Houve algum problema ao carregar o menu inicial");}
         EndApp();
-    }
+   }
    
    public void UMCJ_App()
    {
-    File f = new File("data");
-    this.umcj = new UMCarroJa();
-    if(!f.exists()) 
-    {
-        new Test(this.umcj);
-    }
+       File f = new File("data");
+       this.umcj = new UMCarroJa();
+       if(!f.exists()) 
+       {
+           new Test(this.umcj);
+       }
    }
     
    private void loadMenus()
    {
-        String[] main = {"Iniciar Sessão", "Registar utilizador", "Registar Proprietário"}; //more to be added
+        String[] main = {"Iniciar Sessão", "Registar utilizador"}; //more to be added
           
         String[] client = {"Mostrar perfil", "Mostrar histórico" }; //DATAS NO HISTORICO
             
@@ -62,7 +62,7 @@ public class App  implements Serializable
         ownerMenu = new Menu(owner);
         signupMenu = new Menu(signUp);
         refuelMenu = new Menu(refuel);
-        //signUpVehicleMenu = new Menu(signUpVehicle);
+        signUpVehicleMenu = new Menu(signUpVehicle);
         specificVehicleMenu = new Menu(specificVehicle);
    }
         
@@ -70,28 +70,27 @@ public class App  implements Serializable
    {
       Scanner input = new Scanner(System.in);
       int code;
-      do
-      {
-        homeMenu.runHome();
-        switch(homeMenu.getOption())
-        {
-          case 1:
-              try {login();} 
-              catch (NullPointerException e){out.println("Não foi possivel efetuar o login");}
-              break;
-                 
-          case 2: 
-              try {signUp();} 
-              catch (NullPointerException e){out.println("Não foi possivel efetuar o registo");}
-              break;
-         }
+      do{
+            homeMenu.rHome();
+            switch(homeMenu.getOption())
+            {
+              case 1:
+                  try {login();} 
+                  catch (NullPointerException e){out.println("Não foi possivel efetuar o login");}
+                  break;
+                     
+              case 2: 
+                  try {signUp();} 
+                  catch (NullPointerException e){out.println("Não foi possivel efetuar o registo");}
+                  break;
+        }
       }while(homeMenu.getOption() != 0);
    }
         
    private void runClientMenu() 
    {
-     do {
-          clientMenu.runClientMenu();
+     do{
+          clientMenu.rClientMenu();
           switch(clientMenu.getOption()) 
           {
                case 1: showClientProfile(this.client.clone()); break;
@@ -102,23 +101,14 @@ public class App  implements Serializable
    private void runOwnerMenu() 
    {
      do {
-          ownerMenu.runOwnerMenu();
+          ownerMenu.rOwnerMenu();
           switch(ownerMenu.getOption()) 
           {
                  case 1: /**SOMETHING HERE*/; break;
           }
      }while(ownerMenu.getOption() != 0);
    }
-   
-   private void runSignUpMenu(){}
-   private void runRefuelMenu(){}
-   private void runsignUpVehicleMenu(){}
-   private void runspecificVehicleMenu(){}
-   
-   
-       
-        
-   /**MORE MENUS TO BE ADDED*/
+    
    private void signUp() 
    {
        String email, name, pass, address, date;
@@ -127,7 +117,7 @@ public class App  implements Serializable
        Scanner input = new Scanner(System.in);
        int answer, nd;
         
-       signupMenu.runSignUpMenu();
+       signupMenu.rSignUpMenu();
        try{
             if (signupMenu.getOption() == 0) 
             {
@@ -146,7 +136,7 @@ public class App  implements Serializable
        out.print("Data de nascimento (dd-mm-yyyy): ");
        date = input.next();
       //to be continued
-    }
+   }
         
    //obtaining email
    private String newEmail()
@@ -157,13 +147,15 @@ public class App  implements Serializable
        do{
             out.println("Email: ");
             email = input.nextLine();
-            //if(/**CHECKAR SE O EMAIL JÁ EXISTE*/) {System.out.println("Esse email já existe. Tente outra vez: ");}
-            //else f = 1;
+            if(this.umcj.checkEmail(email))
+            {
+		out.println("Esse email já existe. Tente novamente: ");
+            }else f = 1;
        }while(f==0);
        return email;
    }
        
-       /*** LOGIN ***/
+   /*** LOGIN ***/
    private void login() 
    {
        Scanner input = new Scanner(System.in);
@@ -180,6 +172,7 @@ public class App  implements Serializable
             {
                 umcj.login(email, password);
             } catch (NullPointerException e){out.println("Problema no login");}
+  
             switch (umcj.getUserType()) 
             {
                 case 1: saveClientData(email);
@@ -225,11 +218,11 @@ public class App  implements Serializable
    
    private void showHistory() //ALTERAR
    {
-	switch(this.userType)
-	{
-		case 1: this.client.printHistoryCL(); break;
-		//case 2: this.owner.printHistoryCAR(); break;		
-	}
+    switch(this.userType)
+    {
+        case 1: this.client.printHistoryCL(); break;
+        //case 2: this.owner.printHistoryCAR(); break;      
+    }
    }
    
    //CLIENTS
@@ -247,73 +240,86 @@ public class App  implements Serializable
    
    private void showAllCars()
    {
-	try{
-	    for(Ride r: this.umcj.getVehicles())
-	    {
-		out.println(r.toString());
-	    }
-	}catch(NoCarsAvailableException e)
-	{
-		System.out.println("Sem Veiculos Disponiveis");
-	}
+    try{
+        for(Ride r: this.umcj.getVehicles())
+        {
+        out.println(r.toString());
+        }
+    }catch(NoCarsAvailableException e)
+    {
+        System.out.println("Sem Veiculos Disponiveis");
+    }
     }
     
    
    
    private void searchCarsByType()
    {
-	int option;
-	Scanner input = new Scanner(System.in);
-	out.println("Opção 1: Gasolina");
-	out.println("Opção 2: Hibrido");
-	out.println("Opção 3: Elétrico");
-	option = input.nextInt();
-	switch(option)
-	{
-		case 1: AvailableCars(1); break;
-		case 2: AvailableCars(2); break;
-		case 3: AvailableCars(3); break;
+    int option;
+    Scanner input = new Scanner(System.in);
+    out.println("Opção 1: Gasolina");
+    out.println("Opção 2: Hibrido");
+    out.println("Opção 3: Elétrico");
+    option = input.nextInt();
+    switch(option)
+    {
+        case 1: availableCars(1); break;
+        case 2: availableCars(2); break;
+        case 3: availableCars(3); break;
         }
     }
-    
+   
    private void availableCars(int option)
    {
-	try{
-		for(Ride r: this.umcj.getVehicles())
-		{
-			if(option==1 && (r.getVehicle() instanceof Gas)){out.println(r.toString());}
-			if(option==2 && (r.getVehicle() instanceof Hybrid)){out.println(r.toString());}
-			if(option==3 && (r.getVehicle() instanceof Electric)){out.println(r.toString());}
-		}
-	}catch(NoCarsAvailableException e){out.println(e.getMessage());}
-   } 
-   **/
+    try{
+        for(Ride r: this.umcj.getVehicles()) //WHY THO
+        {
+            if(option==1 && (r.getVehicle() instanceof Gas)){out.println(r.toString());}
+            if(option==2 && (r.getVehicle() instanceof Hybrid)){out.println(r.toString());}
+            if(option==3 && (r.getVehicle() instanceof Electric)){out.println(r.toString());}
+        }
+    }catch(NoCarsAvailableException e){out.println(e.getMessage());}
+   } **/
+  
    
    
    private void specificVehicle()
    {
-	int ex = 0;
-	Scanner input = new Scanner(System.in);
-	do{
-		specificVehicleMenu.runSpecificVehicleMenu();
-		switch(specificVehicleMenu.getOption())
-		{
-			case 1:	specificGas();
-						ex = 1;
-						break;
-
-			case 2: specificHybrid();
-						ex = 1;
-						break;
-
-			case 3: specificElectric();
-						ex = 1;
-						break;
-		}
-	}while(specificVehicleMenu.getOption()!=0 && ex == 0);
+        int ex = 0;
+        Scanner input = new Scanner(System.in);
+        do{
+            specificVehicleMenu.rSpecificVehicleMenu();
+            switch(specificVehicleMenu.getOption())
+            {
+                case 1: specificGas();
+                            ex = 1;
+                            break;
+    
+                case 2: specificHybrid();
+                            ex = 1;
+                            break;
+    
+                case 3: specificElectric();
+                            ex = 1;
+                            break;
+            }
+        }while(specificVehicleMenu.getOption()!=0 && ex == 0);
    }
    
-   private void specificGas(){}
+   private void specificGas() //Unfinished
+   {
+       String answer;
+       Scanner input = new Scanner(System.in);
+        
+       if(this.umcj.getClosestGas(this.client.clone())!=null)
+       {
+            Ride r = this.umcj.getClosestGas(this.client.clone());
+            if(r.isAvailable() == true)
+            {
+                out.println("");
+            }  
+       }
+    }
    
    private void specificHybrid(){}
    
@@ -321,6 +327,10 @@ public class App  implements Serializable
    
    
    
+   
+   private void travel(Ride r){}
+  
+  
    
    
    

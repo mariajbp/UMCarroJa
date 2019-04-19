@@ -13,8 +13,14 @@ public class Gas extends Vehicle implements Serializable
      super(speed,price,autonomy, location,consumption,rating,plate);
    }
    
-   public Gas(Gas g){super(g);}
+   public Gas(Gas g)
+   {
+       super(g);
+   }
   
-   public Gas clone(){return new Gas(this);}//IMPLEMENTAR DIFERENTE??
+   public Gas clone()
+   {
+       return new Gas(this);
+   }//IMPLEMENTAR DIFERENTE??
   
 }

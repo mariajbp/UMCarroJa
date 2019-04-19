@@ -59,8 +59,8 @@ public class Client extends USER implements Serializable
     }
   }
   
-   public void addToHistory(Date d, RentedCar rc)
-   {
+  public void addToHistory(Date d, RentedCar rc)
+  {
     if(this.rentingHistory.containsKey(d))
     {
       this.rentingHistory.get(d).add(rc.clone());
@@ -73,6 +73,8 @@ public class Client extends USER implements Serializable
     }
   }
 
+  
+  
   /*** Outros Metodos ***/
   public void spentMoney(double money)
   {
