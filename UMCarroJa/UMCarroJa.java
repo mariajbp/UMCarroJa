@@ -19,11 +19,13 @@ public class UMCarroJa implements Serializable
   
   public int getUserType(){return this.userType;}
   
-  public int getNCars(){return this.nVehicles;}
+  public int getNVehicles(){return this.nVehicles;}
   
   public double getTotalProfit(){return this.totalProfit;}
   
   public void setTotalProfit(double money){this.totalProfit += money;}
+  
+  public void setNVehicles(int nvehicles){this.nVehicles = nvehicles;}
   
   public void updateClient(Client c){this.clients.replace(c.getEmail(), c);}
 

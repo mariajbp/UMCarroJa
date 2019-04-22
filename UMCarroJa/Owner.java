@@ -10,10 +10,9 @@ public class Owner extends USER implements Serializable
   private ArrayList<Double> rating;
   double beforeRating;
 
-  public Owner(String email,String name,String password,String address,String date,ArrayList<Double> rating, double beforeRating)
+  public Owner(String email,String name,String password,String address,String date, double beforeRating)
   {
      super(email, name,password,address,date);
-     this.rating = new ArrayList<Double>();
      this.beforeRating = beforeRating;
   }
   

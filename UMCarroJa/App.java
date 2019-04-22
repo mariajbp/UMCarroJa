@@ -149,7 +149,7 @@ public class App  implements Serializable
             email = input.nextLine();
             if(this.umcj.checkEmail(email))
             {
-		out.println("Esse email já existe. Tente novamente: ");
+                out.println("Esse email já existe. Tente novamente: ");
             }else f = 1;
        }while(f==0);
        return email;
@@ -171,7 +171,7 @@ public class App  implements Serializable
             try
             {
                 umcj.login(email, password);
-            } catch (NullPointerException e){out.println("Problema no login");}
+            } catch (NullPointerException e){out.print(" ");}
   
             switch (umcj.getUserType()) 
             {
@@ -224,6 +224,79 @@ public class App  implements Serializable
         //case 2: this.owner.printHistoryCAR(); break;      
     }
    }
+   
+   
+   private void signUpVehicle()
+   {
+	Scanner input = new Scanner(System.in);
+	String plate;
+	double speed, price, comsuption;
+	double autonomy = 0; 
+	Point2D location = null;
+	int rating = 0;
+	int newV;
+	signUpVehicleMenu.rSignUpVehicleMenu();
+	
+	if (signUpVehicleMenu.getOption() == 0) 
+	{
+	     out.println("Registo cancelado");
+	     return;
+	}
+
+	System.out.print("Matricula: ");
+	plate = input.nextLine();
+	out.print("Velocidade média por km: ");
+	speed = input.nextDouble();
+	out.print("Preço base por km: ");
+	price = input.nextDouble();
+	out.print("Consumo por km: ");
+	comsuption = input.nextDouble();
+
+	switch(signUpVehicleMenu.getOption())
+	{
+		case 0: input.close();
+		        return;
+		case 1: Gas g = new Gas(speed,price,autonomy, location,comsuption,rating,plate);
+		        signUpGas(g.clone());
+			newV = this.umcj.getNVehicles();
+			newV++;
+			this.umcj.setNVehicles(newV);
+			break;
+
+		case 2: Electric el = new Electric(speed,price,autonomy, location,comsuption,rating,plate);
+			signUpElectric(el.clone());
+			newV = this.umcj.getNVehicles();
+			newV++;
+			this.umcj.setNVehicles(newV);
+			break;
+
+		case 3: Hybrid h = new Hybrid(speed,price,autonomy, location,comsuption,rating,plate);
+			signUpHybrid(h.clone());
+			newV = this.umcj.getNVehicles();
+			newV++;
+			this.umcj.setNVehicles(newV);
+			break;
+		}
+   }
+
+   private void signUpGas(Gas g)
+   {
+	try{this.umcj.addVehicle(g.clone());}
+	catch(VehicleExistsException e){out.println("Não foi possivel adicionar o veículo");}
+   }
+   
+   private void signUpElectric(Electric el)
+   {
+	try{this.umcj.addVehicle(el.clone());}
+	catch(VehicleExistsException e){out.println("Não foi possivel adicionar o veículo");}
+   }
+   
+   private void signUpHybrid(Hybrid  h)
+   {
+	try{this.umcj.addVehicle(h.clone());}
+	catch(VehicleExistsException e){out.println("Não foi possivel adicionar o veículo");}
+   }
+   
    
    //CLIENTS
    /**
@@ -326,6 +399,31 @@ public class App  implements Serializable
    private void specificElectric(){}
    
    
+   private void rentVehicle()
+   {
+        Scanner input = new Scanner(System.in);
+        double x, y, final_x, final_y;
+        try
+        {
+            out.println("Localização: (coordenada x)");
+            x = input.nextDouble();
+            out.println("Localização: (coordenada y)");
+            y = input.nextDouble();
+            out.println("Destino: (coordenada x)");
+            final_x = input.nextDouble();
+            System.out.println("Destino: (coordenada y)");
+            final_y = input.nextDouble();
+    
+    
+            this.client.setLocation(x,y);
+            this.client.setDestination(final_x, final_y);
+        }catch(InputMismatchException e)
+        {
+           out.println("Coordenadas erradas. ex: 1,5 e 1,0)");
+        }
+         //FINISH
+
+    }
    
    //WHOLE RIDE 
    private void travel(Ride r){}
