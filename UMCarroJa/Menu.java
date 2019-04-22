@@ -108,11 +108,12 @@ public class Menu implements Serializable
           case 1: System.out.println("********* Bem-vindo à UMCarrojá! *********\n");
           for(int i = 0; i<this.options.size(); i++)
           {
-              System.out.print((i+1));
-              System.out.print(" - ");
-              System.out.println(this.options.get(i));
+              out.print((i+1));
+              out.print(" - ");
+              out.println(this.options.get(i));
           }
-          System.out.println("\nClique 0 para sair");
+          out.println("\nClique 0 para sair");
+          out.print("******************************************");
           break;
           
           case 2: System.out.println("\nCliente");
@@ -151,13 +152,13 @@ public class Menu implements Serializable
   {
      int op;
      Scanner input = new Scanner(System.in);
-     System.out.print("Opção: ");
+     System.out.print("\nOpção: ");
      
      try {op = input.nextInt();}
      catch (InputMismatchException e) {op = -1;} //Não foi escrito um int
      if (op<0 || op>this.options.size()) 
      {
-            System.out.println("Opção Inválida!");
+            System.out.println("\nOpção Inválida!");
             op = -1;
      }
 

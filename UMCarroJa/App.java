@@ -327,7 +327,7 @@ public class App  implements Serializable
    
    
    
-   
+   //WHOLE RIDE 
    private void travel(Ride r){}
   
   

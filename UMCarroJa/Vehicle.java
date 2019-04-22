@@ -90,8 +90,11 @@ public abstract class Vehicle implements Serializable
       this.history.put(d, neo);
     }
   }
-   
-  
+    
+  public double priceKM(double price, double comsuption)
+  {
+      return price*comsuption;
+  }
   
   /************************* CLONE *************************/
   public abstract Vehicle clone();  

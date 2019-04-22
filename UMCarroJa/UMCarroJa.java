@@ -89,6 +89,8 @@ public class UMCarroJa implements Serializable
     this.vehicles.put(neo.getPlate(),neo);
   }
   
+  
+  /*** Menu dos clientges **/
   public Ride getSpecificCar(String plate)
   {
      Iterator<Ride> it = this.ride.iterator();
@@ -217,20 +219,84 @@ public class UMCarroJa implements Serializable
   }
   
   
-  /**** vai estar no menu dos clientes ****/
+  public Ride DesiredAutonomy(Double autD) //APENAS RETORNA UM CARRO SE A AUTONOMIA FOR IGUAL, ALTERAR PARA PODER SER MAIOR?
+  {
+    Iterator<Ride> it = this.ride.iterator();
+    Ride r = null;
+    double autC = 0.0; 
+    double dst = 0.0;
+    int f = 0;
+    if(it.hasNext())
+    {
+      r = it.next();
+      autC = r.getVehicle().getAutonomy();
+    }
+    else out.println("Não existem carros disponiveis");
+    while(it.hasNext())
+    {
+      r = it.next();
+      dst = r.getVehicle().getAutonomy();
+      if(autD == dst) return r;
+    }
+    return r;
+  }
   
-  //ALGUGER DO CARRO MAIS barato
-  //ALGUGER DO CARRO MAIS barato num distancia que queiram percorrer a pé
-  //aluger de um carro especifico
-  //aluguer de carro com autonomia desejada
+  /**
+  public Ride cheapestCar()
+  {
+      Iterator<Ride> it = this.ride.iterator();
+      Ride r = null;
+      double pricekm;
+      double price = 0.0;
+      if(it.hasNext())
+      {
+          r = it.next();
+          pricekm = (r.getVehicle().getPrice() * r.getVehicle().getConsumption());
+      }else out.println("Não existem carros disponiveis");
+      while(it.hasNext())
+      {
+          r = it.next();
+          pricekm = (r.getVehicle().getPrice() * r.getVehicle().getConsumption());
+          
+      }
+      
+      
+      return r;
+  }
+
+  
+  public Ride cheapestWithWalk(Client c)
+  {
+      
+  }
+  
+   **/
   
   /****vai estar no menu dos proprietários ****/
-  //sinalizar se carro está disponivel para aluguer, é só chamar o isocupied da ride
-  //abastecer o carro
+  public void signal(Ride r)
+  {
+      //sinalizar se carro está disponivel para aluguer, é só chamar o isocupied da ride
+  }
+  
+  public void refuelCar()
+  {
+      //dar update à autonomia do carro
+  }
+  
+  public void acceptORreject()
+  {
+       //aceitar ou rejeitar um aluguer
+  }
   //alterar preço por km
-  //aceitar ou rejeitar um aluguer
-  //registar o custo de um viagem
- 
+  public void changePriceKM()
+  {
+      //alterar preço por km
+  }
+  public void priceRegist()
+  {
+       //registar o custo de um viagem
+  }
+  
   
   
   public void printClient(Client c)

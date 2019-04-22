@@ -9,9 +9,9 @@ public class Test implements Serializable
 {
    public Test(UMCarroJa umcj)
    {
-       /**Client client1;
-       //client1 = new Client("cliente1@email.com","cliente 1","password1", "endereço 1","01-01-98", 4, 90);
-       
+       Client client1;
+       client1 = new Client("maria@gmail.com","maria","querty", "casa","27-10-98", 4, 90);
+       /**
        try
        {
            umcj.addClient(client1);

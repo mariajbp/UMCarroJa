@@ -13,7 +13,7 @@ public class Client extends USER implements Serializable
   private double spent;
   private Map<Date, List<RentedCar>> rentingHistory;
 
-  public Client(String email,String name,String password,String address,String date,int rating, int walk, double spent)
+  public Client(String email,String name,String password,String address,String date, int walk, double spent)
   {
       super(email, name,password,address,date);
       this.walk = walk;

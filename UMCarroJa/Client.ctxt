@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=Client
 comment0.text=\n\ Representa\u00E7\u00E3o\ da\ classe\ cliente,\ subclasse\ de\ USER\n
-comment1.params=email\ name\ password\ address\ date\ rating\ walk\ spent
-comment1.target=Client(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ int,\ int,\ double)
+comment1.params=email\ name\ password\ address\ date\ walk\ spent
+comment1.target=Client(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ int,\ double)
 comment10.params=x\ y
 comment10.target=void\ setDestination(double,\ double)
 comment11.params=h
