@@ -76,14 +76,14 @@ public class App  implements Serializable
             {
               case 1:
                   try {login();} 
-                  catch (NullPointerException e){out.println("Não foi possivel efetuar o login");}
+                  catch (NullPointerException e){out.println(" ");}
                   break;
                      
               case 2: 
                   try {signUp();} 
                   catch (NullPointerException e){out.println("Não foi possivel efetuar o registo");}
                   break;
-        }
+         }
       }while(homeMenu.getOption() != 0);
    }
         
@@ -94,6 +94,7 @@ public class App  implements Serializable
           switch(clientMenu.getOption()) 
           {
                case 1: showClientProfile(this.client.clone()); break;
+               case 2: showHistory(); break;
           }
      }while(clientMenu.getOption() != 0);
    }
@@ -104,7 +105,8 @@ public class App  implements Serializable
           ownerMenu.rOwnerMenu();
           switch(ownerMenu.getOption()) 
           {
-                 case 1: /**SOMETHING HERE*/; break;
+               case 1: showOwnerProfile(this.owner.clone()); break;
+               
           }
      }while(ownerMenu.getOption() != 0);
    }
@@ -121,7 +123,7 @@ public class App  implements Serializable
        try{
             if (signupMenu.getOption() == 0) 
             {
-                 out.println("Canceled");
+                 out.println("Cancelado");
                  return;
             }
        } catch (NullPointerException e){out.println("Sign up was not successfull");}
@@ -135,7 +137,34 @@ public class App  implements Serializable
        address = input.nextLine();
        out.print("Data de nascimento (dd-mm-yyyy): ");
        date = input.next();
-      //to be continued
+      
+       try
+       {
+	    switch(signupMenu.getOption()) 
+	    {
+		case 0: input.close();
+		return;
+
+		case 1: this.client = new Client(email,name,pass,address,date, 0, 0);
+        		this.umcj.addClient(this.client.clone());
+        		try
+        		{
+        		    if(this.umcj.getClients().containsKey(this.client.getEmail())) out.println("Registo efetuado com sucesso!");
+        		}catch(NoClientsException e){out.println("Sem Clientes");}
+        		this.userType = 1;
+        		break;
+
+		case 2: this.owner = new Owner(email,name,pass,address,date,0);
+        		this.umcj.addOwner(this.owner.clone());
+		        try
+		        {
+		           if(this.umcj.getOwners().containsKey(this.owner.getEmail())) out.println("Registo efetuado com sucesso!");
+        		}catch(NoOwnersException e){out.println("Sem Proprietários");}
+            }
+            
+      }catch(UserExistsException e){out.println("Utilizador já existe");
+   
+     }
    }
         
    //obtaining email
@@ -171,7 +200,7 @@ public class App  implements Serializable
             try
             {
                 umcj.login(email, password);
-            } catch (NullPointerException e){out.print(" ");}
+            } catch (NullPointerException e){out.print("Não foi possivel efetuar o login");}
   
             switch (umcj.getUserType()) 
             {
