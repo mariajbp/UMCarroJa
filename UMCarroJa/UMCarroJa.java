@@ -92,7 +92,7 @@ public class UMCarroJa implements Serializable
   }
   
   
-  /*** Menu dos clientges **/
+  /*** Menu dos clientes **/
   public Ride getSpecificCar(String plate)
   {
      Iterator<Ride> it = this.ride.iterator();
@@ -294,6 +294,7 @@ public class UMCarroJa implements Serializable
   {
       //alterar preço por km
   }
+  
   public void priceRegist()
   {
        //registar o custo de um viagem

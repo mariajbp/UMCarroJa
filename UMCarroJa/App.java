@@ -200,7 +200,7 @@ public class App  implements Serializable
             try
             {
                 umcj.login(email, password);
-            } catch (NullPointerException e){out.print("Não foi possivel efetuar o login");}
+            } catch (NullPointerException e){out.print("Não");}
   
             switch (umcj.getUserType()) 
             {
