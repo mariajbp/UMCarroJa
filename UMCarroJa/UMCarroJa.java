@@ -140,7 +140,7 @@ public class UMCarroJa implements Serializable
     while(it.hasNext() && f==0)
     {
       r = it.next();
-      if(r.getVehicle() instanceof Electric)
+      if(this.getClass().getName().equals(r.getClass().getName()))
       {
         f=1;
         distance = r.getLocation().distanceTo(c.getLocation());
@@ -151,7 +151,7 @@ public class UMCarroJa implements Serializable
     while(it.hasNext())
     {
       r = it.next();
-      if(r.getVehicle() instanceof Electric)
+      if(this.getClass().getName().equals(r.getClass().getName()))
       {
         dst = r.getLocation().distanceTo(c.getLocation());
         if(distance > dst) distance = dst;
@@ -176,12 +176,12 @@ public class UMCarroJa implements Serializable
         distance = r.getLocation().distanceTo(c.getLocation());
       }
     }
-    if(it.hasNext() == false && r.getVehicle() instanceof Gas) return r;
+    if(it.hasNext() == false && this.getClass().getName().equals(r.getClass().getName())) return r;
     else if(it.hasNext() == false && !(r.getVehicle() instanceof Gas)) return null;
     while(it.hasNext())
     {
       r = it.next();
-      if(r.getVehicle() instanceof Gas)
+      if(this.getClass().getName().equals(r.getClass().getName()))
       {
         dst = r.getLocation().distanceTo(c.getLocation());
         if(distance > dst) distance = dst;
@@ -200,7 +200,7 @@ public class UMCarroJa implements Serializable
     while(it.hasNext() && f==0)
     {
       r = it.next();
-      if(r.getVehicle() instanceof Hybrid)
+      if(this.getClass().getName().equals(r.getClass().getName()))
       {
         f=1;
         distance = r.getLocation().distanceTo(c.getLocation());
@@ -211,7 +211,7 @@ public class UMCarroJa implements Serializable
     while(it.hasNext())
     {
       r = it.next();
-      if(r.getVehicle() instanceof Hybrid)
+      if(this.getClass().getName().equals(r.getClass().getName()))
       {
         dst = r.getLocation().distanceTo(c.getLocation());
         if(distance > dst) distance = dst;

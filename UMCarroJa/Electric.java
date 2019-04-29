@@ -6,7 +6,12 @@ import java.io.Serializable;
 public class Electric extends Vehicle implements Serializable 
 {
   private static String fuel = "Electricity";
-   
+  
+  public Electric()
+  {
+      super();
+  }
+  
   public Electric(double speed,double price,double autonomy,Point2D location, double comsuption, int rating, String plate)
   {
      super(speed,price,autonomy, location,comsuption,rating,plate); 
@@ -14,7 +19,7 @@ public class Electric extends Vehicle implements Serializable
   
   public Electric(Electric e)
   {
-      super(e);
+      super(e.getSpeed(), e.getPrice(), e.getAutonomy(), e.getLocation(), e.getComsuption(), e.getRating(), e.getPlate());
   }
   
   public Electric clone()

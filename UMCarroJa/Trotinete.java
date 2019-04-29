@@ -6,14 +6,19 @@ import java.io.Serializable;
 **/
 public class Trotinete extends Vehicle implements Serializable 
 {
+   public Trotinete()
+   {
+       super();
+   }
+    
    public Trotinete(double speed,double price,double autonomy,Point2D location, double comsuption, int rating, String plate)
    {
      super(speed,price,autonomy, location,comsuption,rating,plate);
    }
    
-   public Trotinete(Trotinete tr)
+   public Trotinete(Trotinete t)
    {
-       super(tr);
+       super(t.getSpeed(), t.getPrice(), t.getAutonomy(), t.getLocation(), t.getComsuption(), t.getRating(), t.getPlate());
    }
     
     public Trotinete clone()

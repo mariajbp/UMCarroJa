@@ -12,7 +12,7 @@ public class Test implements Serializable
        umcj.setNVehicles(15);
        
        Client client1, client2, client3, client4, client5, client6, client7, client8,client9, client10, client12, client13, client14, client15;
-       client1 = new Client("client1@gmail.com","client1","pass1", "casa1","27-10-98", 4, 90);
+       client1 = new Client("client1@gmail.com","client1","pass1", "casa1","27-10-98", 4, 0);
        client2 = new Client("client2@gmail.com","client2","pass2", "casa2","28-10-98", 2, 20);
 
        try

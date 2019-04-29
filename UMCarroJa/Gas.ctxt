@@ -1,10 +1,12 @@
 #BlueJ class context
 comment0.target=Gas
 comment0.text=\n\ Representa\u00E7\u00E3o\ da\ classe\ Gas,\ subclasse\ de\ Vehicle\n
-comment1.params=speed\ price\ autonomy\ location\ comsuption\ rating\ plate
-comment1.target=Gas(double,\ double,\ double,\ Point2D,\ double,\ int,\ java.lang.String)
-comment2.params=g
-comment2.target=Gas(Gas)
-comment3.params=
-comment3.target=Gas\ clone()
-numComments=4
+comment1.params=
+comment1.target=Gas()
+comment2.params=speed\ price\ autonomy\ location\ comsuption\ rating\ plate
+comment2.target=Gas(double,\ double,\ double,\ Point2D,\ double,\ int,\ java.lang.String)
+comment3.params=g
+comment3.target=Gas(Gas)
+comment4.params=
+comment4.target=Gas\ clone()
+numComments=5

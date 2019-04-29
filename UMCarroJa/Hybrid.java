@@ -7,7 +7,12 @@ import java.io.Serializable;
 public class Hybrid extends Vehicle implements Serializable 
 {
    private static String fuel = "plugin";
-
+   
+   public Hybrid()
+   {
+       super();
+   }
+   
    public Hybrid(double speed,double price,double autonomy,Point2D location, double consumption, int rating, String plate)
    {
       super(speed,price,autonomy, location,consumption,rating,plate);
@@ -15,7 +20,7 @@ public class Hybrid extends Vehicle implements Serializable
    
    public Hybrid(Hybrid h)
    {
-      super(h);
+      super(h.getSpeed(), h.getPrice(), h.getAutonomy(), h.getLocation(), h.getComsuption(), h.getRating(), h.getPlate());
    }
    
    public  Hybrid clone()

@@ -6,6 +6,11 @@ import java.io.Serializable;
 **/
 public class Bike extends Vehicle implements Serializable 
 {
+   public Bike()
+   {
+       super();
+   }
+   
     public  Bike(double speed,double price,double autonomy,Point2D location, double comsuption, int rating, String plate)
    {
      super(speed,price,autonomy, location,comsuption,rating,plate);
@@ -13,7 +18,7 @@ public class Bike extends Vehicle implements Serializable
    
    public  Bike(Bike b)
    {
-       super(b);
+       super(b.getSpeed(), b.getPrice(), b.getAutonomy(), b.getLocation(), b.getComsuption(), b.getRating(), b.getPlate());
    }
     
     public  Bike clone()

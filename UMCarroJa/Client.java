@@ -12,10 +12,17 @@ public class Client extends USER implements Serializable
   private Point2D destination;
   private double spent;
   private Map<Date, List<RentedCar>> rentingHistory;
-
-  public Client(String email,String name,String password,String address,String date, int walk, double spent)
+  
+  public Client()
   {
-      super(email, name,password,address,date);
+      super();
+      this.walk = 0;
+      this.spent = 0;
+  }
+  
+  public Client(String email,String name,String password,String address,String bday, int walk, double spent)
+  {
+      super(email,name,password,address,bday);
       this.walk = walk;
       this.spent = spent;
       this.rentingHistory = new TreeMap<Date, List<RentedCar>>();
@@ -23,8 +30,10 @@ public class Client extends USER implements Serializable
     
   public Client(Client c)
   {
-      super(c);
+      super(c.getEmail(), c.getName(), c.getPassword(), c.getAddress(), c.getBday());
       this.walk = c.getWalk();
+      this.location = c.getLocation();
+      this.destination = c.getDestination();
       this.spent = c.getSpentMoney();
       this.rentingHistory = c.getRentingHistory();
   }

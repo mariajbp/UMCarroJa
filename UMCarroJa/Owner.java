@@ -9,7 +9,12 @@ public class Owner extends USER implements Serializable
 {
   private ArrayList<Double> ratings;
   double acRating;
-
+  
+  public Owner()
+  {
+      acRating = 0;
+  }
+  
   public Owner(String email,String name,String password,String address,String date, double acRating)
   {
      super(email, name,password,address,date);
@@ -18,7 +23,7 @@ public class Owner extends USER implements Serializable
   
   public Owner(Owner o)
   {
-      super(o);
+      super(o.getEmail(), o.getName(), o.getPassword(), o.getAddress(), o.getBday());
       this.ratings = new ArrayList<Double>();
       this.acRating = o.getAcRating();
   }
@@ -69,8 +74,8 @@ public class Owner extends USER implements Serializable
   
     
    /************************* EQUALS ********************/
-   public boolean equals(Object o)
-   {
+  public boolean equals(Object o)
+  {
       if(this == o) return true;
       if(o != null && this.getClass() != o.getClass()) return false;
       Owner ow = (Owner) o;     

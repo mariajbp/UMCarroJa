@@ -7,7 +7,11 @@ import java.io.Serializable;
 public class Gas extends Vehicle implements Serializable 
 {
    private static String fuel = "fossil fuel";
-  
+   
+   public Gas()
+   { super();
+   }
+   
    public Gas(double speed,double price,double autonomy,Point2D location, double comsuption, int rating, String plate)
    {
      super(speed,price,autonomy, location,comsuption,rating,plate);
@@ -15,7 +19,7 @@ public class Gas extends Vehicle implements Serializable
    
    public Gas(Gas g)
    {
-       super(g);
+       super(g.getSpeed(), g.getPrice(), g.getAutonomy(), g.getLocation(), g.getComsuption(), g.getRating(), g.getPlate());
    }
   
    public Gas clone()

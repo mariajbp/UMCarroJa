@@ -1,10 +1,12 @@
 #BlueJ class context
 comment0.target=Hybrid
 comment0.text=\n\ Representa\u00E7\u00E3o\ da\ classe\ Hybrid,\ subclasse\ de\ Vehicle\n
-comment1.params=speed\ price\ autonomy\ location\ consumption\ rating\ plate
-comment1.target=Hybrid(double,\ double,\ double,\ Point2D,\ double,\ int,\ java.lang.String)
-comment2.params=h
-comment2.target=Hybrid(Hybrid)
-comment3.params=
-comment3.target=Hybrid\ clone()
-numComments=4
+comment1.params=
+comment1.target=Hybrid()
+comment2.params=speed\ price\ autonomy\ location\ consumption\ rating\ plate
+comment2.target=Hybrid(double,\ double,\ double,\ Point2D,\ double,\ int,\ java.lang.String)
+comment3.params=h
+comment3.target=Hybrid(Hybrid)
+comment4.params=
+comment4.target=Hybrid\ clone()
+numComments=5

@@ -14,6 +14,17 @@ public abstract class Vehicle implements Serializable
   private Map<Date, List<Ride>> history;
   private int rating;
   private String plate;
+  
+  public Vehicle()
+  {
+     this.speed = 0.0;
+     this.price = 0.0;
+     this.autonomy = 0.0;
+     //this.location
+     this.comsuption = 0.0;
+     this.rating = 0;
+     this.plate = " ";
+  }
      
   public Vehicle(double speed, double price, double autonomy,Point2D location, double comsuption, int rating, String plate)
   {
