@@ -28,6 +28,14 @@ public class Client extends USER implements Serializable
       this.spent = c.getSpentMoney();
       this.rentingHistory = c.getRentingHistory();
   }
+  
+  public Client(Point2D location, Point2D destination, String email,  String name, String password, String address, String birthday, double spent)
+  {
+    super(email, name, password, address, birthday);
+    this.spent = spent;
+    this.location = location;
+    this.destination = destination;
+  }
     
   /************************* GETTERS *************************/
   public double getWalk(){return this.walk;}
@@ -82,10 +90,12 @@ public class Client extends USER implements Serializable
   }
   
   
-  
-  
   /************************* CLONE *************************/
-  public Client clone(){return new Client(this);} //IMPLEMENTAR DIFERENTE?
+  public Client clone()
+  {
+    Client c = new Client(this.getLocation(), this.getDestination(), this.getEmail(), this.getPassword(), this.getName(), this.getAddress(), this.getBday(), this.getSpentMoney());
+    return c;
+  }
     
   /************************* EQUALS *************************/
   public boolean equals(Object o)
@@ -93,13 +103,15 @@ public class Client extends USER implements Serializable
       if(this == o) return true;
       if(o != null && this.getClass() != o.getClass()) return false;
       Client c = (Client) o;     
-       return this.walk == c.getWalk();
+      return super.equals(c);
   }
     
   /************************* TOSTRING *************************/
   public String toString()
   {
-      return "Distancia que pode percorrer a pé: " + walk;         
+      return "Distancia que está disposto a percorrer a pé: " + walk +
+             "Localização atual: " + location +
+             "Destino: " + destination;         
   }
   
   public void printHistoryCL()

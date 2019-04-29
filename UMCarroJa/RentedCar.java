@@ -70,11 +70,11 @@ public class RentedCar implements Serializable
      
      /***Clone***/
      public RentedCar clone()
-    {
+     {
         RentedCar r = new RentedCar(this.getOwnerEmail(), this.getClientEmail(), this.getCar(),this.getPrice(), this.getStart(), 
                                     this.getDestination(), this.getDistance(), this.getAutonomy(), this.getWalkTime(), this.getExpectedTime());
         return r;
-    }
+     }
     
   
   

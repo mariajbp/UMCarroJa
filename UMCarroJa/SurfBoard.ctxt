@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=SurfBoard
+comment0.text=\n\ Representa\u00E7\u00E3o\ da\ classe\ Surfboard,\ subclasse\ de\ Vehicle\n
+comment1.params=speed\ price\ autonomy\ location\ comsuption\ rating\ plate
+comment1.target=SurfBoard(double,\ double,\ double,\ Point2D,\ double,\ int,\ java.lang.String)
+comment2.params=sb
+comment2.target=SurfBoard(SurfBoard)
+comment3.params=
+comment3.target=SurfBoard\ clone()
+numComments=4

@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Vehicle
 comment0.text=\n\ Representa\u00E7\u00E3o\ abstrata\ da\ superclasse\ Vehicle(cont\u00E9m\ os\ dados\ comuns\ a\ todas\ as\ viaturas\ do\ sistema)\n
-comment1.params=speed\ price\ autonomy\ location\ consumption\ rating\ plate
+comment1.params=speed\ price\ autonomy\ location\ comsuption\ rating\ plate
 comment1.target=Vehicle(double,\ double,\ double,\ Point2D,\ double,\ int,\ java.lang.String)
 comment10.params=
 comment10.target=java.util.Map\ getRentingHistory()
@@ -15,7 +15,7 @@ comment13.target=void\ setAutonomy(double)
 comment14.params=x\ y
 comment14.target=void\ setLocation(double,\ double)
 comment15.params=newC
-comment15.target=void\ setConsumption(double)
+comment15.target=void\ setComsuption(double)
 comment16.params=newR
 comment16.target=void\ setRating(int)
 comment17.params=newPlate
@@ -50,7 +50,7 @@ comment5.target=double\ getAutonomy()
 comment6.params=
 comment6.target=Point2D\ getLocation()
 comment7.params=
-comment7.target=double\ getConsumption()
+comment7.target=double\ getComsuption()
 comment8.params=
 comment8.target=int\ getRating()
 comment9.params=

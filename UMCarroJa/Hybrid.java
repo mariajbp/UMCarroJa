@@ -20,6 +20,7 @@ public class Hybrid extends Vehicle implements Serializable
    
    public  Hybrid clone()
    {
-      return new Hybrid(this); //IMPLEMENTAR DIFERENTE??
+      Hybrid h = new Hybrid(this.getSpeed(), this.getPrice(), this.getAutonomy(), this.getLocation(), this.getComsuption(), this.getRating(), this.getPlate());
+      return h;
    }
 }

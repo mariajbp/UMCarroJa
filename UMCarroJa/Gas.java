@@ -8,9 +8,9 @@ public class Gas extends Vehicle implements Serializable
 {
    private static String fuel = "fossil fuel";
   
-   public Gas(double speed,double price,double autonomy,Point2D location, double consumption, int rating, String plate)
+   public Gas(double speed,double price,double autonomy,Point2D location, double comsuption, int rating, String plate)
    {
-     super(speed,price,autonomy, location,consumption,rating,plate);
+     super(speed,price,autonomy, location,comsuption,rating,plate);
    }
    
    public Gas(Gas g)
@@ -20,7 +20,8 @@ public class Gas extends Vehicle implements Serializable
   
    public Gas clone()
    {
-       return new Gas(this);
-   }//IMPLEMENTAR DIFERENTE??
+       Gas g = new Gas(this.getSpeed(), this.getPrice(), this.getAutonomy(), this.getLocation(), this.getComsuption(), this.getRating(), this.getPlate());
+       return g;
+   }
   
 }

@@ -7,55 +7,55 @@ import java.util.ArrayList;
 **/
 public class Owner extends USER implements Serializable
 {
-  private ArrayList<Double> rating;
-  double beforeRating;
+  private ArrayList<Double> ratings;
+  double acRating;
 
-  public Owner(String email,String name,String password,String address,String date, double beforeRating)
+  public Owner(String email,String name,String password,String address,String date, double acRating)
   {
      super(email, name,password,address,date);
-     this.beforeRating = beforeRating;
+     this.acRating = acRating;
   }
   
   public Owner(Owner o)
   {
       super(o);
-      this.rating = new ArrayList<Double>();
-      this.beforeRating = o.getBeforeRating();
+      this.ratings = new ArrayList<Double>();
+      this.acRating = o.getAcRating();
   }
     
   /************************* GETTERS *************************/
   public ArrayList<Double> getRating() throws NoRatingsException
   {
-      if(this.rating.isEmpty()) throw new NoRatingsException("Sem Avaliações");
+      if(this.ratings.isEmpty()) throw new NoRatingsException("Sem Avaliações");
       else
       {
         ArrayList<Double> neo = new ArrayList<Double>();
-        for(double d : this.rating){neo.add(d);}
+        for(double d : this.ratings){neo.add(d);}
         return neo;
       }
   }
 
-  public double getBeforeRating(){return this.beforeRating;}
+  public double getAcRating(){return this.acRating;}
   
   /************************* SETTERS *************************/
   public void setRatingList(ArrayList<Double> list)
   {
-      for(double d : list){ this.rating.add(d);}
+      for(double d : list){ this.ratings.add(d);}
   }
   
-  public void setBeforeRating(double bf){this.beforeRating = bf;}
+  public void setBeforeRating(double bf){this.acRating = bf;}
   
   /*** Outros ***/
   public void updateRating()
   {
       double c = 0;
-      for(double d : this.rating){c+=d;}
-      this.beforeRating = c/this.rating.size();
+      for(double d : this.ratings){c+=d;}
+      this.acRating = c/this.ratings.size();
   }
   
   public void addRating(double n)
   {
-      this.rating.add(n);
+      this.ratings.add(n);
   }
   
   
@@ -63,24 +63,25 @@ public class Owner extends USER implements Serializable
    /************************* CLONE *************************/
   public Owner clone()
   {
-    return new Owner(this); //IMPLEMENTAR DIFERENTE????
+    Owner o = new Owner(this.getEmail(), this.getPassword(), this.getName(), this.getAddress(), this.getBday(), this.getAcRating());
+    return o;
   }
   
     
-   /************************* EQUALS ********************
+   /************************* EQUALS ********************/
    public boolean equals(Object o)
    {
       if(this == o) return true;
       if(o != null && this.getClass() != o.getClass()) return false;
-      Owner p = (Owner) o;     
-       return this.rating == p.getRating();
-               
-  } ****/
+      Owner ow = (Owner) o;     
+       return super.equals(ow) &&
+              this.acRating == ow.getAcRating();      
+  } 
     
   /************************* TOSTRING ************
   public String toString()
   {
-      return "Classificação: " + rating;
+      return "Classificação: " + acrating;
              
   }  *************/
 }

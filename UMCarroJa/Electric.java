@@ -19,6 +19,7 @@ public class Electric extends Vehicle implements Serializable
   
   public Electric clone()
   {
-    return new Electric(this); //IMPLEMENTAR DIFERENTE??
+    Electric e = new Electric(this.getSpeed(), this.getPrice(), this.getAutonomy(), this.getLocation(), this.getComsuption(), this.getRating(), this.getPlate());
+    return e;
   }
 }

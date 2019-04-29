@@ -10,18 +10,18 @@ public abstract class Vehicle implements Serializable
   private double price; 
   private double autonomy;
   private Point2D location; //SAO ATUALIZADAS NO FIM DA VIAGEM PARA O DESTINO DO CLIENTE
-  private double consumption;
+  private double comsuption;
   private Map<Date, List<Ride>> history;
   private int rating;
   private String plate;
      
-  public Vehicle(double speed, double price, double autonomy,Point2D location, double consumption, int rating, String plate)
+  public Vehicle(double speed, double price, double autonomy,Point2D location, double comsuption, int rating, String plate)
   {
     this.speed = speed;
     this.price = price;
     this.autonomy = autonomy;
     this.location = location;
-    this.consumption = consumption;
+    this.comsuption = comsuption;
     this.rating = rating;
     this.plate = plate;
     this.history = new TreeMap<Date, List<Ride>>();
@@ -33,7 +33,7 @@ public abstract class Vehicle implements Serializable
     this.price = v.getPrice();
     this.autonomy = v.getAutonomy();
     this.location = v.getLocation();
-    this.consumption = v.getConsumption();
+    this.comsuption = v.getComsuption();
     this.rating = v.getRating();
     this.plate = v.getPlate();
     this.history = new TreeMap<Date, List<Ride>>();
@@ -44,7 +44,7 @@ public abstract class Vehicle implements Serializable
   public double getPrice(){return this.price;}
   public double getAutonomy(){return this.autonomy;}
   public Point2D getLocation(){return this.location;}
-  public double getConsumption(){return this.consumption;}
+  public double getComsuption(){return this.comsuption;}
   public int getRating(){return this.rating;}
   public String getPlate(){return  this.plate;}
   
@@ -63,7 +63,7 @@ public abstract class Vehicle implements Serializable
   public void setPrice(double newP){this.price = newP;}
   public void setAutonomy(double newA){this.autonomy = newA;}
   public void setLocation(double x, double y){this.location = new Point2D(x,y);}
-  public void setConsumption(double newC){this.consumption = newC;}
+  public void setComsuption(double newC){this.comsuption = newC;}
   public void setRating(int newR){this.rating = newR;}
   public void setPlate(String newPlate){this.plate = newPlate;}
   
@@ -96,6 +96,9 @@ public abstract class Vehicle implements Serializable
       return price*comsuption;
   }
   
+  
+  
+  
   /************************* CLONE *************************/
   public abstract Vehicle clone();  
 
@@ -107,7 +110,7 @@ public abstract class Vehicle implements Serializable
       Vehicle v = (Vehicle) o;     
        return this.speed == v.getSpeed() &&
               this.price == v.getPrice() &&
-              this.consumption == v.getConsumption() &&
+              this.comsuption == v.getComsuption() &&
               this.rating == v.getRating();             
   }
     
@@ -116,7 +119,7 @@ public abstract class Vehicle implements Serializable
   {
       return "Velocidade média por km: " + speed +
              "Preço base por km: " + price +
-             "Consumo de gasolina/bateria por km: " + consumption +
+             "Consumo de gasolina/bateria por km: " + comsuption +
              "Classificação: " + rating;
              
   }

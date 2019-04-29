@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Trotinete
+comment0.text=\n\ Representa\u00E7\u00E3o\ da\ classe\ Trotinete,\ subclasse\ de\ Vehicle\n
+comment1.params=speed\ price\ autonomy\ location\ comsuption\ rating\ plate
+comment1.target=Trotinete(double,\ double,\ double,\ Point2D,\ double,\ int,\ java.lang.String)
+comment2.params=tr
+comment2.target=Trotinete(Trotinete)
+comment3.params=
+comment3.target=Trotinete\ clone()
+numComments=4
