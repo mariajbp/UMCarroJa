@@ -20,9 +20,9 @@ public class Client extends USER implements Serializable
       this.spent = 0;
   }
   
-  public Client(String email,String name,String password,String address,String bday, int walk, double spent)
+  public Client(String name,String password,String email,String address,String bday, int walk, double spent)
   {
-      super(email,name,password,address,bday);
+      super(name,password,email,address);
       this.walk = walk;
       this.spent = spent;
       this.rentingHistory = new TreeMap<Date, List<RentedCar>>();
@@ -30,7 +30,7 @@ public class Client extends USER implements Serializable
     
   public Client(Client c)
   {
-      super(c.getEmail(), c.getName(), c.getPassword(), c.getAddress(), c.getBday());
+      super(c.getName(), c.getPassword(), c.getEmail(), c.getAddress());
       this.walk = c.getWalk();
       this.location = c.getLocation();
       this.destination = c.getDestination();
@@ -38,9 +38,9 @@ public class Client extends USER implements Serializable
       this.rentingHistory = c.getRentingHistory();
   }
   
-  public Client(Point2D location, Point2D destination, String email,  String name, String password, String address, String birthday, double spent)
+  public Client(Point2D location, Point2D destination, String email,  String name, String password, String address, double spent)
   {
-    super(email, name, password, address, birthday);
+    super(email, name, password, address);
     this.spent = spent;
     this.location = location;
     this.destination = destination;
@@ -102,7 +102,7 @@ public class Client extends USER implements Serializable
   /************************* CLONE *************************/
   public Client clone()
   {
-    Client c = new Client(this.getLocation(), this.getDestination(), this.getEmail(), this.getPassword(), this.getName(), this.getAddress(), this.getBday(), this.getSpentMoney());
+    Client c = new Client(this.getLocation(), this.getDestination(), this.getEmail(), this.getPassword(), this.getName(), this.getAddress(), this.getSpentMoney());
     return c;
   }
     

@@ -6,11 +6,10 @@ import java.io.Serializable;
 **/
 public abstract class USER implements Serializable
 {
-  private String email;
   private String name;
   private String password;
+  private String email;
   private String address;
-  private String bday;
   
   public USER()
   {
@@ -18,16 +17,14 @@ public abstract class USER implements Serializable
      this.name = "";
      this.password = "";
      this.address = "";
-     this.bday = "";
   }
      
-  public USER(String email, String name, String password, String address, String bday)
+  public USER(String name, String password, String email, String address)
   {
     this.email = email;
     this.name = name;
     this.password = password;
     this.address = address;
-    this.bday = bday;
   }
     
   public USER(USER u)
@@ -36,7 +33,6 @@ public abstract class USER implements Serializable
    this.name = u.getName();
    this.password = u.getPassword();
    this.address = u.getAddress();
-   this.bday = u.getBday();
   }
     
     /************************* GETTERS *************************/
@@ -44,14 +40,12 @@ public abstract class USER implements Serializable
   public String getName(){return this.name;}
   public String getPassword(){return this.password;}
   public String getAddress(){return this.address;}
-  public String getBday(){return this.bday;}
     
    /************************* SETTERS *************************/
   public void setEmail(String newEmail){this.email = newEmail;}
   public void setNoame(String newName){this.name = newName;}
   public void setPassword(String newPassword){this.password = newPassword;}
   public void setAddress(String newAdd){this.address = newAdd;} 
-  public void setBday(String newBday){this.bday = newBday;}
   
   
    /************************* CLONE *************************/
@@ -66,19 +60,17 @@ public abstract class USER implements Serializable
        return this.name == u.getName() &&
               this.email == u.getEmail() &&
               this.password == u.getPassword() &&
-              this.address == u.getAddress() &&
-              this.bday == u.getBday();
+              this.address == u.getAddress();
                
   }
     
-    /************************* TOSTRING *************************/
+   /************************* TOSTRING *************************/
   public String toString()
   {
       return "email: " + email +
              "nome: " + name +
              "password: " + password +
-             "morada: " + address +
-             "Data de nascimento " + bday;
+             "morada: " + address;
   }
     
 }

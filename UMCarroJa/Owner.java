@@ -15,15 +15,15 @@ public class Owner extends USER implements Serializable
       acRating = 0;
   }
   
-  public Owner(String email,String name,String password,String address,String date, double acRating)
+  public Owner(String name, String password, String email, String address, double acRating)
   {
-     super(email, name,password,address,date);
+     super(name, password,email,address);
      this.acRating = acRating;
   }
   
   public Owner(Owner o)
   {
-      super(o.getEmail(), o.getName(), o.getPassword(), o.getAddress(), o.getBday());
+      super(o.getName(),o.getPassword(),o.getEmail(), o.getAddress());
       this.ratings = new ArrayList<Double>();
       this.acRating = o.getAcRating();
   }
@@ -68,7 +68,7 @@ public class Owner extends USER implements Serializable
    /************************* CLONE *************************/
   public Owner clone()
   {
-    Owner o = new Owner(this.getEmail(), this.getPassword(), this.getName(), this.getAddress(), this.getBday(), this.getAcRating());
+    Owner o = new Owner(this.getName(), this.getPassword(), this.getEmail(), this.getAddress(), this.getAcRating());
     return o;
   }
   
