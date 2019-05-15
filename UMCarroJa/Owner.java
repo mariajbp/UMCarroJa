@@ -10,15 +10,9 @@ public class Owner extends USER implements Serializable
   private ArrayList<Double> ratings;
   double acRating;
   
-  public Owner()
+  public Owner(String name, String password, String email, String address)
   {
-      acRating = 0;
-  }
-  
-  public Owner(String name, String password, String email, String address, double acRating)
-  {
-     super(name, password,email,address);
-     this.acRating = acRating;
+     super(name,password,email,address);
   }
   
   public Owner(Owner o)
@@ -68,7 +62,7 @@ public class Owner extends USER implements Serializable
    /************************* CLONE *************************/
   public Owner clone()
   {
-    Owner o = new Owner(this.getName(), this.getPassword(), this.getEmail(), this.getAddress(), this.getAcRating());
+    Owner o = new Owner(this.getName(), this.getPassword(), this.getEmail(), this.getAddress());
     return o;
   }
   

@@ -3,7 +3,7 @@ import java.io.Serializable;
 
 /**
 * 
-**/
+
 
 public class Test implements Serializable
 {
@@ -48,6 +48,6 @@ public class Test implements Serializable
           //umcj.addVehicle(e1);
           //umcj.addVehicle(g1);
        } catch(VehicleExistsException e){System.out.println("Erro ao carregar os veiculos");}
-       **/
+       
    }
-}
+} **/

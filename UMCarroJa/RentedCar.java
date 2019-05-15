@@ -14,7 +14,7 @@ public class RentedCar implements Serializable
       private Point2D start;
       private Point2D destination;
       private double distance;
-      private double autonomy; //pode ser boolean??
+      private double autonomy; 
       private double walktime;
       private double expectedtime;
       
@@ -76,6 +76,7 @@ public class RentedCar implements Serializable
         return r;
      }
     
+      
   
   
   

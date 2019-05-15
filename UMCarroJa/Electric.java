@@ -9,27 +9,30 @@ public class Electric extends Vehicle implements Serializable
   public Electric()
   {
       super();
+      this.setType("Eletrico");
       this.setSpeed(120);
       this.setPrice(1.8);
   }
   
-  public Electric(double speed,double price,double autonomy,Point2D location, double comsuption, int rating, String plate)
+  public Electric(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y)
   {
-     super(speed,price,autonomy, location,comsuption,rating,plate); 
+     super(type,brand,plate,nif,speed,price,comsuption,autonomy,x, y); 
+     this.setType("Eletrico");
      this.setSpeed(120);
      this.setPrice(1.8);
   }
   
   public Electric(Electric e)
   {
-      super(e.getSpeed(), e.getPrice(), e.getAutonomy(), e.getLocation(), e.getComsuption(), e.getRating(), e.getPlate());
+      super(e.getType(), e.getBrand(),  e.getPlate(), e.getNif(), e.getSpeed(), e.getPrice(), e.getComsuption(), e.getAutonomy(), e.getX(), e.getY());
+      this.setType("Eletrico");
       this.setSpeed(120);
       this.setPrice(1.8);
   }
   
   public Electric clone()
   {
-    Electric e = new Electric(this.getSpeed(), this.getPrice(), this.getAutonomy(), this.getLocation(), this.getComsuption(), this.getRating(), this.getPlate());
+    Electric e = new Electric(this.getType(), this.getBrand(), this.getPlate(), this.getNif(), this.getSpeed(),  this.getPrice(),this.getComsuption(), this.getAutonomy(), this.getX(), this.getY());
     return e;
   }
 }

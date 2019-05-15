@@ -3,33 +3,34 @@ import java.io.Serializable;
 * Representação da classe Gas, subclasse de Vehicle
 **/
 public class Gas extends Vehicle implements Serializable 
-{
-   private static String fuel = "fossil fuel";
-   
+{   
    public Gas()
    { 
        super();
+       this.setType("Gasolina");
        this.setSpeed(120);
        this.setPrice(1.7);
    }
    
-   public Gas(double speed,double price,double autonomy,Point2D location, double comsuption, int rating, String plate)
+   public Gas(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y)
    {
-     super(speed,price,autonomy, location,comsuption,rating,plate);
+     super(type,brand,plate,nif,speed,price,comsuption,autonomy,x, y);
+     this.setType("Gasolina");
      this.setSpeed(120);
      this.setPrice(1.7);
    }
    
    public Gas(Gas g)
    {
-       super(g.getSpeed(), g.getPrice(), g.getAutonomy(), g.getLocation(), g.getComsuption(), g.getRating(), g.getPlate());
+       super(g.getType(), g.getBrand(),  g.getPlate(), g.getNif(), g.getSpeed(), g.getPrice(), g.getComsuption(), g.getAutonomy(), g.getX(), g.getY());
+       this.setType("Gasolina");
        this.setSpeed(120);
        this.setPrice(1.7);
    }
   
    public Gas clone()
    {
-       Gas g = new Gas(this.getSpeed(), this.getPrice(), this.getAutonomy(), this.getLocation(), this.getComsuption(), this.getRating(), this.getPlate());
+       Gas g = new Gas(this.getType(), this.getBrand(), this.getPlate(), this.getNif(), this.getSpeed(),  this.getPrice(),this.getComsuption(), this.getAutonomy(), this.getX(), this.getY());
        return g;
    }
   

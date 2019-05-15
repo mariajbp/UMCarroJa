@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=LoginException
+comment1.params=
+comment1.target=LoginException()
+comment2.params=message
+comment2.target=LoginException(java.lang.String)
+numComments=3

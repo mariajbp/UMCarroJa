@@ -9,27 +9,30 @@ public class Hybrid extends Vehicle implements Serializable
    public Hybrid()
    {
        super();
+       this.setType("Hibrido");
        this.setSpeed(100);
        this.setPrice(1.5);
    }
    
-   public Hybrid(double speed,double price,double autonomy,Point2D location, double consumption, int rating, String plate)
+   public Hybrid(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y)
    {
-      super(speed,price,autonomy, location,consumption,rating,plate);
+      super(type,brand,plate,nif,speed,price,comsuption,autonomy,x, y);
+      this.setType("Hibrido");
       this.setSpeed(100);
       this.setPrice(1.5);
    }
    
    public Hybrid(Hybrid h)
    {
-      super(h.getSpeed(), h.getPrice(), h.getAutonomy(), h.getLocation(), h.getComsuption(), h.getRating(), h.getPlate());
+      super(h.getType(), h.getBrand(),  h.getPlate(), h.getNif(), h.getSpeed(), h.getPrice(), h.getComsuption(), h.getAutonomy(), h.getX(), h.getY());
+      this.setType("Hibrido");
       this.setSpeed(100);
       this.setPrice(1.5);
    }
    
    public  Hybrid clone()
    {
-      Hybrid h = new Hybrid(this.getSpeed(), this.getPrice(), this.getAutonomy(), this.getLocation(), this.getComsuption(), this.getRating(), this.getPlate());
+      Hybrid h = new Hybrid(this.getType(), this.getBrand(), this.getPlate(), this.getNif(), this.getSpeed(),  this.getPrice(),this.getComsuption(), this.getAutonomy(), this.getX(), this.getY());
       return h;
    }
 }

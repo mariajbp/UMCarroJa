@@ -6,56 +6,76 @@ import java.io.Serializable;
 **/
 public abstract class Vehicle implements Serializable
 {
+  private String type;
+  private String brand;
+  private String plate;
+  private int nif;
   private double speed;
   private double price; 
-  private double autonomy;
-  private Point2D location; //SAO ATUALIZADAS NO FIM DA VIAGEM PARA O DESTINO DO CLIENTE
   private double comsuption;
+  private double autonomy;
+  private double x;
+  private double y;
+  
   private Map<Date, List<Ride>> history;
   private int rating;
-  private String plate;
+
   
   public Vehicle()
   {
+     this.type = "ND";
+     this.brand = "ND";
+     this.plate = "ND";
+     this.nif = 0;
      this.speed = 0.0;
      this.price = 0.0;
-     this.autonomy = 0.0;
-     //this.location
      this.comsuption = 0.0;
+     this.autonomy = 0.0;
+     this.x = 0.0;
+     this.y= 0.0;
      this.rating = 0;
-     this.plate = " ";
   }
      
-  public Vehicle(double speed, double price, double autonomy,Point2D location, double comsuption, int rating, String plate)
+  public Vehicle(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y)
   {
+    this.type = type;
+    this.brand = brand;
+    this.plate = plate;
+    this.nif = nif;
     this.speed = speed;
     this.price = price;
-    this.autonomy = autonomy;
-    this.location = location;
     this.comsuption = comsuption;
+    this.autonomy = autonomy;
+    this.x = x;
+    this.y = y;
     this.rating = rating;
-    this.plate = plate;
-    this.history = new TreeMap<Date, List<Ride>>();
   }
     
   public Vehicle(Vehicle v)
   {
+    this.type = v.getType();
+    this.brand = v.getBrand();
+    this.plate = v.getPlate();
+    this.nif = v.getNif();
     this.speed = v.getSpeed();
     this.price = v.getPrice();
     this.autonomy = v.getAutonomy();
-    this.location = v.getLocation();
     this.comsuption = v.getComsuption();
-    this.rating = v.getRating();
+    this.x = v.getX();
+    this.y = v.getY();
     this.plate = v.getPlate();
-    this.history = new TreeMap<Date, List<Ride>>();
   }
     
     /************************* GETTERS *************************/
+  public String getType(){return this.type;}
+  public String getBrand(){return this.brand;}
   public double getSpeed(){return this.speed;}
+  public int getNif(){return this.nif;}
   public double getPrice(){return this.price;}
   public double getAutonomy(){return this.autonomy;}
-  public Point2D getLocation(){return this.location;}
   public double getComsuption(){return this.comsuption;}
+  public double getX(){return this.x;}
+  public double getY(){return this.y;}
   public int getRating(){return this.rating;}
   public String getPlate(){return  this.plate;}
   
@@ -70,13 +90,17 @@ public abstract class Vehicle implements Serializable
   }
   
    /************************* SETTERS *************************/
+  public void setType(String newType){this.type = newType;}
+  public void setBrand(String newBrand){this.type = newBrand;} 
   public void setSpeed(double newS){this.speed = newS;}
   public void setPrice(double newP){this.price = newP;}
   public void setAutonomy(double newA){this.autonomy = newA;}
-  public void setLocation(double x, double y){this.location = new Point2D(x,y);}
   public void setComsuption(double newC){this.comsuption = newC;}
   public void setRating(int newR){this.rating = newR;}
   public void setPlate(String newPlate){this.plate = newPlate;}
+  public void setX(double newX){this.x = newX;} 
+  public void setY(double newY){this.y = newY;} 
+  
   
   public void setRentingHistory(Map<Date, List<Ride>> h)
   {

@@ -1,124 +1,119 @@
-import java.io.Serializable; 
+import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.lang.Comparable;
+import java.io.Serializable;
 
-/**
-* Representação de um viagem
-**/
-public class Ride implements Serializable
+public class Ride implements Comparable<Ride>, Serializable
 {
-    private Vehicle vehicle;
-    private Owner owner;
-    private Client client;
-    // private RentedCar trip;
-    private Point2D location;
-    private boolean available;
-    private double totalProfit;
-     
-    public Ride(Vehicle vehicle,Owner owner, Client client, Point2D location,/** RentedCar trip,**/ boolean available, double totalProfit)
+    private LocalDateTime date;
+    private Point2D start; 
+    private Point2D destination;
+    private Vehicle v;
+    private double kms;
+    private double time; //tempo a viagem demorou 
+    private double realPrice;
+    private double estimatedPrice;
+    
+    public Ride()
     {
-        this.vehicle = vehicle;
-        this.owner = owner;
-        this.client = client;
-        this.location = location;
-        //this.trip = new RentedCar();
-        this.available = available;
-        this.totalProfit = totalProfit;
+        this.date = LocalDateTime.of(1,1,1,0,0);
+        this.start = new Point2D();
+        this.destination = new Point2D();
+        //this.v = new Vehicle(); ?
+        this.kms = 0.0;
+        this.time = 0.0;
+        this.realPrice = 0.0;
+        this.estimatedPrice = 0.0;
+    }
+    
+    public Ride(LocalDate dt, LocalTime t, Point2D p, Point2D d, Vehicle v, double k, double time, double rp, double ep)
+    {
+        this.date = LocalDateTime.of(dt,t);
+        this.start = new Point2D(p);
+        this.destination = new Point2D(d);
+        this.v = v.clone();
+        this.kms = k;
+        this.time = time;
+        this.realPrice = rp;
+        this.estimatedPrice = ep;
     }
     
     public Ride(Ride r)
     {
-        this.vehicle = r.getVehicle();
-        this.owner = r.getOwner();
-        this.client = r.getClient();
-        this.location = r.getLocation();
-        //TRIP
-        this.available = r.isAvailable();
-        this.totalProfit = r.getTotalProfit();
+        this.date = r.getDate();
+        this.start = r.getStart();
+        this.destination = r.getDestination();
+        this.v = r.getVehicle();
+        this.kms = r.getKms();
+        this.time = r.getTime();
+        this.realPrice = r.getRealPrice();
+        this.estimatedPrice = r.getEstimatedPrice();
     }
 
-    /************************* GETTERS *************************/
-    public Vehicle getVehicle(){return this.vehicle;}
-    public Owner getOwner(){return this.owner;}
-    public Client getClient(){return this.client;}
-    public Point2D getLocation(){return this.location;}
-    //trip
-    public boolean isAvailable(){return this.available;}
-    public double getTotalProfit(){return this.totalProfit;}
+    public LocalDateTime getDate(){return this.date;}    
+    public void setData(LocalDateTime d){this.date = d;}
     
-     /************************* SETTERS *************************/
-    public void setVehicle(Vehicle v){this.vehicle = v.clone();}
-    public void setOwner(Owner o){this.owner = o.clone();} 
-    public void setClient(Client c){this.client = c.clone();} 
-    //trip
-    //availability
-    public void setTotalProfit(double money){this.totalProfit += money;}
-     
+    public Point2D getStart(){return this.start.clone();}
+    public void setStart(Point2D p){this.start = p.clone();}
+    
+    public Point2D getDestination(){return this.destination.clone();}
+    public void setDestination(Point2D d){this.destination = d.clone();}
    
-    /**Outros métodos**/
-    public void chargeClient(Client c, double price)
-    {
-        c.spentMoney(price);  
-        this.totalProfit += price;
-    }
+    public Vehicle getVehicle(){return this.v.clone();}
+    public void setVehicle(Vehicle v){this.v = v.clone();}
     
+    public double getKms(){return this.kms;}
+    public void setKms(double k){this.kms = k;}
     
+    public double getTime(){return this.time;}
+    public void setTime(double t){this.time = t;}
     
+    public double getRealPrice(){return this.realPrice;}
+    public void setRealPrice(double p){this.realPrice = p;}
     
-    /**CLONE**/
-    public Ride clone()
+    public double getEstimatedPrice(){return this.estimatedPrice;}
+    public void setEstimatedPrice(double p){ this.estimatedPrice = p;}
+    
+    public String toString()
     {
-        Ride r = new Ride(this.getVehicle(), this.getOwner(), this.getClient(),this.getLocation(), this.isAvailable(), this.getTotalProfit());
-        return r;
-    }
-
-    public String toString() //ADICIONAR O TIPO DO CARRO
-    {
-        return "-- O carro: " + this.vehicle.getPlate() + 
-               "do proprietário " + this.owner.toString() + 
-               "\nOcupado? " + this.availableToString() + 
-               ".\n ----------------------------";
-    }
-     
-    /**ToString**/
-    public String availableToString()
-    {
-        String available;
-        if(this.available==true) available = "Sim";
-        else available = "Não";
-        return available;
-    }
-     
-     
-     
-     /** o cliente indica as coordenadas x e y em que se encontra e para
-     * onde se pretende deslocar;
-     */ 
-       
-       
-     /** o cliente decide qual carro pretende alugar (de acordo com as 
-     * possibilidades oferecida pela aplicação e descritas anteriormente);
-     */
-     
-     
-     /** De seguida é indicado ao cliente se o carro pretendido tem 
-     autonomia para efectuar a viagem, e caso o tenha, é indicado o custo 
-     estimado da viagem, tendo em conta o deslocamento que é necessário 
-     efectuar; */
+        StringBuilder sb = new StringBuilder();
         
+        sb.append("Data e Hora: ").append(this.date.toString()+"\n");
+        sb.append("Partida: ").append(this.start.toString()+"\n");
+        sb.append("Destino: ").append(this.destination.toString()+"\n");
+        sb.append("Veiculo:\n").append(this.v.toString());
+        sb.append("Kms a viajar: ").append(this.kms+"\n");
+        sb.append("Tempo da viagem: ").append(this.time+"\n");
+        sb.append("Preco real da Viagem: ").append(this.realPrice+"\n");
+        sb.append("Preco estimado da Viagem: ").append(this.estimatedPrice+"\n");
         
-     /** Caso o veículo tenha autonomia, o proprietário é notficado do 
-     *pedido de aluguer e do tempo que o cliente demora a chegar a pé 
-     *ao veiculo. O proprietário poderá aceitar ou não o pedido de 
-     *aluguer.*/
+        return sb.toString();
+    }
     
+    public Ride clone(){return new Ride(this);}
+    
+    public boolean equals(Object o)
+    {
+        if (this==o) return true;
+        if((o==null) || (this.getClass() != o.getClass())) return false;
         
-     /**de acordo com a 􏰀abilidade do carro (e de outros factores que pode considerar: 
-     * a destreza do condutor, as condições meteorológicas, etc.) é calculado o tempo 
-     *real da viagem.*/
-     
-     /**o carro fica no ponto definido como fim da viagem à espera de novo aluguer*/
-     //No final da viagem fazer update da localização do carro = destino dado pelo cliente
-     
-     /** após a viagem o cliente e o proprietário podem dar uma avaliação ao carro ao cliente,
-      *  e 􏰀cam com o registo relativo à viagem guardado nas suas áreas pessoais.
-      */
+        Ride r = (Ride) o;
+        return (this.date.equals(r.getDate()) && 
+                this.start.equals(r.getStart()) && 
+                this.destination.equals(r.getDestination()) && 
+                this.v.equals(r.getVehicle()) && 
+                this.kms == r.getKms() && 
+                this.time == r.getTime() && 
+                this.realPrice == r.getRealPrice() && 
+                this.estimatedPrice == r.getEstimatedPrice());
+    }
+    
+    
+    public int compareTo(Ride r)
+    {
+        if(this.date.isAfter(r.getDate())) return 1;
+        if(this.date.isBefore(r.getDate())) return -1;
+        return 0;
+    }
 }

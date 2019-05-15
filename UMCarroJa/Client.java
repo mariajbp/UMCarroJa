@@ -8,49 +8,38 @@ import java.util.ArrayList;
 public class Client extends USER implements Serializable
 {
   private double walk;  //4km por hora
-  private Point2D location;
-  private Point2D destination;
-  private double spent;
+  private double x;
+  private double y;
   private Map<Date, List<RentedCar>> rentingHistory;
   
   public Client()
   {
       super();
-      this.walk = 0;
-      this.spent = 0;
+      this.x = 0.0;
+      this.y = 0.0;
   }
   
-  public Client(String name,String password,String email,String address,String bday, int walk, double spent)
+  public Client(String name,String password,String email,String address, double x, double y)
   {
       super(name,password,email,address);
-      this.walk = walk;
-      this.spent = spent;
+      this.x = x;
+      this.y = y;
       this.rentingHistory = new TreeMap<Date, List<RentedCar>>();
   }
     
   public Client(Client c)
   {
       super(c.getName(), c.getPassword(), c.getEmail(), c.getAddress());
-      this.walk = c.getWalk();
-      this.location = c.getLocation();
-      this.destination = c.getDestination();
-      this.spent = c.getSpentMoney();
+      this.x = getX();
+      this.y = getY();
       this.rentingHistory = c.getRentingHistory();
   }
   
-  public Client(Point2D location, Point2D destination, String email,  String name, String password, String address, double spent)
-  {
-    super(email, name, password, address);
-    this.spent = spent;
-    this.location = location;
-    this.destination = destination;
-  }
     
   /************************* GETTERS *************************/
   public double getWalk(){return this.walk;}
-  public double getSpentMoney(){return this.spent;}
-  public Point2D getLocation(){return this.location;}
-  public Point2D getDestination(){return this.destination;}
+  public double getX(){return this.x;}
+  public double getY(){return this.y;}
  
   public Map<Date, List<RentedCar>> getRentingHistory()
   {
@@ -64,8 +53,8 @@ public class Client extends USER implements Serializable
   
   /************************* SETTERS *************************/
   public void setWalk(double newW){this.walk = newW;}
-  public void setLocation(double x, double y){this.location = new Point2D(x,y);}
-  public void setDestination(double x, double y){this.destination = new Point2D(x,y);}
+  public void setX(double x){this.x = x;}
+  public void setY(double y){this.y = y;}
 
   public void setRentingHistory(Map<Date, List<RentedCar>> h)
   {
@@ -92,17 +81,11 @@ public class Client extends USER implements Serializable
 
   
   
-  /*** Outros Metodos ***/
-  public void spentMoney(double money)
-  {
-      this.spent+=money;
-  }
-  
   
   /************************* CLONE *************************/
   public Client clone()
   {
-    Client c = new Client(this.getLocation(), this.getDestination(), this.getEmail(), this.getPassword(), this.getName(), this.getAddress(), this.getSpentMoney());
+    Client c = new Client(this.getName(), this.getPassword(), this.getEmail(), this.getAddress(), this.getX(), this.getY());
     return c;
   }
     
@@ -118,9 +101,9 @@ public class Client extends USER implements Serializable
   /************************* TOSTRING *************************/
   public String toString()
   {
-      return "Distancia que está disposto a percorrer a pé: " + walk +
-             "Localização atual: " + location +
-             "Destino: " + destination;         
+      return "Distancia que está disposto a percorrer a pé: " + walk;
+             
+                    
   }
   
   public void printHistoryCL()

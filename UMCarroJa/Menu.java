@@ -22,129 +22,25 @@ public class Menu implements Serializable
       this.op = 0;
   }
   
-  //runs home menu
-  public void rHome()
+   //Método para apresentar o menu e ler uma opção.
+  public void exec()
   {
-    this.chosenMenu = 1;
-    do
-    {
-        showMenu();
-        this.op = readOption();
-    }while(this.op == -1);
-  }
-  
-  //run cliente menu
-  public void rClientMenu() 
-  {
-     this.chosenMenu = 2;
-     do 
-     {
-        showMenu();
-        this.op = readOption();
-     } while (this.op == -1);
-  }
-  
-  public void rOwnerMenu() 
-  {
-     this.chosenMenu = 3;
-     do 
-     {
-        showMenu();
-        this.op = readOption();
-     } while (this.op == -1);
-  }
-
-  public void rSignUpMenu() 
-  {
-     this.chosenMenu = 4;
-     do 
-     {
-        showMenu();
-        this.op = readOption();
-     } while (this.op == -1);
-  }
-  
-  public void rRefuelMenu()
-  {
-      this.chosenMenu = 5;
-      do 
-      {
-         showMenu();
-         this.op = readOption();
+      do{
+           showMenu();
+           this.op = readOption();
       } while (this.op == -1);
   }
-  
-  public void rSignUpVehicleMenu() 
+    
+  //Apresentar o menu 
+  private void showMenu() 
   {
-      this.chosenMenu = 6;
-      do 
-      {
-         showMenu();
-         this.op = readOption();
-      } while (this.op == -1);
-   }
-  
-  public void rSpecificVehicleMenu() 
-  {
-      this.chosenMenu = 7;
-      do 
-      {
-         showMenu();
-         this.op = readOption();
-      } while (this.op == -1);
-  }
-  
-  
-  
-  
-  
-  
-  
-  //Apresentar Menu
-  private void showMenu()
-  {
-      switch(this.chosenMenu)
-      {
-          case 1: System.out.println("********* Bem-vindo à UMCarrojá! *********\n");
-          for(int i = 0; i<this.options.size(); i++)
-          {
-              out.print((i+1));
-              out.print(" - ");
-              out.println(this.options.get(i));
-          }
-          out.println("\nClique 0 para sair");
-          out.print("******************************************");
-          break;
-          
-          case 2: System.out.println("\nCliente");
-          for (int i=0; i<this.options.size(); i++) {
-              System.out.print((i+1));
-              System.out.print(" - ");
-              System.out.println(this.options.get(i));
-          }
-          System.out.println("\nClique 0 para sair");
-          break;
-          
-          case 3: System.out.println("\nProprietário");
-          for (int i=0; i<this.options.size(); i++) {
-              System.out.print((i+1));
-              System.out.print(" - ");
-              System.out.println(this.options.get(i));
-          }
-          out.println("\nClique 0 para sair");
-          break;
-          
-          case 4:out.println("\n Efetuar Registo");
-          for (int i=0; i<this.options.size(); i++) {
-              System.out.print((i+1));
-              System.out.print(" - ");
-              System.out.println(this.options.get(i));
-          }
-          out.println( "\nClique 0 para sair");
-          break;
-          
-          
-      }
+        out.println("\n ***** Menu ***** ");
+        for (int i=0; i<this.options.size(); i++) {
+            out.print(i+1);
+            out.print(" - ");
+            out.println(this.options.get(i));
+        }
+        System.out.println("0 - Sair");
   }
   
   //ler opção valida
@@ -152,19 +48,18 @@ public class Menu implements Serializable
   {
      int op;
      Scanner input = new Scanner(System.in);
-     System.out.print("\nOpção: ");
+     out.print("\nOpção: ");
      
      try {op = input.nextInt();}
      catch (InputMismatchException e) {op = -1;} //Não foi escrito um int
      if (op<0 || op>this.options.size()) 
      {
-            System.out.println("\nOpção Inválida!");
+            out.println("\nOpção Inválida!");
             op = -1;
      }
 
      return op;
   }
-  
   
   //obter a ultima opção lida
   public int getOption()

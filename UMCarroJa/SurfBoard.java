@@ -11,19 +11,19 @@ public class SurfBoard extends Vehicle implements Serializable
        super();
    }
     
-   public SurfBoard(double speed,double price,double autonomy,Point2D location, double comsuption, int rating, String plate)
+   public SurfBoard(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y)
    {
-     super(speed,price,autonomy, location,comsuption,rating,plate);
+     super(type,brand,plate,nif,speed,price,comsuption,autonomy,x, y);
    }
    
    public SurfBoard(SurfBoard s)
    {
-       super(s.getSpeed(), s.getPrice(), s.getAutonomy(), s.getLocation(), s.getComsuption(), s.getRating(), s.getPlate());
+       super(s.getType(), s.getBrand(),  s.getPlate(), s.getNif(), s.getSpeed(), s.getPrice(), s.getComsuption(), s.getAutonomy(), s.getX(), s.getY());
    }
     
     public SurfBoard clone()
    {
-       SurfBoard sb = new SurfBoard(this.getSpeed(), this.getPrice(), this.getAutonomy(), this.getLocation(), this.getComsuption(), this.getRating(), this.getPlate());
+       SurfBoard sb = new SurfBoard(this.getType(), this.getBrand(), this.getPlate(), this.getNif(), this.getSpeed(),  this.getPrice(),this.getComsuption(), this.getAutonomy(), this.getX(), this.getY());
        return  sb;
    }
 }

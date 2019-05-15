@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=VehicleDoesntExistException
+comment1.params=
+comment1.target=VehicleDoesntExistException()
+comment2.params=message
+comment2.target=VehicleDoesntExistException(java.lang.String)
+numComments=3

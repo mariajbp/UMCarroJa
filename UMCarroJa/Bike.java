@@ -10,19 +10,19 @@ public class Bike extends Vehicle implements Serializable
        super();
    }
    
-    public  Bike(double speed,double price,double autonomy,Point2D location, double comsuption, int rating, String plate)
+    public  Bike(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y)
    {
-     super(speed,price,autonomy, location,comsuption,rating,plate);
+     super(type,brand,plate,nif,speed,price,comsuption,autonomy,x, y);
    }
    
    public  Bike(Bike b)
    {
-       super(b.getSpeed(), b.getPrice(), b.getAutonomy(), b.getLocation(), b.getComsuption(), b.getRating(), b.getPlate());
+       super(b.getType(), b.getBrand(),  b.getPlate(), b.getNif(), b.getSpeed(), b.getPrice(), b.getComsuption(), b.getAutonomy(), b.getX(), b.getY());
    }
     
     public  Bike clone()
    {
-       Bike b = new  Bike(this.getSpeed(), this.getPrice(), this.getAutonomy(), this.getLocation(), this.getComsuption(), this.getRating(), this.getPlate());
+       Bike b = new  Bike(this.getType(), this.getBrand(), this.getPlate(), this.getNif(), this.getSpeed(),  this.getPrice(),this.getComsuption(), this.getAutonomy(), this.getX(), this.getY());
        return  b;
    }
 }
