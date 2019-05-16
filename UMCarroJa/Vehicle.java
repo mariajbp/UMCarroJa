@@ -16,6 +16,7 @@ public abstract class Vehicle implements Serializable
   private double autonomy;
   private double x;
   private double y;
+  private boolean available;
   
   private Map<Date, List<Ride>> history;
   private int rating;
@@ -34,6 +35,7 @@ public abstract class Vehicle implements Serializable
      this.x = 0.0;
      this.y= 0.0;
      this.rating = 0;
+     this.available = true;
   }
      
   public Vehicle(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y)
@@ -49,6 +51,7 @@ public abstract class Vehicle implements Serializable
     this.x = x;
     this.y = y;
     this.rating = rating;
+    this.available = available;
   }
     
   public Vehicle(Vehicle v)
@@ -64,6 +67,7 @@ public abstract class Vehicle implements Serializable
     this.x = v.getX();
     this.y = v.getY();
     this.plate = v.getPlate();
+    this.available = v.getAvailability();
   }
     
     /************************* GETTERS *************************/
@@ -78,6 +82,7 @@ public abstract class Vehicle implements Serializable
   public double getY(){return this.y;}
   public int getRating(){return this.rating;}
   public String getPlate(){return  this.plate;}
+  public boolean getAvailability(){return this.available;} 
   
   public Map<Date, List<Ride>> getRentingHistory()
   {
@@ -100,7 +105,7 @@ public abstract class Vehicle implements Serializable
   public void setPlate(String newPlate){this.plate = newPlate;}
   public void setX(double newX){this.x = newX;} 
   public void setY(double newY){this.y = newY;} 
-  
+  public void setAvailability(boolean newAV){this.available = newAV;}
   
   public void setRentingHistory(Map<Date, List<Ride>> h)
   {

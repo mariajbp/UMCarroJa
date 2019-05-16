@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Point2D
-comment0.text=\r\n\ Classe\ que\ representa\ um\ ponto,\ pertende\ exprimir\ a\ localiza\u00E7\u00E3o\ das\ entidades\ da\ aplica\u00E7\u00E3o\r\n
+comment0.text=\n\ Classe\ que\ representa\ um\ ponto,\ pertende\ exprimir\ a\ localiza\u00E7\u00E3o\ das\ entidades\ da\ aplica\u00E7\u00E3o\n
 comment1.params=
 comment1.target=Point2D()
 comment10.params=dest
@@ -24,5 +24,5 @@ comment7.target=void\ setNome(int)
 comment8.params=p
 comment8.target=void\ travelTo(Point2D)
 comment9.params=x\ y
-comment9.target=void\ travelTo(double,\ double)
+comment9.target=void\ travelToxy(double,\ double)
 numComments=13

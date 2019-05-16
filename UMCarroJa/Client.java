@@ -12,13 +12,6 @@ public class Client extends USER implements Serializable
   private double y;
   private Set<RentedCar> rentingHistory;
   
-  public Client()
-  {
-      super();
-      this.x = 0.0;
-      this.y = 0.0;
-  }
-  
   public Client(String name,String password,String email,String address, double x, double y)
   {
       super(name,password,email,address);
@@ -47,6 +40,7 @@ public class Client extends USER implements Serializable
     for(RentedCar rc: this.rentingHistory){aux.add(rc.clone());}
     return aux;
   }
+  
   
   /************************* SETTERS *************************/
   public void setWalk(double newW){this.walk = newW;}

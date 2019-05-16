@@ -39,7 +39,7 @@ public class Point2D implements Serializable{
    this.y = p.getY();
   }
 
-  public void travelTo(double x, double y)
+  public void travelToxy(double x, double y)
   {
     this.x = x;
     this.y = y;

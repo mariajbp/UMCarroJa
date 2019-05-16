@@ -109,8 +109,14 @@ public class UMCarroJa implements Serializable
    /*** valida acess to email  HERE **/
     //Método que valida o acesso de um utilizador na aplicação através do seu email e password
    
-   public USER validateAcess(String name, String email)
+   public USER validateAcess(String password, String email)
    {
+       boolean cl = this.clients.values().stream().anyMatch(u -> u.getEmail().equals(email) && u.getPassword().equals(password));
+       boolean ow = this.owners.values().stream().anyMatch(u -> u.getEmail().equals(email) && u.getPassword().equals(password));
+       
+       if(cl){return this.clients.get(email).clone();}
+       else if(ow){return this.owners.get(email).clone();}
+       if (!cl && !ow) throw new LoginException("Acesso inválido.");    
    }
 
    
@@ -144,6 +150,39 @@ public class UMCarroJa implements Serializable
    }
    
    
+   public List<RentedCar> rentingRegist(String email, int yi, int mi, int di, int yf, int mf, int df) throws DateException
+   {
+      if(yi < 0 || mi < 1 || mi > 12 || di < 1 || di > 31 || yf < 0 || mf < 1 || mf > 12 || df < 1 || df > 31 || yi > yf || 
+         (yi == yf && mi > mf) || (yi == yf && mi == mf && di > df))
+          throw new DateException("Formato de data e hora incorreto, por favor tente novamente com uma data e hora válidas.");
+       
+      LocalDateTime i = LocalDateTime.of(yi,mi,di,00,00);
+      LocalDateTime f = LocalDateTime.of(yf,mf,df,23,59);
+      List<RentedCar> r = new ArrayList<RentedCar>();
+
+      if(this.clients.containsKey(email))
+      {
+           Client c = this.clients.get(email);
+           for(RentedCar rc: c.getRentingHistory())
+           {
+              if((rc.getDate().isAfter(i) || rc.getDate().equals(i)) && (rc.getDate().isBefore(f) || rc.getDate().equals(f)))
+                   r.add(rc);
+           }
+      }
+      else if (this.owners.containsKey(email))
+      {
+          Owner o = this.owners.get(email);
+          for(RentedCar rc: o.getRentingHistory()) 
+          {
+              if((rc.getDate().isAfter(i) || rc.getDate().equals(i)) && (rc.getDate().isBefore(f) || rc.getDate().equals(f)))
+                   r.add(rc);
+          }   
+      }
+      return r;
+   }
+
+      
+    
    /*** Proprietários ***/
    //Método que regista um novo proprietário na aplicação
    public Owner registerNewOwner(String name, String pass, String email, String  address) throws RegistrationException
@@ -175,6 +214,11 @@ public class UMCarroJa implements Serializable
        return vh; */
    }
    
+   //Método que retorna o nome do proprietário a que determinado veículo pertence
+   public String getOwnerOfVehicle(Vehicle v)
+   {
+       //COMPARAR OS NIFS ? 
+   }
    
    /*** Vehicles ***/
    

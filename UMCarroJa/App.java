@@ -111,9 +111,9 @@ public class App  implements Serializable
        
            out.println("Morada: ");
            address = input.nextLine();
-           out.println("Coordenada x onde o veículo se encontra: ");
+           out.println("Coordenada x onde se encontra: ");
            x = input.nextDouble();
-           out.println("Coordenada y onde o veículo se encontra: ");
+           out.println("Coordenada y onde se encontra: ");
            y = input.nextDouble();
 
            Client c = (Client) umcj.registerNewClient(name, email, password, address, x, y); 
@@ -134,7 +134,7 @@ public class App  implements Serializable
            m.exec();
            op = m.getOption();
            switch(op){
-               case 1: rentVehicle(c); 
+               case 1: newRent(c);  //sub-menu para realizar um aluguer
                        break;
                case 2: rentingHistory(c);
                        break;
@@ -161,7 +161,7 @@ public class App  implements Serializable
        
        try
        {
-           List<RentedCar> h = umcj.rentingResgist(c.getEmail(), yi, mi, di, yf, mf, df);
+           List<RentedCar> h = umcj.rentingRegist(c.getEmail(), yi, mi, di, yf, mf, df);
            out.println("Durante o período submetido efetuou as seguintes viagens:\n "+ h.toString());
        }catch (DateException e){out.println(e.getMessage());}
         
@@ -179,9 +179,9 @@ public class App  implements Serializable
            opt = m.getOption();
            switch(opt)
            {
-               case 1: nearestVehicle(c);
+               case 1: rentNearestVehicle(c);
                        break;
-               case 2: specificVehicle(c);
+               case 2: rentSpecificVehicle(c);
                        break;
            }
        }
@@ -206,11 +206,43 @@ public class App  implements Serializable
    
    /*** PROPRIETARIOS ***/
    
-    //Método que adiciona um proprietario à aplicação, requisitando a inserção dos seus dados e dos dados do seu veículo
+   //Método que adiciona um proprietario à aplicação, requisitando a inserção dos seus dados e dos dados do seu veículo
    public void addOwner()
    {
+       Scanner input = new Scanner(System.in);
+       String name, password, email, confirmPassword, address;
+       double x, y;
        
+       try
+       {
+           out.println("Nome: ");
+           name = input.nextLine();
+           out.println("Email: ");
+           email = input.nextLine();
+           do
+           {
+               out.println("Password: ");
+               password = input.nextLine();
+               out.println("Confirmar Password: ");
+               confirmPassword = input.nextLine();   
+               if(!password.equals(confirmPassword)) out.println("Password incorreta.");
+           }
+           while(!password.equals(confirmPassword));
+       
+           out.println("Morada: ");
+           address = input.nextLine();
+           out.println("Coordenada x onde se encontra: ");
+           x = input.nextDouble();
+           out.println("Coordenada y onde se encontra: ");
+           y = input.nextDouble();
+
+           Client c = (Client) umcj.registerNewClient(name, email, password, address, x, y); 
+           clientArea(c);
+       }catch (RegistrationException e){out.println(e.getMessage());}
+       
+       input.close();
    }
+   
    
    public void ownerArea(Owner o)
    {
@@ -223,8 +255,8 @@ public class App  implements Serializable
            op = m.getOption();
            switch(op)
            {
-               //case 1: ;
-             
+               case 1: addVehicle();
+                       break;   
            }
        }
        while(op != 0);
@@ -233,7 +265,7 @@ public class App  implements Serializable
    /** VEICULOS **/
    
    //Método que adiciona um veículo requisitando a inserção dos dados do veículo
-   public void adicionaVeiculo()
+   public void addVehicle()
    {
        Scanner input = new Scanner(System.in);
        int nif;
@@ -280,7 +312,9 @@ public class App  implements Serializable
    
    // Método que seleciona o veículo mais próximo da localização do cliente para a realização de uma viagem
    public void rentNearestVehicle(Client c)
-   {}
+   {
+       
+   }
    
    //Método que seleciona o veículo específico requisitado pelo cliente para a realização de um aluguer
    public void rentSpecificVehicle(Client c)
@@ -295,7 +329,7 @@ public class App  implements Serializable
        {
            Vehicle v = umcj.specificVehicle(plate); 
            //VEIUCOLO DISPONIVEL? AUTONOMIA?
-           ride(c,v);
+          
        }
        catch (VehicleDoesntExistException e){System.out.println(e.getMessage());}
        

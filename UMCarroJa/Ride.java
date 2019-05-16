@@ -109,7 +109,6 @@ public class Ride implements Comparable<Ride>, Serializable
                 this.estimatedPrice == r.getEstimatedPrice());
     }
     
-    
     public int compareTo(Ride r)
     {
         if(this.date.isAfter(r.getDate())) return 1;

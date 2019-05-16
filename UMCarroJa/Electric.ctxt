@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Electric
-comment0.text=\r\n\ Representa\u00E7\u00E3o\ da\ classe\ Electric,\ subclasse\ de\ Vehicle\r\n
+comment0.text=\n\ Representa\u00E7\u00E3o\ da\ classe\ Electric,\ subclasse\ de\ Vehicle\n
 comment1.params=
 comment1.target=Electric()
 comment2.params=type\ brand\ plate\ nif\ speed\ price\ comsuption\ autonomy\ x\ y
