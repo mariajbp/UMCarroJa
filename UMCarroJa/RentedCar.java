@@ -1,23 +1,25 @@
-import java.util.*;
-import java.io.Serializable;
-
-/**
-* Representação das carateristicas basicas de um aluguer 
-**/
-
-public class RentedCar implements Serializable
-{
-      private String ownerEmail;
-      private String clientEmail;
-      private Vehicle car;
-      private double price;
-      private Point2D start;
-      private Point2D destination;
-      private double distance;
-      private double autonomy; 
-      private double walktime;
-      private double expectedtime;
-      
+    import java.util.*;
+    import java.io.Serializable;
+    import java.time.LocalDateTime;
+    
+    /**
+    * Representação das carateristicas basicas de um aluguer 
+    **/
+    
+    public class RentedCar implements Serializable
+    {
+          private String ownerEmail;
+          private String clientEmail;
+          private Vehicle car;
+          private double price;
+          private Point2D start;
+          private Point2D destination;
+          private double distance;
+          private double autonomy; 
+          private double walktime;
+          private double expectedtime;
+          private LocalDateTime date;
+         
      
      public RentedCar(String ownerEmail, String clientEmail, Vehicle car, double price, Point2D destination, Point2D start, double distance, 
                     double autonomy, double walktime, double expectedtime)
@@ -32,6 +34,7 @@ public class RentedCar implements Serializable
          this.autonomy = autonomy;
          this.walktime = walktime;
          this.expectedtime = expectedtime;
+         this.date = LocalDateTime.now();
      }
 
      public RentedCar(RentedCar r)
@@ -46,6 +49,7 @@ public class RentedCar implements Serializable
          this.autonomy = r.getAutonomy();
          this.walktime = r.getWalkTime();
          this.expectedtime = r.getExpectedTime();
+         this.date = r.date;
      }
      
      /**gets**/
@@ -59,6 +63,7 @@ public class RentedCar implements Serializable
      public double getAutonomy() {return this.autonomy;}
      public double getWalkTime() {return this.walktime;}
      public double getExpectedTime() {return this.expectedtime;}
+     public LocalDateTime getDate() {return this.date;}
      
 
      /**sets**/
@@ -72,6 +77,7 @@ public class RentedCar implements Serializable
      public void setAutonomy(double autonomy) {this.autonomy = autonomy;}
      public void setWalkTime(double walktime) {this.walktime = walktime;}
      public void setExpectedTime(double expectedtime) {this.expectedtime = expectedtime;}
+     public void setDate(LocalDateTime date){this.date = date;}
      
      /**Equals**/
      public boolean equals(Object o)
@@ -88,7 +94,8 @@ public class RentedCar implements Serializable
                this.distance == r.getDistance() &&
                this.autonomy == r.getAutonomy() &&
                this.walktime == r.getWalkTime() &&
-               this.expectedtime == r.getExpectedTime();  
+               this.expectedtime == r.getExpectedTime() &&
+               this.date  == r.getDate();  
      }
      
      /***Clone***/
@@ -112,7 +119,8 @@ public class RentedCar implements Serializable
                 "Distância: " + this.distance +
                 "Autonomia: " + this.autonomy + 
                 "Tempo de deslocação a pé: " + this.walktime +
-                "Tempo previsto: " + this.expectedtime ;
+                "Tempo previsto: " + this.expectedtime +
+                "Data: " + this.date;
      }
   
   
