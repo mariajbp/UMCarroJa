@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Vehicle
-comment0.text=\n\ Representa\u00E7\u00E3o\ abstrata\ da\ superclasse\ Vehicle(cont\u00E9m\ os\ dados\ comuns\ a\ todas\ as\ viaturas\ do\ sistema)\n
+comment0.text=\r\n\ Representa\u00E7\u00E3o\ abstrata\ da\ superclasse\ Vehicle(cont\u00E9m\ os\ dados\ comuns\ a\ todas\ as\ viaturas\ do\ sistema)\r\n
 comment1.params=
 comment1.target=Vehicle()
 comment10.params=

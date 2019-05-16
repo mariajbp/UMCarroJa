@@ -23,6 +23,15 @@ public class RentedCar implements Serializable
                     double autonomy, double walktime, double expectedtime)
      {
          this.ownerEmail = ownerEmail;
+         this.clientEmail = clientEmail;
+         this.car = car;
+         this.price = price;
+         this.start = start;
+         this.destination = destination;
+         this.distance = distance;
+         this.autonomy = autonomy;
+         this.walktime = walktime;
+         this.expectedtime = expectedtime;
      }
 
      public RentedCar(RentedCar r)
@@ -64,9 +73,23 @@ public class RentedCar implements Serializable
      public void setWalkTime(double walktime) {this.walktime = walktime;}
      public void setExpectedTime(double expectedtime) {this.expectedtime = expectedtime;}
      
-     
-     
-     
+     /**Equals**/
+     public boolean equals(Object o)
+     {
+        if(o == this) return true;
+        if(o != null && this.getClass() != o.getClass()) return false;
+        RentedCar r = (RentedCar) o;
+        return this.ownerEmail == r.getOwnerEmail() &&
+               this.clientEmail == r.getClientEmail() &&
+               this.car == r.getCar() &&
+               this.price == r.getPrice() &&
+               this.start == r.getStart() &&
+               this.destination == r.getDestination() &&
+               this.distance == r.getDistance() &&
+               this.autonomy == r.getAutonomy() &&
+               this.walktime == r.getWalkTime() &&
+               this.expectedtime == r.getExpectedTime();  
+     }
      
      /***Clone***/
      public RentedCar clone()
@@ -76,7 +99,21 @@ public class RentedCar implements Serializable
         return r;
      }
     
-      
+     
+     /**toString**/
+     public String toString()
+     {
+         return "Email do Proprietário: " + this.ownerEmail +
+                "Email do Cliente: " + this.clientEmail +
+                "Carro: " + this.car + 
+                "Preço: " + this.price + 
+                "Ponto inicial: " + this.start + 
+                "Destino: " + this.destination +
+                "Distância: " + this.distance +
+                "Autonomia: " + this.autonomy + 
+                "Tempo de deslocação a pé: " + this.walktime +
+                "Tempo previsto: " + this.expectedtime ;
+     }
   
   
   
