@@ -7,8 +7,7 @@ import java.util.ArrayList;
 **/
 public class Owner extends USER implements Serializable
 {
-  private ArrayList<Double> ratings;
-  double acRating;
+  double rating;
   
   public Owner(String name, String password, String email, String address)
   {
@@ -18,44 +17,14 @@ public class Owner extends USER implements Serializable
   public Owner(Owner o)
   {
       super(o.getName(),o.getPassword(),o.getEmail(), o.getAddress());
-      this.ratings = new ArrayList<Double>();
-      this.acRating = o.getAcRating();
+      this.rating = o.getRating();
   }
     
   /************************* GETTERS *************************/
-  public ArrayList<Double> getRating() throws NoRatingsException
-  {
-      if(this.ratings.isEmpty()) throw new NoRatingsException("Sem Avaliações");
-      else
-      {
-        ArrayList<Double> neo = new ArrayList<Double>();
-        for(double d : this.ratings){neo.add(d);}
-        return neo;
-      }
-  }
-
-  public double getAcRating(){return this.acRating;}
+  public double getRating(){return this.rating;}
   
   /************************* SETTERS *************************/
-  public void setRatingList(ArrayList<Double> list)
-  {
-      for(double d : list){ this.ratings.add(d);}
-  }
-  
-  public void setBeforeRating(double bf){this.acRating = bf;}
-  
-  /*** Outros ***/
-  public void updateRating()
-  {
-      double c = 0;
-      for(double d : this.ratings){c+=d;}
-      this.acRating = c/this.ratings.size();
-  }
-  
-  public void addRating(double n)
-  {
-      this.ratings.add(n);
-  }
+  public void setRating(double r){this.rating = r;}
   
   
   
@@ -74,13 +43,13 @@ public class Owner extends USER implements Serializable
       if(o != null && this.getClass() != o.getClass()) return false;
       Owner ow = (Owner) o;     
        return super.equals(ow) &&
-              this.acRating == ow.getAcRating();      
+              this.rating == ow.getRating();      
   } 
     
   /************************* TOSTRING ************
   public String toString()
   {
-      return "Classificação: " + acrating;
+      return "Classificação: " + rating;
              
   }  *************/
 }

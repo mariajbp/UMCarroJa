@@ -10,7 +10,7 @@ public class Client extends USER implements Serializable
   private double walk;  //4km por hora
   private double x;
   private double y;
-  private Map<Date, List<RentedCar>> rentingHistory;
+  private Set<RentedCar> rentingHistory;
   
   public Client()
   {
@@ -24,7 +24,7 @@ public class Client extends USER implements Serializable
       super(name,password,email,address);
       this.x = x;
       this.y = y;
-      this.rentingHistory = new TreeMap<Date, List<RentedCar>>();
+      this.rentingHistory = new TreeSet<RentedCar>();
   }
     
   public Client(Client c)
@@ -41,14 +41,11 @@ public class Client extends USER implements Serializable
   public double getX(){return this.x;}
   public double getY(){return this.y;}
  
-  public Map<Date, List<RentedCar>> getRentingHistory()
+  public Set<RentedCar> getRentingHistory()
   {
-    Map<Date, List<RentedCar>> neo = new TreeMap<Date, List<RentedCar>>();
-    for(Map.Entry<Date, List<RentedCar>> entrys : this.rentingHistory.entrySet())
-    {
-      neo.put(entrys.getKey(), entrys.getValue());
-    }
-    return neo;
+    Set<RentedCar> aux = new TreeSet<>();
+    for(RentedCar rc: this.rentingHistory){aux.add(rc.clone());}
+    return aux;
   }
   
   /************************* SETTERS *************************/
@@ -56,32 +53,21 @@ public class Client extends USER implements Serializable
   public void setX(double x){this.x = x;}
   public void setY(double y){this.y = y;}
 
-  public void setRentingHistory(Map<Date, List<RentedCar>> h)
+  public void setRentingHistory(Set<RentedCar> rc)
   {
-    this.rentingHistory = new TreeMap<Date, List<RentedCar>>();
-    for(Map.Entry<Date, List<RentedCar>> entrys : h.entrySet())
-    {
-      this.rentingHistory.put(entrys.getKey(), entrys.getValue());
-    }
+      this.rentingHistory.clear();
+      for(RentedCar r: rc){this.rentingHistory.add(r.clone());}
   }
   
-  public void addToHistory(Date d, RentedCar rc)
+  public void addRentedCar(RentedCar r){this.rentingHistory.add(r.clone());}
+  
+  public void removeRentedCar(RentedCar r){this.rentingHistory.remove(r);}
+    
+  public void addSetRentedCar(Set<RentedCar> h)
   {
-    if(this.rentingHistory.containsKey(d))
-    {
-      this.rentingHistory.get(d).add(rc.clone());
-    } 
-    else 
-    {
-      List<RentedCar> neo = new LinkedList<RentedCar>();
-      neo.add(rc.clone());
-      this.rentingHistory.put(d, neo);
-    }
+      for(RentedCar r : h) this.rentingHistory.add(r.clone());
   }
 
-  
-  
-  
   /************************* CLONE *************************/
   public Client clone()
   {
@@ -104,24 +90,5 @@ public class Client extends USER implements Serializable
       return "Distancia que está disposto a percorrer a pé: " + walk;
              
                     
-  }
-  
-  public void printHistoryCL()
-  {
-    Set<Map.Entry<Date, List<RentedCar>>> r = this.rentingHistory.entrySet();
-    if(this.rentingHistory.size()!=0)
-    {
-      System.out.println("Histórico: " + this.rentingHistory.size());
-      for(Map.Entry<Date, List<RentedCar>> elem : r)
-      {
-        System.out.println("Alugueres realizados em " + elem.getKey().toString());
-        for(RentedCar rc : elem.getValue())
-        {
-          System.out.println(rc.toString());
-        }
-        System.out.println("-------------------------");
-      }
-    }
-    else System.out.println("Não existe histórico!");
   }
 }
