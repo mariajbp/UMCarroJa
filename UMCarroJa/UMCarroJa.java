@@ -113,10 +113,10 @@ public class UMCarroJa implements Serializable
    {
        boolean cl = this.clients.values().stream().anyMatch(u -> u.getEmail().equals(email) && u.getPassword().equals(password));
        boolean ow = this.owners.values().stream().anyMatch(u -> u.getEmail().equals(email) && u.getPassword().equals(password));
-       
+       if (!cl && !ow) throw new LoginException("Acesso inválido.");   
        if(cl){return this.clients.get(email).clone();}
-       else if(ow){return this.owners.get(email).clone();}
-       if (!cl && !ow) throw new LoginException("Acesso inválido.");    
+       else{return this.owners.get(email).clone();}
+      
    }
 
    
@@ -286,15 +286,16 @@ public class UMCarroJa implements Serializable
       
    }
    
+  
    //Método que determina o tempo estimado de uma viagem
    public double estimatedTime(double x, double y, double w, double z, Vehicle v)
    {
        Point2D client = new Point2D(x,y);
        Point2D d = new Point2D(w,z);
-       double dist1 = v.getLocation().distanceTo(client); //implementar esta cena
+       //double dist1 = v.getLocation().distanceTo(client); //implementar esta cena
        double dist2 = client.distanceTo(d);
-       return Math.round((dist1 + dist2) / v.getSpeed());
-   }
+       //return Math.round((dist1 + dist2) / v.getSpeed());
+   } 
    
    //Método que determina o tempo real de uma viagem
    public double realTime(double estimatedTime, Vehicle v)

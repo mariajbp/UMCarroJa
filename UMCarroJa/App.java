@@ -76,12 +76,11 @@ public class App  implements Serializable
            out.println("Password: ");
            password = input.nextLine();
        
-           USER u = umcj.validateAcess(email, password);
-       
+           USER u = umcj.validateAcess(password, email);
            if(u instanceof Client) clientArea((Client) u);
            else if(u instanceof Owner) ownerArea((Owner) u);
        }
-       catch (LoginException e){out.println(e.getMessage());}
+       catch (LoginException e){out.println(e.getMessage());} 
        input.close();
    }
    
@@ -298,13 +297,10 @@ public class App  implements Serializable
            out.println("Coordenada y onde o veículo se encontra: ");
            y = input.nextDouble();
            
-           /**
-           Vehicle v = umcj.vehicleType();
-           umcj.addVehicleToOwner(email,v); **/
+           
+           Vehicle v = umcj.vType(type, brand,plate,nif,speed,price,comsuption,autonomy,x,y);
        }
-       catch (VehicleDoesntExistException e){out.println(e.getMessage());}
        catch (InvalidVehicleException e){out.println(e.getMessage()); }
-       catch (VehicleExistsException e){out.println(e.getMessage());}
        
        input.close();
    }
