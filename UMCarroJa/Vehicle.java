@@ -16,11 +16,12 @@ public abstract class Vehicle implements Serializable
   private double autonomy;
   private double x;
   private double y;
+  Point2D location = new Point2D(x,y);
   private boolean available;
   
   private Map<Date, List<Ride>> history;
-  private int rating;
-
+  private int rating; //dada pelos clientes no final do aluguer
+ 
   
   public Vehicle()
   {
@@ -50,6 +51,7 @@ public abstract class Vehicle implements Serializable
     this.autonomy = autonomy;
     this.x = x;
     this.y = y;
+    this.location = new Point2D();
     this.rating = rating;
     this.available = available;
   }
@@ -66,6 +68,7 @@ public abstract class Vehicle implements Serializable
     this.comsuption = v.getComsuption();
     this.x = v.getX();
     this.y = v.getY();
+    this.location = v.getLocation();
     this.plate = v.getPlate();
     this.available = v.getAvailability();
   }
@@ -83,7 +86,8 @@ public abstract class Vehicle implements Serializable
   public int getRating(){return this.rating;}
   public String getPlate(){return  this.plate;}
   public boolean getAvailability(){return this.available;} 
-  
+  public Point2D getLocation(){return this.location.clone();}
+   
   public Map<Date, List<Ride>> getRentingHistory()
   {
     Map<Date, List<Ride>> neo = new TreeMap<Date, List<Ride>>();
@@ -106,6 +110,7 @@ public abstract class Vehicle implements Serializable
   public void setX(double newX){this.x = newX;} 
   public void setY(double newY){this.y = newY;} 
   public void setAvailability(boolean newAV){this.available = newAV;}
+  public void setLocation(Point2D p){this.location = p.clone();}
   
   public void setRentingHistory(Map<Date, List<Ride>> h)
   {
@@ -182,5 +187,10 @@ public abstract class Vehicle implements Serializable
     }
     else System.out.println("Não existe histórico!");
   }
+  
+  //SE AUTONOMIA < 10% ENTÃO AVISA O PROPRIETARIO -> ALTERA AVAILABILITY FICA NÃO DISPONIVEL
+  
+  //Altera a classificação a partir de uma nova classificação atribuida
+  /** ler todas as classificações do seu map de rents e faz a media **/
 }
 

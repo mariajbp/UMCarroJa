@@ -10,22 +10,28 @@ public class Client extends USER implements Serializable
   private double walk;  //4km por hora
   private double x;
   private double y;
+  Point2D location = new Point2D(x,y);
   private Set<RentedCar> rentingHistory;
+  private int rating;
   
   public Client(String name,String password,String email,String address, double x, double y)
   {
       super(name,password,email,address);
       this.x = x;
       this.y = y;
+      this.location = new Point2D();
       this.rentingHistory = new TreeSet<RentedCar>();
+      this.rating = rating;
   }
     
   public Client(Client c)
   {
       super(c.getName(), c.getPassword(), c.getEmail(), c.getAddress());
-      this.x = getX();
-      this.y = getY();
+      this.x = c.getX();
+      this.y = c.getY();
+      this.location = c.getLocation();
       this.rentingHistory = c.getRentingHistory();
+      this.rating = c.getRating();
   }
   
     
@@ -33,20 +39,24 @@ public class Client extends USER implements Serializable
   public double getWalk(){return this.walk;}
   public double getX(){return this.x;}
   public double getY(){return this.y;}
- 
+  public Point2D getLocation(){return this.location.clone();}
+  public int getRating(){return this.rating;}
+  
   public Set<RentedCar> getRentingHistory()
   {
-    Set<RentedCar> aux = new TreeSet<>();
-    for(RentedCar rc: this.rentingHistory){aux.add(rc.clone());}
-    return aux;
+     Set<RentedCar> aux = new TreeSet<>();
+     for(RentedCar rc: this.rentingHistory){aux.add(rc.clone());}
+     return aux;
   }
   
   
   /************************* SETTERS *************************/
-  public void setWalk(double newW){this.walk = newW;}
+  public void setWalk(double w){this.walk = w;}
   public void setX(double x){this.x = x;}
   public void setY(double y){this.y = y;}
-
+  public void setLocation(Point2D p){this.location = p.clone();}
+  public void setRating(int r){this.rating = r;}
+    
   public void setRentingHistory(Set<RentedCar> rc)
   {
       this.rentingHistory.clear();
@@ -85,4 +95,7 @@ public class Client extends USER implements Serializable
              
                     
   }
+  
+  //Altera a classificação a partir de uma nova classificação atribuida
+  /** ler todas as classificações do seu set de rents e faz a media **/
 }

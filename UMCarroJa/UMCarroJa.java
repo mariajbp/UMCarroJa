@@ -140,8 +140,21 @@ public class UMCarroJa implements Serializable
    //Método que retorna uma lista com os 10 clientes que mais utilizam o sistema (em vezes)
    public List<Client> top10clientsX()
    {
+       Set<Client> clOrder = new TreeSet<Client>(new ClientOrderX());
+       List<Client> clList = new ArrayList<Client>(); 
        
+       for(Client c: this.clients.values()){clOrder.add(c.clone());}
+       
+       Iterator<Client> co = clOrder.iterator();
+       int i = 0;
+       while(co.hasNext() && i<10)
+       {
+           clList.add(co.next());
+           i++;
+       }
+       return clList;
    }
+   
    
    //Método que retorna uma lista com os 10 clientes que mais utilizam o sistema (em km)
    public List<Client> top10clientsKM()
@@ -244,22 +257,18 @@ public class UMCarroJa implements Serializable
    //Método que cria um novo carro a gasolina
    public Vehicle gasRegistration(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y) throws VehicleExistsException
    {         
-       if(vehicleExists(plate)) throw new VehicleExistsException("Matrícula já existente.");
-       
+       if(vehicleExists(plate)) throw new VehicleExistsException("Matrícula já existe.");
        Point2D p = new Point2D(x,y);
        Gas g = new Gas(type,brand,plate,nif,speed,price,comsuption,autonomy,x, y);
-       
        return g.clone();
    }
    
    //Método que cria um novo carro eletrico
    public Vehicle electricRegistration(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y) throws VehicleExistsException
    {         
-       if(vehicleExists(plate)) throw new VehicleExistsException("Matrícula já existente.");
-       
+       if(vehicleExists(plate)) throw new VehicleExistsException("Matrícula já existe.");
        Point2D p = new Point2D(x,y);
        Electric e = new Electric(type,brand,plate,nif,speed,price,comsuption,autonomy,x, y);
-       
        return e.clone();
    }
    
@@ -267,19 +276,18 @@ public class UMCarroJa implements Serializable
    public Vehicle hybridRegistration(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y) throws VehicleExistsException
    {         
        if(vehicleExists(plate)) throw new VehicleExistsException("Matrícula já existente.");
-       
        Point2D p = new Point2D(x,y);
        Hybrid h = new Hybrid(type,brand,plate,nif,speed,price,comsuption,autonomy,x, y);
-       
        return h.clone();
    }
    
    //Método que retorna o veículo mais próximo da localização de um determinado cliente
    public Vehicle nearestVehicle(double x, double y) throws NoVehiclesAvailableException
    {
-       
+       Point2D clLocation = new Point2D(x,y);
+       Point2D vlLocation;
+      
    }
-   
    //Método que retorna o veículo de uma empresa de táxis requisitado por um determinado cliente
    public Vehicle specificVehicle(String plate) throws VehicleDoesntExistException 
    {
@@ -370,6 +378,12 @@ public class UMCarroJa implements Serializable
        
    } **/
    
+   //metodo que altera a localização de um veiculo
+   public Vehicle changeVehicleLocation(String plate, Point2D loc)
+   {
+                  
+       
+   }
    
    /*** STATUS ***/
    

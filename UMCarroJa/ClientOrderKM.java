@@ -14,11 +14,6 @@ public class ClientOrderKM
     //Método que calcula o número de km que um cliente viajou
     public int orderKM(Client c)
     {
-        int total = 0;
-        for(RentedCar rc : c.getRentingHistory())
-        {
-            total++;
-        }
-        return total;
+        
     } 
 }

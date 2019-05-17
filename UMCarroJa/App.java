@@ -169,7 +169,8 @@ public class App  implements Serializable
    
    public void newRent(Client c)
    {
-       String[] s = {"Escolher o veículo mais próximo", "Escolher um veículo específico"};
+       String[] s = {"Escolher o veículo mais próximo", "Escolher um veículo específico", "Escolher o veículo mais barato", 
+                     "Escolher o veículo mais barato + caminhada", "Escolher um veículo com a autonomia desejada"};
        Menu m = new Menu(s);
        int opt = 0;
        do
@@ -181,6 +182,12 @@ public class App  implements Serializable
                case 1: rentNearestVehicle(c);
                        break;
                case 2: rentSpecificVehicle(c);
+                       break;
+               case 3: rentCheapestVehicle();
+                       break;
+               case 4: rentCheapWalk();
+                       break;
+               case 5: rentDesiredAutonomy();
                        break;
            }
        }
@@ -332,6 +339,14 @@ public class App  implements Serializable
        input.close();
    }
    
+   //Método que seleciona o veículo mais barato para a realização de um aluguer
+   public void rentCheapestVehicle(){}
+   
+   //Método que seleciona o veículo mais barato para a realização de um aluguer dentro de uma distancia a pé
+   public void rentCheapWalk(){}
+   
+   public void rentDesiredAutonomy(){}
+   
    //Método que fornece o total faturado por um carro num determinado período 
    public void totalProffitV()
    {
@@ -370,12 +385,12 @@ public class App  implements Serializable
        double x, y, w, z, estimatedTime, realTime, realPrice, estimatedPrice;
        int d, m, yr, h, min, rating;
        
-       out.println("Data de quando deseja efetuar a viagem.[aaaa mm dd]");
+       out.println("Data de quando deseja alugar a viatura.[aaaa mm dd]");
        yr = input.nextInt();
        m = input.nextInt();
        d = input.nextInt();
        
-       out.println("Hora de quando deseja efetuar a viagem.[hh mm]");
+       out.println("Hora de quando deseja alugar a viatura.[hh mm]");
        h = input.nextInt();
        min = input.nextInt();
        
@@ -392,12 +407,17 @@ public class App  implements Serializable
        Point2D f = new Point2D(w,z);
        
        double kms = Math.round(i.distanceTo(f));
+       //CALCULAR AUTONOMIA se não tiver não pode alugar
+       
+       //PEDIR AO OWNER PARA ALUGAR
+       
+       estimatedPrice = umcj.estimatedPrice(x,y,w,z,v);
+       out.println("O custo estimado da viagem é "+ estimatedPrice +" euros.");
        
        estimatedTime = umcj.estimatedTime(x,y,w,z,v);
        out.println("O tempo estimado de chegada ao destino pretendido é "+ estimatedTime +" minutos.");
        
-       estimatedPrice = umcj.estimatedPrice(x,y,w,z,v);
-       out.println("O custo estimado da viagem é "+ estimatedPrice +" euros.");
+      
        
        /**umcj.FAZER A VIAGEM;
        out.println("O seu pedido foi efetuado, esperamos que tenha uma viagem agradável.");
