@@ -34,13 +34,14 @@ public class Menu implements Serializable
   //Apresentar o menu 
   private void showMenu() 
   {
-        out.println("\n ***** Menu ***** ");
+        out.println("\n*********** Menu *********** \n");
         for (int i=0; i<this.options.size(); i++) {
             out.print(i+1);
             out.print(" - ");
             out.println(this.options.get(i));
         }
         System.out.println("0 - Sair");
+        System.out.println("\n****************************");
   }
   
   //ler opção valida

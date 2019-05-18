@@ -132,8 +132,8 @@ public class App  implements Serializable
    //Menu da área pessoal de um cliente, com as opções que este pode efetuar na aplicação
    public void clientArea(Client c)
    {
-       String s[] = {"Alugar um veículo", "Histórico de Alugueres","Top 10 clientes que mais usam a app",
-                     "Top 10 clientes que percorreram mais km"};
+       String s[] = {"Alugar um veículo", "Histórico de Alugueres","Top 10 Clientes -> km ",
+                     "Top 10 Clientes -> Uso"};
        Menu m = new Menu(s);
        int op = 0;
        do
@@ -361,8 +361,8 @@ public class App  implements Serializable
            out.println("Coordenada y onde se encontra: ");
            y = input.nextDouble();
 
-           Client c = (Client) umcj.registerNewClient(name, email, password, address, x, y); 
-           clientArea(c);
+           Owner o = (Owner) umcj.registerNewOwner(name, email, password, address); 
+           ownerArea(o);
        }catch (RegistrationException e){out.println(e.getMessage());}
        
        input.close();
@@ -371,8 +371,8 @@ public class App  implements Serializable
    
    public void ownerArea(Owner o)
    {
-       String s[] = {"Adicionar um veículo novo", "Ver lista completa dos meus veículos","Top 10 clientes que mais usam a app",
-                     "Top 10 clientes que percorreram mais km"};
+       String s[] = {"Adicionar um veículo novo", "Ver lista completa dos meus veículos","Top 10 Clientes -> km ",
+                     "Top 10 Clientes -> Uso"};
        Menu m = new Menu(s);
        int op = 0;
        do
