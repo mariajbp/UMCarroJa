@@ -80,7 +80,7 @@ public class App  implements Serializable
            if(u instanceof Client) clientArea((Client) u);
            else if(u instanceof Owner) ownerArea((Owner) u);
        }
-       catch (LoginException e){out.println(e.getMessage());} 
+       catch (LoginException e){out.println(e.getMessage());}    
        input.close();
    }
    
@@ -117,7 +117,8 @@ public class App  implements Serializable
 
            Client c = (Client) umcj.registerNewClient(name, email, password, address, x, y); 
            clientArea(c);
-       }catch (RegistrationException e){out.println(e.getMessage());}
+       }catch (RegistrationException | UserExistsException e){out.println(e.getMessage());
+       }
        
        input.close();
    }
@@ -244,7 +245,7 @@ public class App  implements Serializable
 
            Client c = (Client) umcj.registerNewClient(name, email, password, address, x, y); 
            clientArea(c);
-       }catch (RegistrationException e){out.println(e.getMessage());}
+       }catch (RegistrationException | UserExistsException e){out.println(e.getMessage());}
        
        input.close();
    }
@@ -270,7 +271,7 @@ public class App  implements Serializable
    
    /** VEICULOS **/
    
-   //Método que adiciona um veículo requisitando a inserção dos dados do veículo
+   //Método que adiciona um veículo requisitando a inserção dos dados 
    public void addVehicle()
    {
        Scanner input = new Scanner(System.in);
@@ -281,8 +282,6 @@ public class App  implements Serializable
        
        try
        {
-           out.println("Digite o email do proprietário no qual pretende registar o veículo: ");
-           email = input.nextLine();
            out.println("Que tipo de veículo pretende registar? ");
            type = input.nextLine();
            out.println("Marca:");
@@ -307,7 +306,7 @@ public class App  implements Serializable
            
            Vehicle v = umcj.vType(type, brand,plate,nif,speed,price,comsuption,autonomy,x,y);
        }
-       catch (InvalidVehicleException e){out.println(e.getMessage()); }
+       catch ( VehicleExistsException | InvalidVehicleException e){out.println(e.getMessage()); }
        
        input.close();
    }

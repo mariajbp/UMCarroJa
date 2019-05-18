@@ -106,10 +106,9 @@ public class UMCarroJa implements Serializable
        return flag;
    }
    
-   /*** valida acess to email  HERE **/
+
     //Método que valida o acesso de um utilizador na aplicação através do seu email e password
-   
-   public USER validateAcess(String password, String email)
+   public USER validateAcess(String password, String email) throws LoginException
    {
        boolean cl = this.clients.values().stream().anyMatch(u -> u.getEmail().equals(email) && u.getPassword().equals(password));
        boolean ow = this.owners.values().stream().anyMatch(u -> u.getEmail().equals(email) && u.getPassword().equals(password));
@@ -124,17 +123,18 @@ public class UMCarroJa implements Serializable
    
    /*** CLIENTES ***/
    //Método que regista um novo cliente na aplicação
-   public Client registerNewClient(String name, String pass, String email, String  address, double x, double y) throws RegistrationException
+   public Client registerNewClient(String name, String pass, String email, String  address, double x, double y) throws RegistrationException, UserExistsException
    {
        Client c = new Client(name, pass, email, address, x, y);
        addCL(c);
        return c.clone();
    }  
    //Método que adiciona um cliente à aplicação
-   public void addCL(Client c) throws UserExistsException
+   public void addCL(Client c) throws UserExistsException,RegistrationException
    {
        if(!this.clients.containsKey(c.getEmail())) this.clients.put(c.getEmail(), c.clone());
        else throw new UserExistsException("Cliente já existe.");
+            throw new RegistrationException("Registo invalido");
    }
    
    //Método que retorna uma lista com os 10 clientes que mais utilizam o sistema (em vezes)
@@ -198,39 +198,27 @@ public class UMCarroJa implements Serializable
     
    /*** Proprietários ***/
    //Método que regista um novo proprietário na aplicação
-   public Owner registerNewOwner(String name, String pass, String email, String  address) throws RegistrationException
+   public Owner registerNewOwner(String name, String pass, String email, String  address) throws RegistrationException, UserExistsException
    {
        Owner o = new Owner(name, pass, email, address);
        addOW(o);
        return o.clone();
    }  
    //Método que adiciona um proprietario à aplicação
-   public void addOW(Owner o) throws UserExistsException
+   public void addOW(Owner o) throws UserExistsException, RegistrationException 
    {
        if(!this.owners.containsKey(o.getEmail())) this.owners.put(o.getEmail(), o.clone());
-       else throw new UserExistsException("Proprietário já existe.");
+       else throw new UserExistsException("Proprietário já existe.");    
    }
    
    //Método que retorna uma lista com todos os veículos de um determinado proprietario
    public List<Vehicle> listOfVehicles(String email) throws UserDoesntExistException
    { 
        if(!this.owners.containsKey(email)) throw new  UserDoesntExistException("O email inserido não existe na nossa base de dados, por favor retifique a informação");
-  
        List<Vehicle> v = new ArrayList<Vehicle>();
        Owner o = this.owners.get(email);
-       /*
-       for(Vehicle v: o.getVehicles().values()) //I AM CONFUSED
-       {
-           vh.add(v);
-       }
-       
-       return vh; */
-   }
-   
-   //Método que retorna o nome do proprietário a que determinado veículo pertence
-   public String getOwnerOfVehicle(Vehicle v)
-   {
-       //COMPARAR OS NIFS ? 
+       for(Vehicle vh: o.getVehicles().values()){v.add(vh); }
+       return v;
    }
    
    /*** Vehicles ***/
@@ -238,19 +226,18 @@ public class UMCarroJa implements Serializable
    //Método que verifica se um veículo já existe a partir da sua matrícula
    public boolean vehicleExists(String plate)
    {
-      
+     boolean p = this.vehicles.values().stream().anyMatch(u -> u.getPlate().equals(plate));
+     return p;
    }
    
    //Método que verifica o tipo de veículo que se pretende criar e que cria o veículo em questão a partir de funções auxiliares
-   public Vehicle vType(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y) throws InvalidVehicleException
+   public Vehicle vType(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y) throws InvalidVehicleException,  VehicleExistsException
    {
        Vehicle v;
-       
        if(type.equals("Gasolina")) v = gasRegistration(type,brand, plate, nif, speed, price, comsuption, autonomy, x, y);
        else if(type.equals("Eletrico")) v = electricRegistration(type,brand, plate, nif, speed, price, comsuption, autonomy, x, y);
             else if(type.equals("Monovolume")) v = hybridRegistration(type,brand, plate, nif, speed, price, comsuption, autonomy, x, y);
-                 else throw new InvalidVehicleException("Classe de veículo inválida, tente novamente.");
-       
+                 else{throw new InvalidVehicleException("Classe de veículo inválida, tente novamente.");}
        return v;
    }
    
@@ -286,8 +273,29 @@ public class UMCarroJa implements Serializable
    {
        Point2D clLocation = new Point2D(x,y);
        Point2D vlLocation;
-      
+       double dist = -1;
+       Vehicle vf = new Gas();
+       
+       for(Vehicle vh : this.vehicles.values())
+       {
+              if(vh.getAvailability())
+               {
+                   vf = vh;
+                   vlLocation = vh.getLocation();
+                   if(dist == -1)
+                   {
+                       vh = vf;
+                       dist = vlLocation.distanceTo(clLocation);
+                   }
+                   else if(vlLocation.distanceTo(clLocation) < dist){
+                       vh = vf;
+                       dist = vlLocation.distanceTo(clLocation);
+                   }
+              }
+       }
+       return vf;
    }
+   
    //Método que retorna o veículo de uma empresa de táxis requisitado por um determinado cliente
    public Vehicle specificVehicle(String plate) throws VehicleDoesntExistException 
    {
@@ -300,9 +308,9 @@ public class UMCarroJa implements Serializable
    {
        Point2D client = new Point2D(x,y);
        Point2D d = new Point2D(w,z);
-       //double dist1 = v.getLocation().distanceTo(client); //implementar esta cena
+       double dist1 = v.getLocation().distanceTo(client); //implementar esta cena
        double dist2 = client.distanceTo(d);
-       //return Math.round((dist1 + dist2) / v.getSpeed());
+       return Math.round((dist1 + dist2) / v.getSpeed());
    } 
    
    //Método que determina o tempo real de uma viagem
@@ -385,6 +393,9 @@ public class UMCarroJa implements Serializable
        
    }
    
+  
+   
+   
    /*** STATUS ***/
    
    //Método que guarda o estado de uma instância num ficheiro de texto.
@@ -414,7 +425,6 @@ public class UMCarroJa implements Serializable
       ois.close();
       return umcj;
    }
-   
    //Corre a aplicação, gerando um menu interativo
    public static void main()
    {
