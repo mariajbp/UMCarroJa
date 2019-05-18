@@ -105,8 +105,7 @@ public class UMCarroJa implements Serializable
        if(this.clients.containsKey(email) || this.owners.containsKey(email)){flag = true;}
        return flag;
    }
-   
-
+  
     //Método que valida o acesso de um utilizador na aplicação através do seu email e password
    public USER validateAcess(String password, String email) throws LoginException
    {
@@ -117,7 +116,6 @@ public class UMCarroJa implements Serializable
        else{return this.owners.get(email).clone();}
       
    }
-
    
       
    
@@ -159,7 +157,7 @@ public class UMCarroJa implements Serializable
    //Método que retorna uma lista com os 10 clientes que mais utilizam o sistema (em km)
    public List<Client> top10clientsKM()
    {
-       
+      
    }
    
    
@@ -296,7 +294,7 @@ public class UMCarroJa implements Serializable
        return vf;
    }
    
-   //Método que retorna o veículo de uma empresa de táxis requisitado por um determinado cliente
+   //Método que retorna o veículo de uma  requisitado por um determinado cliente
    public Vehicle specificVehicle(String plate) throws VehicleDoesntExistException 
    {
       
