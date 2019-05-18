@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.*; 
+import java.util.stream.Collectors;
 
 public class UMCarroJa implements Serializable
 {
@@ -120,19 +121,21 @@ public class UMCarroJa implements Serializable
    
    /*** CLIENTES ***/
    //Método que regista um novo cliente na aplicação
-   public Client registerNewClient(String name, String pass, String email, String  address, double x, double y) throws RegistrationException, UserExistsException
+   public Client registerNewClient(String name, String pass, String email, String  address, double x, double y) throws RegistrationException 
    {
        Client c = new Client(name, pass, email, address, x, y);
-       addCL(c);
+       
+       try{addCL(c);} 
+       catch(UserExistsException e){throw new RegistrationException("Registo Inválido");}
+       
        return c.clone();
    }  
    //Método que adiciona um cliente à aplicação
-   public void addCL(Client c) throws UserExistsException,RegistrationException
+   public void addCL(Client c) throws UserExistsException 
    {
        if(!this.clients.containsKey(c.getEmail())) this.clients.put(c.getEmail(), c.clone());
-       else throw new UserExistsException("Cliente já existe.");
-            throw new RegistrationException("Registo invalido");
-   }
+       else throw new UserExistsException("Cliente já existe.");    
+   } 
    //Método que remove um cliente da aplicação
    public void deleteCL(Client c){this.clients.remove(c.getEmail());}
    
@@ -142,8 +145,7 @@ public class UMCarroJa implements Serializable
        Set<Client> clOrder = new TreeSet<Client>(new ClientOrderX());
        List<Client> clList = new ArrayList<Client>(); 
        
-       for(Client c: this.clients.values()){clOrder.add(c.clone());}
-       
+       for(Client c: this.clients.values()){clOrder.add(c.clone());}    
        Iterator<Client> co = clOrder.iterator();
        int i = 0;
        while(co.hasNext() && i<10)
@@ -158,7 +160,18 @@ public class UMCarroJa implements Serializable
    //Método que retorna uma lista com os 10 clientes que mais utilizam o sistema (em km)
    public List<Client> top10clientsKM()
    {
-      
+      Set<Client> clOrder = new TreeSet<Client>(new ClientOrderKM());  
+      List<Client> clList = new ArrayList<Client>(); 
+       
+       for(Client c: this.clients.values()){clOrder.add(c.clone());}    
+       Iterator<Client> co = clOrder.iterator();
+       int i = 0;
+       while(co.hasNext() && i<10)
+       {
+           clList.add(co.next());
+           i++;
+       }
+       return clList;
    }
    
    
@@ -283,25 +296,66 @@ public class UMCarroJa implements Serializable
    //Método que retorna o veículo de uma  requisitado por um determinado cliente
    public Vehicle specificVehicle(String plate) throws VehicleDoesntExistException 
    {
-      
+      Vehicle v;
+      if(!this.vehicles.containsKey(plate)) throw new VehicleDoesntExistException("O veículo inserido não existe na nossa base de dados");
+      else
+      { Vehicle v1;
+        v1 = this.vehicles.get(plate);
+        v = v1.clone();
+      }
+      return v;
    }
    
-   /**
-   
+   //Método que retorna o carro mais barato
    public Vehicle cheapestVehicle() throws NoVehiclesAvailableException
    {
-      
-   }
-   
-   public Vehicle cheapestWalkVehicle() throws NoVehiclesAvailableException
+      Set<Vehicle> vOrder = new TreeSet<Vehicle>(new VehicleOrderP()); 
+      Vehicle v;
+      if(vOrder.size() == 0) throw new NoVehiclesAvailableException("Não existem veículos disponiveis");
+      else
+      {
+          for(Vehicle c: this.vehicles.values()){vOrder.add(c.clone());}    
+          Iterator<Vehicle> i = vOrder.iterator();
+          v = i.next();
+      }
+      return v;
+   } 
+  
+   //Método que retorna o carro com a walk mais barata
+   public Vehicle cheapestWalkVehicle(double walk, Point2D localc) throws NoVehiclesAvailableException
    {
-   }
+       Set<Vehicle> near;
+       near = this.vehicles.values().stream().filter(u -> u.isNear(walk, u.getLocation(), localc)).collect(Collectors.toCollection(TreeSet::new));
+       Set<Vehicle> vOrder = new TreeSet<Vehicle>(new VehicleOrderP()); 
+       Vehicle v;
+       if(vOrder.size() == 0) throw new NoVehiclesAvailableException("Não existem veículos disponiveis");
+       else
+       {
+          for(Vehicle c: near){vOrder.add(c.clone());}    
+          Iterator<Vehicle> i = vOrder.iterator();
+          v = i.next();
+       }
+       return v;
+    }
    
-   public Vehicle desiredAutonomyVehicle() throws VehicleDoesntExistException
+   
+   public Vehicle desiredAutonomyVehicle(double autonomy) throws NoVehiclesAvailableException
    {
+       Set<Vehicle> near;
+       near = this.vehicles.values().stream().filter(u -> u.hasAutonomy(autonomy)).collect(Collectors.toCollection(TreeSet::new));
+       Set<Vehicle> vOrder = new TreeSet<Vehicle>(new VehicleOrderA()); 
+       Vehicle v;
+       if(vOrder.size() == 0) throw new NoVehiclesAvailableException("Não existem veículos disponiveis");
+       else
+       {
+          for(Vehicle c: near){vOrder.add(c.clone());}    
+          Iterator<Vehicle> i = vOrder.iterator();
+          v = i.next();
+       }
+       return v;
    }
    
-   **/
+   
   
    //Método que determina o tempo estimado de uma viagem
    public double estimatedTime(double x, double y, double w, double z, Vehicle v)
@@ -345,31 +399,38 @@ public class UMCarroJa implements Serializable
    //Método que retorna o total faturado por um veiculo num determinado período
    public double carProffit(String plate, int yi, int mi, int di, int yf, int mf, int df) throws DateException, VehicleDoesntExistException
    {
-      if(yi < 0 || mi < 1 || mi > 12 || di < 1 || di > 31 || yf < 0 || mf < 1 || mf > 12 || df < 1 || df > 31 || yi > yf || 
+      double total = 0;
+       if(yi < 0 || mi < 1 || mi > 12 || di < 1 || di > 31 || yf < 0 || mf < 1 || mf > 12 || df < 1 || df > 31 || yi > yf || 
          (yi == yf && mi > mf) || (yi == yf && mi == mf && di > df))
           throw new DateException("Formato de data e hora incorreto, por favor tente novamente com uma data e hora válidas.");
-        
-      if(!this.vehicles.containsKey(plate)) throw new VehicleDoesntExistException("A matricula inserida não existe na nossa base de dados, por favor retifique a informação");
-       
-      LocalDateTime i = LocalDateTime.of(yi,mi,di,00,00);
-      LocalDateTime f = LocalDateTime.of(yf,mf,df,23,59);
-
-      Vehicle v = this.vehicles.values().stream().filter(u -> u.getPlate().equals(plate)).findAny().get();
-      double total = 0;
-      /**
-      for(Ride r : v.getRentingHistory())
-      {
-            if((r.getDate().isAfter(i) || r.getDate().equals(i)) && (r.getDate().isBefore(f) || r.getDate().equals(f)))
-                total += r.getRealPrice();
-      }
-      **/
-       return total;
-       
-
+      else if(!this.vehicles.containsKey(plate)) throw new VehicleDoesntExistException("A matricula inserida não existe na nossa base de dados, por favor retifique a informação");
+          else{ 
+                  LocalDateTime i = LocalDateTime.of(yi,mi,di,00,00);
+                  LocalDateTime f = LocalDateTime.of(yf,mf,df,23,59);
+            
+                  Vehicle v, v1;
+                 
+                  v1 = this.vehicles.get(plate);
+                  v = v1.clone();
+                  
+                  Ride r;
+                  Iterator<Ride> it = v.getRentingHistory().iterator();
+                  while(it.hasNext())
+                  {
+                      r = it.next();  
+                      if((r.getDate().isAfter(i) || r.getDate().equals(i)) && (r.getDate().isBefore(f) || r.getDate().equals(f)))
+                            total += r.getRealPrice();
+                  }
+                  
+                }
+                return total;
    }
    
-   /** TOTALPROFFIT BASICALLY VAI À LISTA de um owner E SOMA O CARPROFFIT DE CADA UM **/
-   
+   /** TOTALPROFFIT BASICALLY VAI À LISTA de um owner E SOMA O CARPROFFIT DE CADA UM 
+   public double totalProffit()
+   {   
+      
+   } **/
    
    
    /*** VIAGEM/ALUGUER ***/
@@ -430,7 +491,7 @@ public class UMCarroJa implements Serializable
    /*** STATUS ***/
    
    //Método que guarda o estado de uma instância num ficheiro de texto.
-   public void escreveEmFicheiroTxt(String fileName) throws IOException 
+   public void writeToTxt(String fileName) throws IOException 
    {
        PrintWriter fich = new PrintWriter(fileName);
        fich.println("------- UMCJ --------");
@@ -439,7 +500,7 @@ public class UMCarroJa implements Serializable
        fich.close();
    }
    //Método que guarda em ficheiro de objectos o objecto que recebe a mensagem.
-   public void guardaEstado(String fileName) throws FileNotFoundException,IOException 
+   public void saveStatus(String fileName) throws FileNotFoundException,IOException 
    {
        FileOutputStream fos = new FileOutputStream(fileName);
        ObjectOutputStream oos = new ObjectOutputStream(fos);

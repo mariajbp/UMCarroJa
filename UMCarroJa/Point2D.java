@@ -52,6 +52,7 @@ public class Point2D implements Serializable{
     return Math.sqrt(Math.abs(xfactor + yfactor));
   }
 
+ 
   public Point2D clone()
   {
     return new Point2D(this);

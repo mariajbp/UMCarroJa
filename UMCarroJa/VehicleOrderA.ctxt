@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.target=VehicleOrderA
+comment1.params=v1\ v2
+comment1.target=int\ compare(Vehicle,\ Vehicle)
+numComments=2

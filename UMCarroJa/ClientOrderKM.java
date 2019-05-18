@@ -1,19 +1,14 @@
 import java.util.Comparator;
 
-public class ClientOrderKM
+public class ClientOrderKM implements Comparator<Client>
 {
     public int compare(Client c1, Client c2)
     {
-        int x1 = orderKM(c1);
-        int x2 =  orderKM(c2);
+        double x1 = c1.totalKms();
+        double x2 =  c2.totalKms();
         
         if(x1 >= x2) return -1;
         return 1;
     }
-    
-    //Método que calcula o número de km que um cliente viajou
-    public int orderKM(Client c)
-    {
-        
-    } 
+   
 }

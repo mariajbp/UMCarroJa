@@ -56,8 +56,8 @@ public class App  implements Serializable
        
        try
        {
-           umcj.escreveEmFicheiroTxt("DataBase");
-           umcj.guardaEstado("DataBase");
+           umcj.writeToTxt("DataBase");
+           umcj.saveStatus("DataBase");
        }
        catch(FileNotFoundException e){out.println(e.getMessage());}
        catch(IOException e){out.println(e.getMessage());}
@@ -123,7 +123,7 @@ public class App  implements Serializable
 
            Client c = (Client) umcj.registerNewClient(name, email, password, address, x, y); 
            clientArea(c);
-       }catch (RegistrationException | UserExistsException e){out.println(e.getMessage());
+       }catch (RegistrationException e){out.println(e.getMessage());
        }
        
        input.close();
@@ -192,8 +192,7 @@ public class App  implements Serializable
        
        estimatedTime = umcj.estimatedTime(x,y,w,z,v);
        out.println("O tempo estimado de chegada ao destino pretendido é "+ estimatedTime +" minutos.");
-       
-      
+        
        
        /**umcj.FAZER A VIAGEM;
        out.println("O seu pedido foi efetuado, esperamos que tenha uma viagem agradável.");
@@ -364,7 +363,7 @@ public class App  implements Serializable
 
            Client c = (Client) umcj.registerNewClient(name, email, password, address, x, y); 
            clientArea(c);
-       }catch (RegistrationException | UserExistsException e){out.println(e.getMessage());}
+       }catch (RegistrationException e){out.println(e.getMessage());}
        
        input.close();
    }

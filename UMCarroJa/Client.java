@@ -96,6 +96,18 @@ public class Client extends USER implements Serializable
                     
   }
   
-  //Altera a classificação a partir de uma nova classificação atribuida
-  /** ler todas as classificações do seu set de rents e faz a media **/
+  //devolve todos os kms percorridos pelo cliente
+  public double totalKms()
+  {
+     Iterator<RentedCar> it = rentingHistory.iterator();
+     double aux = 0.0;
+     RentedCar r;
+     while(it.hasNext())
+     {
+        r = it.next();
+        aux += r.getKms();
+     }
+     return aux;
+  }
+  
 }

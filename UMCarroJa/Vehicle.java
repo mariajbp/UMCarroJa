@@ -19,7 +19,7 @@ public abstract class Vehicle implements Serializable
   Point2D location = new Point2D(x,y);
   private boolean available;
   
-  private Map<Date, List<Ride>> history;
+  private Set<Ride> rentingHistory;
   private int rating; //dada pelos clientes no final do aluguer
  
   
@@ -88,14 +88,11 @@ public abstract class Vehicle implements Serializable
   public boolean getAvailability(){return this.available;} 
   public Point2D getLocation(){return this.location.clone();}
    
-  public Map<Date, List<Ride>> getRentingHistory()
+  public Set<Ride> getRentingHistory()
   {
-    Map<Date, List<Ride>> neo = new TreeMap<Date, List<Ride>>();
-    for(Map.Entry<Date, List<Ride>> entrys : this.history.entrySet())
-    {
-      neo.put(entrys.getKey(), entrys.getValue());
-    }
-    return neo;
+     Set<Ride> aux = new TreeSet<>();
+     for(Ride rc: this.rentingHistory){aux.add(rc.clone());}
+     return aux;
   }
   
    /************************* SETTERS *************************/
@@ -112,30 +109,23 @@ public abstract class Vehicle implements Serializable
   public void setAvailability(boolean newAV){this.available = newAV;}
   public void setLocation(Point2D p){this.location = p.clone();}
   
-  public void setRentingHistory(Map<Date, List<Ride>> h)
+  public void setRentingHistory(Set<Ride> rc)
   {
-    this.history = new TreeMap<Date, List<Ride>>();
-    for(Map.Entry<Date, List<Ride>> entrys : h.entrySet())
-    {
-      this.history.put(entrys.getKey(), entrys.getValue());
-    }
+      this.rentingHistory.clear();
+      for(Ride r: rc){this.rentingHistory.add(r.clone());}
   }
   
+  public void addRide(Ride r){this.rentingHistory.add(r.clone());}
   
-  /*** Outros Métodos **/
-  public void addToRHistory(Date d, Ride rc)
-  {
-    if(this.history.containsKey(d))
-    {
-      this.history.get(d).add(rc.clone());
-    } else 
-    {
-      List<Ride> neo = new LinkedList<Ride>();
-      neo.add(rc.clone());
-      this.history.put(d, neo);
-    }
-  }
+  public void removeRide(Ride r){this.rentingHistory.remove(r);}
     
+  public void addSetRide(Set<Ride> h)
+  {
+      for(Ride r : h) this.rentingHistory.add(r.clone());
+  }
+  
+  
+  
   public double priceKM(double price, double comsuption)
   {
       return price*comsuption;
@@ -169,28 +159,42 @@ public abstract class Vehicle implements Serializable
              
   }
   
+  
+  /**FAZER ISTO EM TODOS **/
   public void printHistoryCAR()
   {
-    Set<Map.Entry<Date, List<Ride>>> r = this.history.entrySet();
-    if(this.history.size()!=0)
-    {
-      System.out.println("Histórico: " + this.history.size());
-      for(Map.Entry<Date, List<Ride>> elem : r)
-      {
-        System.out.println("Alugueres realizados em " + elem.getKey().toString());
-        for(Ride rc : elem.getValue())
-        {
-          System.out.println(rc.toString());
-        }
-        System.out.println("-------------------------");
-      }
-    }
-    else System.out.println("Não existe histórico!");
+    
   }
   
+  /**
   //SE AUTONOMIA < 10% ENTÃO AVISA O PROPRIETARIO -> ALTERA AVAILABILITY FICA NÃO DISPONIVEL
+  public boolean hasAutonomy()
+  {
+    if(this.autonomy
+    
+  }
+  **/
   
   //Altera a classificação a partir de uma nova classificação atribuida
   /** ler todas as classificações do seu map de rents e faz a media **/
+  
+   //Método que compara se a autonomia serve
+   public boolean hasAutonomy(double autonomy)
+   {
+       if(this.autonomy == autonomy)
+            return true;
+       else 
+            return false;
+   }
+  
+   //Método auxiliar que calcula se um carro está perto
+   public boolean isNear(double walk, Point2D localv, Point2D localc)
+   {
+       double d = localv.distanceTo(localc);
+       if(walk <= d)
+            return true;
+       else
+            return false;
+   } 
 }
 

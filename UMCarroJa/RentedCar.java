@@ -19,10 +19,11 @@
           private double walktime;
           private double expectedtime;
           private LocalDateTime date;
+          private double kms;
          
      
      public RentedCar(String ownerEmail, String clientEmail, Vehicle car, double price, Point2D destination, Point2D start, double distance, 
-                    double autonomy, double walktime, double expectedtime)
+                    double autonomy, double walktime, double expectedtime, double kms)
      {
          this.ownerEmail = ownerEmail;
          this.clientEmail = clientEmail;
@@ -35,6 +36,7 @@
          this.walktime = walktime;
          this.expectedtime = expectedtime;
          this.date = LocalDateTime.now();
+         this.kms = kms;
      }
 
      public RentedCar(RentedCar r)
@@ -49,7 +51,8 @@
          this.autonomy = r.getAutonomy();
          this.walktime = r.getWalkTime();
          this.expectedtime = r.getExpectedTime();
-         this.date = r.date;
+         this.date = r.getDate();
+         this.kms = r.getKms();
      }
      
      /**gets**/
@@ -64,6 +67,7 @@
      public double getWalkTime() {return this.walktime;}
      public double getExpectedTime() {return this.expectedtime;}
      public LocalDateTime getDate() {return this.date;}
+     public double getKms() {return this.kms;}
      
 
      /**sets**/
@@ -78,6 +82,7 @@
      public void setWalkTime(double walktime) {this.walktime = walktime;}
      public void setExpectedTime(double expectedtime) {this.expectedtime = expectedtime;}
      public void setDate(LocalDateTime date){this.date = date;}
+     public void setKms(double kms){this.kms = kms;}
      
      /**Equals**/
      public boolean equals(Object o)
@@ -95,14 +100,15 @@
                this.autonomy == r.getAutonomy() &&
                this.walktime == r.getWalkTime() &&
                this.expectedtime == r.getExpectedTime() &&
-               this.date  == r.getDate();  
+               this.date  == r.getDate() &&
+               this.kms == r.getKms();
+               
      }
      
      /***Clone***/
      public RentedCar clone()
      {
-        RentedCar r = new RentedCar(this.getOwnerEmail(), this.getClientEmail(), this.getCar(),this.getPrice(), this.getStart(), 
-                                    this.getDestination(), this.getDistance(), this.getAutonomy(), this.getWalkTime(), this.getExpectedTime());
+        RentedCar r = new RentedCar(this);
         return r;
      }
     
@@ -120,7 +126,7 @@
                 "Autonomia: " + this.autonomy + 
                 "Tempo de deslocação a pé: " + this.walktime +
                 "Tempo previsto: " + this.expectedtime +
-                "Data: " + this.date;
+                "Data: " + this.date ;
      }
   
   
