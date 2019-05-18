@@ -9,12 +9,11 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 import java.io.Serializable;
 import java.io.IOException;
 import java.io.FileNotFoundException;
-import java.io.*; //ClassNotFoundException
+import java.io.*; 
 
 public class UMCarroJa implements Serializable
 {
@@ -134,6 +133,8 @@ public class UMCarroJa implements Serializable
        else throw new UserExistsException("Cliente já existe.");
             throw new RegistrationException("Registo invalido");
    }
+   //Método que remove um cliente da aplicação
+   public void deleteCL(Client c){this.clients.remove(c.getEmail());}
    
    //Método que retorna uma lista com os 10 clientes que mais utilizam o sistema (em vezes)
    public List<Client> top10clientsX()
@@ -161,36 +162,7 @@ public class UMCarroJa implements Serializable
    }
    
    
-   public List<RentedCar> rentingRegist(String email, int yi, int mi, int di, int yf, int mf, int df) throws DateException
-   {
-      if(yi < 0 || mi < 1 || mi > 12 || di < 1 || di > 31 || yf < 0 || mf < 1 || mf > 12 || df < 1 || df > 31 || yi > yf || 
-         (yi == yf && mi > mf) || (yi == yf && mi == mf && di > df))
-          throw new DateException("Formato de data e hora incorreto, por favor tente novamente com uma data e hora válidas.");
-       
-      LocalDateTime i = LocalDateTime.of(yi,mi,di,00,00);
-      LocalDateTime f = LocalDateTime.of(yf,mf,df,23,59);
-      List<RentedCar> r = new ArrayList<RentedCar>();
-
-      if(this.clients.containsKey(email))
-      {
-           Client c = this.clients.get(email);
-           for(RentedCar rc: c.getRentingHistory())
-           {
-              if((rc.getDate().isAfter(i) || rc.getDate().equals(i)) && (rc.getDate().isBefore(f) || rc.getDate().equals(f)))
-                   r.add(rc);
-           }
-      }
-      else if (this.owners.containsKey(email))
-      {
-          Owner o = this.owners.get(email);
-          for(RentedCar rc: o.getRentingHistory()) 
-          {
-              if((rc.getDate().isAfter(i) || rc.getDate().equals(i)) && (rc.getDate().isBefore(f) || rc.getDate().equals(f)))
-                   r.add(rc);
-          }   
-      }
-      return r;
-   }
+   
 
       
     
@@ -208,6 +180,8 @@ public class UMCarroJa implements Serializable
        if(!this.owners.containsKey(o.getEmail())) this.owners.put(o.getEmail(), o.clone());
        else throw new UserExistsException("Proprietário já existe.");    
    }
+   //Método que remove um proprietário da aplicação
+   public void deleteOW(Owner o){this.owners.remove(o.getEmail());}
    
    //Método que retorna uma lista com todos os veículos de um determinado proprietario
    public List<Vehicle> listOfVehicles(String email) throws UserDoesntExistException
@@ -219,7 +193,20 @@ public class UMCarroJa implements Serializable
        return v;
    }
    
+   
+   
+   
+   
+   
+   
    /*** Vehicles ***/
+   public void  addVehicleToOwner(String email, Vehicle v) throws VehicleExistsException, UserDoesntExistException
+   {
+       if(!this.owners.containsKey(email)) throw new  UserDoesntExistException("Este proprietário não existe na nossa base de dados");
+       if(vehicleExists(v.getPlate())) throw new VehicleExistsException("Matrícula já existente.");
+       Owner o = this.owners.get(email);
+       o.addVehicle(v); 
+   }
    
    //Método que verifica se um veículo já existe a partir da sua matrícula
    public boolean vehicleExists(String plate)
@@ -247,7 +234,6 @@ public class UMCarroJa implements Serializable
        Gas g = new Gas(type,brand,plate,nif,speed,price,comsuption,autonomy,x, y);
        return g.clone();
    }
-   
    //Método que cria um novo carro eletrico
    public Vehicle electricRegistration(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y) throws VehicleExistsException
    {         
@@ -256,7 +242,6 @@ public class UMCarroJa implements Serializable
        Electric e = new Electric(type,brand,plate,nif,speed,price,comsuption,autonomy,x, y);
        return e.clone();
    }
-   
    //Método que cria um novo carro hibrido
    public Vehicle hybridRegistration(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y) throws VehicleExistsException
    {         
@@ -277,7 +262,7 @@ public class UMCarroJa implements Serializable
        for(Vehicle vh : this.vehicles.values())
        {
               if(vh.getAvailability())
-               {
+              {
                    vf = vh;
                    vlLocation = vh.getLocation();
                    if(dist == -1)
@@ -285,7 +270,8 @@ public class UMCarroJa implements Serializable
                        vh = vf;
                        dist = vlLocation.distanceTo(clLocation);
                    }
-                   else if(vlLocation.distanceTo(clLocation) < dist){
+                   else if(vlLocation.distanceTo(clLocation) < dist)
+                   {
                        vh = vf;
                        dist = vlLocation.distanceTo(clLocation);
                    }
@@ -300,24 +286,38 @@ public class UMCarroJa implements Serializable
       
    }
    
+   /**
+   
+   public Vehicle cheapestVehicle() throws NoVehiclesAvailableException
+   {
+      
+   }
+   
+   public Vehicle cheapestWalkVehicle() throws NoVehiclesAvailableException
+   {
+   }
+   
+   public Vehicle desiredAutonomyVehicle() throws VehicleDoesntExistException
+   {
+   }
+   
+   **/
   
    //Método que determina o tempo estimado de uma viagem
    public double estimatedTime(double x, double y, double w, double z, Vehicle v)
    {
        Point2D client = new Point2D(x,y);
        Point2D d = new Point2D(w,z);
-       double dist1 = v.getLocation().distanceTo(client); //implementar esta cena
+       double dist1 = v.getLocation().distanceTo(client); 
        double dist2 = client.distanceTo(d);
        return Math.round((dist1 + dist2) / v.getSpeed());
    } 
-   
    //Método que determina o tempo real de uma viagem
    public double realTime(double estimatedTime, Vehicle v)
    {                                       
        double calc = chanceofrain() * 0.003 + chanceoffog() * 0.001 + chanceoftraffic() * 0.0015;
        return Math.round(estimatedTime / calc);
    }
-   
    //Método que determina o custo estimado de uma viagem
    public double estimatedPrice(double x, double y, double w, double z, Vehicle v)
    {
@@ -327,7 +327,6 @@ public class UMCarroJa implements Serializable
        double estimatedTime = estimatedTime(x, y, w, z, v);
        return Math.round(distance * v.getPrice() + estimatedTime * 0.10 );
    }
-   
    //Método que determina o custo real de uma viagem
    public double realPrice(double estimatedTime, double realTime, double estimatedPrice)
    {
@@ -341,8 +340,10 @@ public class UMCarroJa implements Serializable
    public double chanceoffog(){return Math.round(Math.random() * 100);}
    public double chanceoftraffic(){return Math.round(Math.random() * 100);}
    
-   //Método que retorna o total faturado por uma empresa de táxis num determinado período
-   public double totalProffit(String plate, int yi, int mi, int di, int yf, int mf, int df) throws DateException, VehicleDoesntExistException
+   
+   
+   //Método que retorna o total faturado por um veiculo num determinado período
+   public double carProffit(String plate, int yi, int mi, int di, int yf, int mf, int df) throws DateException, VehicleDoesntExistException
    {
       if(yi < 0 || mi < 1 || mi > 12 || di < 1 || di > 31 || yf < 0 || mf < 1 || mf > 12 || df < 1 || df > 31 || yi > yf || 
          (yi == yf && mi > mf) || (yi == yf && mi == mf && di > df))
@@ -353,15 +354,56 @@ public class UMCarroJa implements Serializable
       LocalDateTime i = LocalDateTime.of(yi,mi,di,00,00);
       LocalDateTime f = LocalDateTime.of(yf,mf,df,23,59);
 
-      Vehicle v = this.vehicles.get(plate);
+      Vehicle v = this.vehicles.values().stream().filter(u -> u.getPlate().equals(plate)).findAny().get();
       double total = 0;
-        
-      /** A LOT IS MISSING HERE **/
+      /**
+      for(Ride r : v.getRentingHistory())
+      {
+            if((r.getDate().isAfter(i) || r.getDate().equals(i)) && (r.getDate().isBefore(f) || r.getDate().equals(f)))
+                total += r.getRealPrice();
+      }
+      **/
+       return total;
        
-      return total;
+
    }
    
+   /** TOTALPROFFIT BASICALLY VAI À LISTA de um owner E SOMA O CARPROFFIT DE CADA UM **/
+   
+   
+   
    /*** VIAGEM/ALUGUER ***/
+   //Método que retorna o registo de viagens de um utilizador num determinado período
+   public List<RentedCar> rentingRegist(String email, int yi, int mi, int di, int yf, int mf, int df) throws DateException
+   {
+      if(yi < 0 || mi < 1 || mi > 12 || di < 1 || di > 31 || yf < 0 || mf < 1 || mf > 12 || df < 1 || df > 31 || yi > yf || 
+         (yi == yf && mi > mf) || (yi == yf && mi == mf && di > df))
+          throw new DateException("Formato de data e hora incorreto, por favor tente novamente com uma data e hora válidas.");
+          
+      LocalDateTime i = LocalDateTime.of(yi,mi,di,00,00);
+      LocalDateTime f = LocalDateTime.of(yf,mf,df,23,59);
+      List<RentedCar> r = new ArrayList<RentedCar>();
+      
+      if(this.clients.containsKey(email))
+      {
+           Client c = this.clients.get(email);
+           for(RentedCar rc: c.getRentingHistory())
+           {
+              if((rc.getDate().isAfter(i) || rc.getDate().equals(i)) && (rc.getDate().isBefore(f) || rc.getDate().equals(f)))
+                   r.add(rc);
+           }
+      }
+      else if (this.owners.containsKey(email))
+      {
+          Owner o = this.owners.get(email);
+          for(RentedCar rc: o.getRentingHistory()) 
+          {
+              if((rc.getDate().isAfter(i) || rc.getDate().equals(i)) && (rc.getDate().isBefore(f) || rc.getDate().equals(f)))
+                   r.add(rc);
+          }   
+      }
+      return r;
+   }
    
    //Método que regista a viagem efetuada no histórico do veiculo e do cliente 
    public void endRide(Client c, int yr, int m, int d, int h, int min, double x, double y, double w, double z, Vehicle v, double kms, 
@@ -375,21 +417,12 @@ public class UMCarroJa implements Serializable
        Point2D i = new Point2D(x,y);
        Point2D f = new Point2D(w,z);
        
-       /**COMPLETE***/
-   }
-   
-   /**Método que retorna o registo de viagens de um utilizador num determinado período
-   public List<?> rideRegist(String Email, int yI, int mI, int dI, int yF, int mF, int dF) throws DateException
-   {
        
-   } **/
-   
-   //metodo que altera a localização de um veiculo
-   public Vehicle changeVehicleLocation(String plate, Point2D loc)
-   {
-                  
        
    }
+   
+  
+
    
   
    

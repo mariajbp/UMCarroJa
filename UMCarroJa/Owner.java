@@ -68,9 +68,9 @@ public class Owner extends USER implements Serializable
        for(Map.Entry<String,Vehicle> v: ve.entrySet()){this.vh.put(v.getKey(), v.getValue().clone()); }
   }
   
-  public void addVeiculo(Vehicle v){this.vh.put(v.getPlate(),v.clone());}
+  public void addVehicle(Vehicle v){this.vh.put(v.getPlate(),v.clone());}
   
-  public void removeVeiculo(Vehicle v){ this.vh.remove(v.getPlate());}
+  public void removeVehicle(Vehicle v){ this.vh.remove(v.getPlate());}
   
   
   /************************* CLONE *************************/
@@ -103,14 +103,13 @@ public class Owner extends USER implements Serializable
   public void changePriceKM(Vehicle v, double p){ this.vh.get(v.getPlate()).setPrice(p);}
   
 
-  //Abastece o veiculo ??
+  //Abastece o veiculo 
   
   //aceitar ou rejeitar um aluguer 
   
   //registar o custo de uma viagem
   
   //classificação de acordo com cada um dos seus veiculos
-
   
   //Altera a classificação a partir de uma nova classificação atribuida
   /** ler todas as classificações do seu set de rents e faz a media **/
