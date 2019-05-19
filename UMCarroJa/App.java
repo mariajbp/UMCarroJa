@@ -363,7 +363,7 @@ public class App  implements Serializable
 
            Owner o = (Owner) umcj.registerNewOwner(name, email, password, address); 
            ownerArea(o);
-       }catch (RegistrationException e){out.println(e.getMessage());}
+       }catch (RegistrationException | UserExistsException e){out.println(e.getMessage());}
        
        input.close();
    }
@@ -371,7 +371,7 @@ public class App  implements Serializable
    
    public void ownerArea(Owner o)
    {
-       String s[] = {"Adicionar um veículo novo", "Ver lista completa dos meus veículos","Top 10 Clientes -> km ",
+       String s[] = {"Adicionar um veículo novo", "Lista dos meus veículos","Top 10 Clientes -> km ",
                      "Top 10 Clientes -> Uso"};
        Menu m = new Menu(s);
        int op = 0;
@@ -453,7 +453,7 @@ public class App  implements Serializable
    }
    
    //Método que fornece o total faturado por um carro num determinado período 
-   public void carProffit()
+   public void carProfit()
    {
        Scanner input = new Scanner(System.in);
        String plate;
@@ -473,7 +473,7 @@ public class App  implements Serializable
            out.println("Digite a matricula do veiculo que pretende consultar:");
            plate = input.nextLine();
            
-           double total = umcj.carProffit(plate, yi, mi, di, yf, mf, df);
+           double total = umcj.carProfit(plate, yi, mi, di, yf, mf, df);
            
            out.println("No período submetido o veiculo "+ plate +" faturou " +total+ " euros");
        }

@@ -336,7 +336,7 @@ public class UMCarroJa implements Serializable
           v = i.next();
        }
        return v;
-    }
+   }
    
    
    public Vehicle desiredAutonomyVehicle(double autonomy) throws NoVehiclesAvailableException
@@ -397,7 +397,7 @@ public class UMCarroJa implements Serializable
    
    
    //Método que retorna o total faturado por um veiculo num determinado período
-   public double carProffit(String plate, int yi, int mi, int di, int yf, int mf, int df) throws DateException, VehicleDoesntExistException
+   public double carProfit(String plate, int yi, int mi, int di, int yf, int mf, int df) throws DateException, VehicleDoesntExistException
    {
       double total = 0;
        if(yi < 0 || mi < 1 || mi > 12 || di < 1 || di > 31 || yf < 0 || mf < 1 || mf > 12 || df < 1 || df > 31 || yi > yf || 
@@ -426,11 +426,30 @@ public class UMCarroJa implements Serializable
                 return total;
    }
    
-   /** TOTALPROFFIT BASICALLY VAI À LISTA de um owner E SOMA O CARPROFFIT DE CADA UM 
-   public double totalProffit()
-   {   
-      
-   } **/
+   /**
+   public double ownerProfit(String email, int yi, int mi, int di, int yf, int mf, int df) throws DateException, UserDoesntExistException
+   {
+      double total = 0;
+      if(yi < 0 || mi < 1 || mi > 12 || di < 1 || di > 31 || yf < 0 || mf < 1 || mf > 12 || df < 1 || df > 31 || yi > yf || 
+         (yi == yf && mi > mf) || (yi == yf && mi == mf && di > df))
+          throw new DateException("Formato de data e hora incorreto, por favor tente novamente com uma data e hora válidas.");
+          else if(!this.owners.containsKey(email)) throw new UserDoesntExistException("O utilizador inserido não existe na nossa base de dados, por favor retifique a informação");
+          else{ 
+                  LocalDateTime i = LocalDateTime.of(yi,mi,di,00,00);
+                  LocalDateTime f = LocalDateTime.of(yf,mf,df,23,59);
+                  
+                  Owner o = this.owners.get(email);
+       
+                  for(RentedCar r: o.getRentingHistory())
+                  {
+                      if((r.getDate().isAfter(i) || r.getDate().equals(i)) && (r.getDate().isBefore(f) || r.getDate().equals(f)))
+                            total += r.getRealPrice();
+                  }
+                  
+             }
+     return total;
+   } */
+   
    
    
    /*** VIAGEM/ALUGUER ***/
