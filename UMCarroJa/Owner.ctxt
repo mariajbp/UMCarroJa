@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Owner
-comment0.text=\r\n\ Representa\u00E7\u00E3o\ da\ classe\ propiet\u00E1rio,\ subclasse\ de\ USER\r\n
+comment0.text=\n\ Representa\u00E7\u00E3o\ da\ classe\ propiet\u00E1rio,\ subclasse\ de\ USER\n
 comment1.params=
 comment1.target=Owner()
 comment10.params=r
@@ -34,7 +34,7 @@ comment21.params=c\ v
 comment21.target=boolean\ acceptORreject(Client,\ Vehicle)
 comment22.params=
 comment22.target=void\ ownerRating()
-comment22.text=\r\n\ \ //registar\ o\ custo\ de\ uma\ viagem\r\n\ \ public\ void\ priceReg(String\ plate,\ double\ price)\r\n\ \ {\r\n\ \ \ \ \ \ \r\n\ \ }\r\n
+comment22.text=\n\ \ //registar\ o\ custo\ de\ uma\ viagem\n\ \ public\ void\ priceReg(String\ plate,\ double\ price)\n\ \ {\n\ \ \ \ \ \ \n\ \ }\n
 comment3.params=o
 comment3.target=Owner(Owner)
 comment4.params=

@@ -11,6 +11,7 @@ public class Owner extends USER implements Serializable
   private Set<RentedCar> rentingHistory;
   private Map<String,Vehicle> vh;
   
+  /** Construtor vazio que cria uma instância Owner  **/
   public Owner()
   {
       super();
@@ -18,7 +19,7 @@ public class Owner extends USER implements Serializable
       this.rentingHistory = new TreeSet<RentedCar>();
       this.vh = new HashMap<String, Vehicle>();
   }
-  
+  /** Construtor que cria um novo Owner a partir dos parâmetros dados **/
   public Owner(String name, String password, String email, String address, int nif)
   {
      super(name,password,email,address,nif);
@@ -26,7 +27,7 @@ public class Owner extends USER implements Serializable
      this.rentingHistory = new TreeSet<RentedCar>();
      this.vh = new HashMap<String, Vehicle>();
   }
-  
+  /** Construtor de cópia que cria uma nova instância Owner a partir de um Owner passado como parâmetro **/
   public Owner(Owner o)
   {
       super(o.getName(),o.getPassword(),o.getEmail(), o.getAddress(), o.getNif());
@@ -58,7 +59,7 @@ public class Owner extends USER implements Serializable
       int nr = (this.rating + newR)/(this.rentingHistory.size());
       this.rating = nr;
   }
-  
+ 
   public void setRentingHistory(Set<RentedCar> rc)
   {
       this.rentingHistory.clear();
@@ -110,21 +111,35 @@ public class Owner extends USER implements Serializable
       return "Classificação: " + rating ;       
   }  
   
-  //Altera a disponibilidade do veículo 
+  /**
+  * Método que altera a disponibilidade do veículo
+  * @param Veículo a alterar
+  * @param Disponibilidade atual do veículo 
+  **/
   public void changeVhAvailability(Vehicle v, boolean av){ this.vh.get(v.getPlate()).setAvailability(av);}
   
-  //Altera o preço por km
+  /**
+  * Método que altera o preço do veículo
+  * @param Veículo a alterar
+  * @param Novo preço 
+  **/
   public void changePriceKM(Vehicle v, double p){ this.vh.get(v.getPlate()).setPrice(p);}
   
-
-  //Abastece o veiculo 
+  /**
+  * Método que permite o proprietário abastecer o veículo
+  * @param Matricula do veículo
+  **/
   public void refuel(String plate)
   {
       Vehicle v = this.vh.get(plate);
       v.setAutonomy(v.getDeposit());
   }
   
-  //aceitar ou rejeitar um aluguer 
+  /**
+  * Método que permite o proprietário aceitar ou recusar um aluguer 
+  * @param Cliente que requisitou o aluguer
+  * @param Veículo a alugar
+  **/
   public boolean acceptORreject(Client c, Vehicle v)
   {
      return true;
@@ -138,7 +153,9 @@ public class Owner extends USER implements Serializable
   }
   */
  
-  //classificação de acordo com cada um dos seus veiculos
+  /**
+  * Método que calcula a classificação de um proprietário 
+  **/
   public void ownerRating()
   {
      int r = this.vh.values().stream().mapToInt(Vehicle::getRating).sum();

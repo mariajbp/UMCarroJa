@@ -13,7 +13,7 @@ public class Client extends USER implements Serializable
   Point2D location = new Point2D(x,y);
   private Set<RentedCar> rentingHistory;
 
-  
+  /** Construtor vazio que cria uma instância Client  **/
   public Client()
   {
       super();
@@ -23,7 +23,7 @@ public class Client extends USER implements Serializable
       this.rentingHistory = new TreeSet<RentedCar>();
 
   }
-  
+  /** Construtor que cria um novo Client a partir dos parâmetros dados **/
   public Client(String name, String password, String email, String address, double x, double y, int nif)
   {
       super(name,password,email,address, nif);
@@ -32,7 +32,7 @@ public class Client extends USER implements Serializable
       this.location = new Point2D();
       this.rentingHistory = new TreeSet<RentedCar>();
   }
-    
+  /** Construtor de cópia que cria uma nova instância Client a partir de um Client passado como parâmetro **/
   public Client(Client c)
   {
       super(c.getName(), c.getPassword(), c.getEmail(), c.getAddress(), c.getNif());
@@ -105,7 +105,10 @@ public class Client extends USER implements Serializable
                     
   }
   
-  //devolve todos os kms percorridos pelo cliente
+  /**
+  * Método que calcula o total de km percorridos pelo cliente
+  * @return total de km percorridos pelo cliente
+  **/
   public double totalKms()
   {
      Iterator<RentedCar> it = rentingHistory.iterator();

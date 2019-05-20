@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=RentedCar
-comment0.text=\r\n\ Representa\u00E7\u00E3o\ das\ carateristicas\ basicas\ de\ um\ aluguer\ \r\n
+comment0.text=\n\ Representa\u00E7\u00E3o\ das\ carateristicas\ basicas\ de\ um\ aluguer\ \n
 comment1.params=ownerEmail\ clientEmail\ car\ price\ destination\ start\ autonomy\ time\ date\ kms
 comment1.target=RentedCar(java.lang.String,\ java.lang.String,\ Vehicle,\ double,\ Point2D,\ Point2D,\ double,\ double,\ java.time.LocalDateTime,\ double)
 comment10.params=

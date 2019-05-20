@@ -22,7 +22,7 @@ public class UMCarroJa implements Serializable
    private Map<Integer, Owner> owners;              //NIF
    private Map<Integer, Vehicle> vehicles;          //NIF
    
-   //Construtor vazio que cria uma instância UMCarroJa
+   /** Construtor vazio que cria uma instância UMCarroJa **/
    public UMCarroJa()
    {
        this.clients = new HashMap<Integer,Client>();
@@ -30,7 +30,7 @@ public class UMCarroJa implements Serializable
        this.vehicles = new HashMap<Integer,Vehicle>();
    }
    
-   //Construtor que cria uma nova instância UMCarroJa a partir de um UMCarroJa passado como parâmetro
+   /** Construtor que cria uma nova instância UMCarroJa a partir de um UMCarroJa passado como parâmetro **/
    public UMCarroJa(UMCarroJa u)
    {
        this.clients = u.getClients();
@@ -38,7 +38,7 @@ public class UMCarroJa implements Serializable
        this.vehicles = u.getVehicles();
    }
    
-   //Método que devolve os veiculos inscritos na aplicação
+   /** Método que devolve os veiculos inscritos na aplicação **/
    public Map<Integer,Vehicle> getVehicles()
    {
        Map<Integer,Vehicle> vh = new HashMap<Integer,Vehicle>();
@@ -46,7 +46,7 @@ public class UMCarroJa implements Serializable
        return vh;
    }
    
-   //Método que define um hashMap a partir de um hashMap passado como parâmetro
+   /** Método que define um hashMap a partir de um hashMap passado como parâmetro **/
    public void setVehicles(Map<Integer,Vehicle> vh)
    {
        this.vehicles.clear();

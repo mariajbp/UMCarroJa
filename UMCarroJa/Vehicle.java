@@ -23,7 +23,7 @@ public abstract class Vehicle implements Serializable
   private Set<Ride> rentingHistory;
   private int rating; //dada pelos clientes no final do aluguer
  
-  
+  /** Construtor vazio que cria uma instância Vehicle  **/
   public Vehicle()
   {
      this.type = "ND";
@@ -41,7 +41,7 @@ public abstract class Vehicle implements Serializable
      this.rentingHistory = new TreeSet<Ride>();
      this.deposit = 100;
   }
-     
+  /** Construtor que cria um novo Vehicle a partir dos parâmetros dados **/
   public Vehicle(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y)
   {
     this.type = type;
@@ -60,7 +60,7 @@ public abstract class Vehicle implements Serializable
     this.rentingHistory = new TreeSet<Ride>();
     this.deposit = autonomy + 100;
   }
-    
+  /** Construtor de cópia que cria uma nova instância Vehicle a partir de um Vehicle passado como parâmetro **/  
   public Vehicle(Vehicle v)
   {
     this.type = v.getType();
@@ -141,12 +141,6 @@ public abstract class Vehicle implements Serializable
   
   
   
-  public double priceKM(double price, double comsuption)
-  {
-      return price*comsuption;
-  }
-  
-  
   
   
   /************************* CLONE *************************/
@@ -186,14 +180,10 @@ public abstract class Vehicle implements Serializable
   }
   
   
-  /**FAZER ISTO EM TODOS **/
-  public String toStringHistoryVehicle()
-  {
-      return "Histórico de Viagens : " + this.rentingHistory.toArray();
-  }
-  
-
-  //Vê se a autonomia está abaixo dos 10%
+  /**
+  * Método que calcula se a autonomia de um carro é superior a 10%
+  * @return true caso a autonomia seja superior, false caso a autonomia seja inferior
+  **/
   public boolean hasAutonomy()
   {
     if(this.autonomy == 0.1*this.deposit)
@@ -202,7 +192,10 @@ public abstract class Vehicle implements Serializable
         return true;
   }
   
-   //Método que compara se a autonomia serve
+  /**
+  * Método que calcula se a autonomia de um carro é suficiente para fazer uma viagem
+  * @return true caso a autonomia seja suficiente, false caso a autonomia insuficiente
+  **/
    public boolean hasAutonomy(double autonomy)
    {
        if(this.autonomy == autonomy)
@@ -211,14 +204,21 @@ public abstract class Vehicle implements Serializable
             return false;
    }
   
-   //Método auxiliar que calcula se um carro está perto
-   public boolean isNear(double walk, Point2D localv, Point2D localc)
-   {
+
+  /**
+  * Método que calcula se o carro está suficientemente perto para o cliente caminhar até ele
+  * @param Distancia que o cliente está disposto a andar
+  * @param Localização do veículo
+  * @param Localização do Cliente
+  * @return true caso o carro esteja suficientemente perto, false caso contrário
+  **/
+  public boolean isNear(double walk, Point2D localv, Point2D localc)
+  {
        double d = localv.distanceTo(localc);
        if(walk <= d)
             return true;
        else
             return false;
-   } 
+  } 
 }
 

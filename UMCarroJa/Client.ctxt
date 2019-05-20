@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Client
-comment0.text=\r\n\ Representa\u00E7\u00E3o\ da\ classe\ cliente,\ subclasse\ de\ USER\r\n
+comment0.text=\n\ Representa\u00E7\u00E3o\ da\ classe\ cliente,\ subclasse\ de\ USER\n
 comment1.params=
 comment1.target=Client()
 comment10.params=x

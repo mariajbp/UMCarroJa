@@ -8,18 +8,18 @@
     
     public class RentedCar implements Serializable
     {
-          private String ownerEmail;
-          private String clientEmail;
-          private Vehicle car;
-          private double price;             //Preço real da viagem
-          private Point2D start;
-          private Point2D destination;
-          private double autonomy;          //Autonomia usada pra viagem
-          private double time;              //Tempo que durou 
-          private LocalDateTime date;
-          private double kms;
+         private String ownerEmail;
+         private String clientEmail;
+         private Vehicle car;
+         private double price;             //Preço real da viagem
+         private Point2D start;
+         private Point2D destination;
+         private double autonomy;          //Autonomia usada pra viagem
+         private double time;              //Tempo que durou 
+         private LocalDateTime date;
+         private double kms;
          
-     
+     /** Construtor vazio que cria uma instância RentedCar  **/
      public RentedCar(String ownerEmail, String clientEmail, Vehicle car, double price, Point2D destination, Point2D start, 
                     double autonomy, double time, LocalDateTime date, double kms)
      {
@@ -34,7 +34,7 @@
          this.date = date;
          this.kms = kms;
      }
-
+     /** Construtor que cria um novo RentedCar a partir dos parâmetros dados **/
      public RentedCar(RentedCar r)
      {
          this.ownerEmail = r.getOwnerEmail();
