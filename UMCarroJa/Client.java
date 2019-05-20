@@ -12,26 +12,34 @@ public class Client extends USER implements Serializable
   private double y;
   Point2D location = new Point2D(x,y);
   private Set<RentedCar> rentingHistory;
-  private int rating;
+
   
-  public Client(String name,String password,String email,String address, double x, double y)
+  public Client()
   {
-      super(name,password,email,address);
+      super();
+      this.x = 0.0;
+      this.y = 0.0;
+      this.location = new Point2D();
+      this.rentingHistory = new TreeSet<RentedCar>();
+
+  }
+  
+  public Client(String name, String password, String email, String address, double x, double y, int nif)
+  {
+      super(name,password,email,address, nif);
       this.x = x;
       this.y = y;
       this.location = new Point2D();
       this.rentingHistory = new TreeSet<RentedCar>();
-      this.rating = rating;
   }
     
   public Client(Client c)
   {
-      super(c.getName(), c.getPassword(), c.getEmail(), c.getAddress());
+      super(c.getName(), c.getPassword(), c.getEmail(), c.getAddress(), c.getNif());
       this.x = c.getX();
       this.y = c.getY();
       this.location = c.getLocation();
-      this.rentingHistory = c.getRentingHistory();
-      this.rating = c.getRating();
+      this.rentingHistory = c.getRentingHistoryAll();
   }
   
     
@@ -40,11 +48,10 @@ public class Client extends USER implements Serializable
   public double getX(){return this.x;}
   public double getY(){return this.y;}
   public Point2D getLocation(){return this.location.clone();}
-  public int getRating(){return this.rating;}
   
-  public Set<RentedCar> getRentingHistory()
+  public Set<RentedCar> getRentingHistoryAll()
   {
-     Set<RentedCar> aux = new TreeSet<>();
+     Set<RentedCar> aux = new TreeSet<RentedCar>();
      for(RentedCar rc: this.rentingHistory){aux.add(rc.clone());}
      return aux;
   }
@@ -55,8 +62,7 @@ public class Client extends USER implements Serializable
   public void setX(double x){this.x = x;}
   public void setY(double y){this.y = y;}
   public void setLocation(Point2D p){this.location = p.clone();}
-  public void setRating(int r){this.rating = r;}
-    
+  
   public void setRentingHistory(Set<RentedCar> rc)
   {
       this.rentingHistory.clear();
@@ -75,7 +81,7 @@ public class Client extends USER implements Serializable
   /************************* CLONE *************************/
   public Client clone()
   {
-    Client c = new Client(this.getName(), this.getPassword(), this.getEmail(), this.getAddress(), this.getX(), this.getY());
+    Client c = new Client(this);
     return c;
   }
     
@@ -83,9 +89,12 @@ public class Client extends USER implements Serializable
   public boolean equals(Object o)
   {
       if(this == o) return true;
-      if(o != null && this.getClass() != o.getClass()) return false;
+      if(o == null && this.getClass() != o.getClass()) return false;
       Client c = (Client) o;     
-      return super.equals(c);
+      return super.equals(c) &&
+             this.walk == c.getWalk() &&
+             this.location.equals(c.getLocation()) &&
+             this.rentingHistory.equals(c.getRentingHistoryAll());
   }
     
   /************************* TOSTRING *************************/

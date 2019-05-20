@@ -3,9 +3,7 @@ import java.io.Serializable;
 * Representação da classe Electric, subclasse de Vehicle
 **/
 public class Electric extends Vehicle implements Serializable 
-{
-  private static String fuel = "Electricity";
-  
+{ 
   public Electric()
   {
       super();
@@ -23,7 +21,7 @@ public class Electric extends Vehicle implements Serializable
   
   public Electric clone()
   {
-    Electric e = new Electric(this.getType(), this.getBrand(), this.getPlate(), this.getNif(), this.getSpeed(),  this.getPrice(),this.getComsuption(), this.getAutonomy(), this.getX(), this.getY());
+    Electric e = new Electric(this);
     return e;
   }
 }

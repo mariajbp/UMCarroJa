@@ -18,6 +18,7 @@ public abstract class Vehicle implements Serializable
   private double y;
   Point2D location = new Point2D(x,y);
   private boolean available;
+  private double deposit;                  //Total que pode abastecer (autonomia inicial)
   
   private Set<Ride> rentingHistory;
   private int rating; //dada pelos clientes no final do aluguer
@@ -37,6 +38,8 @@ public abstract class Vehicle implements Serializable
      this.y= 0.0;
      this.rating = 0;
      this.available = true;
+     this.rentingHistory = new TreeSet<Ride>();
+     this.deposit = 0;
   }
      
   public Vehicle(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y)
@@ -52,8 +55,10 @@ public abstract class Vehicle implements Serializable
     this.x = x;
     this.y = y;
     this.location = new Point2D();
-    this.rating = rating;
-    this.available = available;
+    this.rating = 0;
+    this.available = true;
+    this.rentingHistory = new TreeSet<Ride>();
+    this.deposit = autonomy;
   }
     
   public Vehicle(Vehicle v)
@@ -71,6 +76,9 @@ public abstract class Vehicle implements Serializable
     this.location = v.getLocation();
     this.plate = v.getPlate();
     this.available = v.getAvailability();
+    this.rating = v.getRating();
+    this.rentingHistory = v.getRentingHistoryAll();
+    this.deposit = v.getDeposit();
   }
     
     /************************* GETTERS *************************/
@@ -87,8 +95,9 @@ public abstract class Vehicle implements Serializable
   public String getPlate(){return  this.plate;}
   public boolean getAvailability(){return this.available;} 
   public Point2D getLocation(){return this.location.clone();}
+  public double getDeposit(){return this.deposit;}
    
-  public Set<Ride> getRentingHistory()
+  public Set<Ride> getRentingHistoryAll()
   {
      Set<Ride> aux = new TreeSet<>();
      for(Ride rc: this.rentingHistory){aux.add(rc.clone());}
@@ -99,15 +108,21 @@ public abstract class Vehicle implements Serializable
   public void setType(String newType){this.type = newType;}
   public void setBrand(String newBrand){this.type = newBrand;} 
   public void setSpeed(double newS){this.speed = newS;}
+  public void setNif(int n){this.nif = n;}
   public void setPrice(double newP){this.price = newP;}
   public void setAutonomy(double newA){this.autonomy = newA;}
   public void setComsuption(double newC){this.comsuption = newC;}
-  public void setRating(int newR){this.rating = newR;}
   public void setPlate(String newPlate){this.plate = newPlate;}
   public void setX(double newX){this.x = newX;} 
   public void setY(double newY){this.y = newY;} 
   public void setAvailability(boolean newAV){this.available = newAV;}
   public void setLocation(Point2D p){this.location = p.clone();}
+  public void setDeposit(int d){this.deposit = d;}
+  public void setRating(int newR)
+  {
+      int nr = (this.rating + newR)/(this.rentingHistory.size());
+      this.rating = nr;
+  }
   
   public void setRentingHistory(Set<Ride> rc)
   {
@@ -141,42 +156,51 @@ public abstract class Vehicle implements Serializable
   public boolean equals(Object o)
   {
       if(this == o) return true;
-      if(o != null && this.getClass() != o.getClass()) return false;
+      if(o == null && this.getClass() != o.getClass()) return false;
       Vehicle v = (Vehicle) o;     
-       return this.speed == v.getSpeed() &&
+       return this.type == v.getType() &&
+              this.brand == v.getBrand() &&
+              this.plate == v.getPlate() &&
+              this.nif == v.getNif() &&
+              this.speed == v.getSpeed() &&
               this.price == v.getPrice() &&
               this.comsuption == v.getComsuption() &&
-              this.rating == v.getRating();             
+              this.autonomy == v.getAutonomy() &&
+              this.location.equals(v.getLocation()) && 
+              this.available == v.getAvailability() &&
+              this.rating == v.getRating() &&
+              this.deposit == v.getDeposit();             
   }
     
   /************************* TOSTRING *************************/
   public String toString()
   {
-      return "Velocidade média por km: " + speed +
+      return "Tipo: " + this.type +
+             "Marca: " + this.brand +
+             "Matrícula: " + this.plate +
+             "NIF : " + this.nif +
+             "Velocidade média por km: " + speed +
              "Preço base por km: " + price +
              "Consumo de gasolina/bateria por km: " + comsuption +
-             "Classificação: " + rating;
-             
+             "Classificação: " + rating;           
   }
   
   
   /**FAZER ISTO EM TODOS **/
-  public void printHistoryCAR()
+  public String toStringHistoryVehicle()
   {
-    
+      return "Histórico de Viagens : " + this.rentingHistory.toArray();
   }
   
-  /**
-  //SE AUTONOMIA < 10% ENTÃO AVISA O PROPRIETARIO -> ALTERA AVAILABILITY FICA NÃO DISPONIVEL
+
+  //Vê se a autonomia está abaixo dos 10%
   public boolean hasAutonomy()
   {
-    if(this.autonomy
-    
+    if(this.autonomy == 0.1*this.deposit)
+        return false;
+    else
+        return true;
   }
-  **/
-  
-  //Altera a classificação a partir de uma nova classificação atribuida
-  /** ler todas as classificações do seu map de rents e faz a media **/
   
    //Método que compara se a autonomia serve
    public boolean hasAutonomy(double autonomy)

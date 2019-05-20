@@ -7,45 +7,57 @@ import java.util.ArrayList;
 **/
 public class Owner extends USER implements Serializable
 {
-  double rating;
+  int rating;
   private Set<RentedCar> rentingHistory;
   private Map<String,Vehicle> vh;
   
-  public Owner(String name, String password, String email, String address)
+  public Owner()
   {
-     super(name,password,email,address);
-     this.rating = rating;
+      super();
+      this.rating = 0;
+      this.rentingHistory = new TreeSet<RentedCar>();
+      this.vh = new HashMap<String, Vehicle>();
+  }
+  
+  public Owner(String name, String password, String email, String address, int nif)
+  {
+     super(name,password,email,address,nif);
+     this.rating = 0;
      this.rentingHistory = new TreeSet<RentedCar>();
-     this.vh = new HashMap<>();
+     this.vh = new HashMap<String, Vehicle>();
   }
   
   public Owner(Owner o)
   {
-      super(o.getName(),o.getPassword(),o.getEmail(), o.getAddress());
+      super(o.getName(),o.getPassword(),o.getEmail(), o.getAddress(), o.getNif());
       this.rating = o.getRating();
-      this.rentingHistory = o.getRentingHistory();
+      this.rentingHistory = o.getRentingHistoryAll();
       this.vh = o.getVehicles();
   }
     
   /************************* GETTERS *************************/
-  public double getRating(){return this.rating;}
+  public int getRating(){return this.rating;}
   
-  public Set<RentedCar> getRentingHistory()
+  public Set<RentedCar> getRentingHistoryAll()
   {
-    Set<RentedCar> aux = new TreeSet<>();
+    Set<RentedCar> aux = new TreeSet<RentedCar>();
     for(RentedCar rc: this.rentingHistory){aux.add(rc.clone());}
     return aux;
   }
   
   public Map<String,Vehicle> getVehicles()
   {
-       Map<String,Vehicle> aux = new HashMap<>();
+       Map<String,Vehicle> aux = new HashMap<String, Vehicle>();
        for(Map.Entry<String,Vehicle> v: this.vh.entrySet()){ aux.put(v.getKey(), v.getValue().clone());}
        return aux;
   }
   
   /************************* SETTERS *************************/
-  public void setRating(double r){this.rating = r;}
+  public void setRating(int newR)
+  {
+      int nr = (this.rating + newR)/(this.rentingHistory.size());
+      this.rating = nr;
+  }
   
   public void setRentingHistory(Set<RentedCar> rc)
   {
@@ -76,7 +88,7 @@ public class Owner extends USER implements Serializable
   /************************* CLONE *************************/
   public Owner clone()
   {
-    Owner o = new Owner(this.getName(), this.getPassword(), this.getEmail(), this.getAddress());
+    Owner o = new Owner(this);
     return o;
   }
    
@@ -84,16 +96,18 @@ public class Owner extends USER implements Serializable
   public boolean equals(Object o)
   {
       if(this == o) return true;
-      if(o != null && this.getClass() != o.getClass()) return false;
+      if(o == null && this.getClass() != o.getClass()) return false;
       Owner ow = (Owner) o;     
-       return super.equals(ow) &&
-              this.rating == ow.getRating() && this.vh.equals(ow.getVehicles());      
+      return super.equals(ow) &&
+             this.rating == ow.getRating() && 
+             this.vh.equals(ow.getVehicles()) &&
+             this.rentingHistory.equals(ow.getRentingHistoryAll());      
   } 
     
   /************************* TOSTRING *************************/
   public String toString()
   {
-      return "Classificação: " + rating;       
+      return "Classificação: " + rating ;       
   }  
   
   //Altera a disponibilidade do veículo 
@@ -104,15 +118,32 @@ public class Owner extends USER implements Serializable
   
 
   //Abastece o veiculo 
+  public void refuel(String plate)
+  {
+      Vehicle v = this.vh.get(plate);
+      v.setAutonomy(v.getDeposit());
+  }
   
   //aceitar ou rejeitar um aluguer 
+  public void acceptORreject(Client c, Vehicle v)
+  {
+    
+  }
   
+  /*
   //registar o custo de uma viagem
-  
+  public void priceReg(String plate, double price)
+  {
+      
+  }
+  */
+ 
   //classificação de acordo com cada um dos seus veiculos
-  
-  //Altera a classificação a partir de uma nova classificação atribuida
-  /** ler todas as classificações do seu set de rents e faz a media **/
+  public void ownerRating()
+  {
+     int r = this.vh.values().stream().mapToInt(Vehicle::getRating).sum();
+     this.rating = r/(this.vh.size());
+  }
 
 }
 

@@ -97,6 +97,7 @@ public class App  implements Serializable
        Scanner input = new Scanner(System.in);
        String name, password, email, confirmPassword, address;
        double x, y;
+       int nif;
        
        try
        {
@@ -104,6 +105,8 @@ public class App  implements Serializable
            name = input.nextLine();
            out.println("Email: ");
            email = input.nextLine();
+           out.println("NIF: ");
+           nif = input.nextInt();
            do
            {
                out.println("Password: ");
@@ -121,7 +124,7 @@ public class App  implements Serializable
            out.println("Coordenada y onde se encontra: ");
            y = input.nextDouble();
 
-           Client c = (Client) umcj.registerNewClient(name, email, password, address, x, y); 
+           Client c = (Client) umcj.registerNewClient(name, email, password, address, x, y, nif); 
            clientArea(c);
        }catch (RegistrationException e){out.println(e.getMessage());
        }
@@ -184,6 +187,7 @@ public class App  implements Serializable
        
        double kms = Math.round(i.distanceTo(f));
        //CALCULAR AUTONOMIA se não tiver não pode alugar
+       double autonomy = 0.0;
        
        //PEDIR AO OWNER PARA ALUGAR
        
@@ -206,7 +210,7 @@ public class App  implements Serializable
        
        try
        {
-           umcj.endRide(c, yr, m, d, h, min, x, y, w, z, v, kms, realTime, realPrice, estimatedPrice, rating);
+           umcj.endRide(c, yr, m, d, h, min, x, y, w, z, v, kms, realTime, realPrice, estimatedPrice, autonomy, rating);
            out.println("Viagem finalizada, Obrigado por utilizar o nosso serviço.");
        }
        catch (DateException e){out.println(e.getMessage());}
@@ -337,13 +341,15 @@ public class App  implements Serializable
        Scanner input = new Scanner(System.in);
        String name, password, email, confirmPassword, address;
        double x, y;
-       
+       int nif;
        try
        {
            out.println("Nome: ");
            name = input.nextLine();
            out.println("Email: ");
            email = input.nextLine();
+           out.println("NIF: ");
+           nif = input.nextInt();
            do
            {
                out.println("Password: ");
@@ -361,7 +367,7 @@ public class App  implements Serializable
            out.println("Coordenada y onde se encontra: ");
            y = input.nextDouble();
 
-           Owner o = (Owner) umcj.registerNewOwner(name, email, password, address); 
+           Owner o = (Owner) umcj.registerNewOwner(name, email, password, address, nif); 
            ownerArea(o);
        }catch (RegistrationException | UserExistsException e){out.println(e.getMessage());}
        
@@ -445,7 +451,7 @@ public class App  implements Serializable
            
            
            Vehicle v = umcj.vType(type, brand,plate,nif,speed,price,comsuption,autonomy,x,y);
-           {umcj.addVehicleToOwner(email,v);}
+           {umcj.addVehicleToOwner(nif,v);}
        }
        catch ( VehicleExistsException | InvalidVehicleException | UserDoesntExistException e){out.println(e.getMessage()); }
        

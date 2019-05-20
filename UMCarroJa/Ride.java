@@ -6,51 +6,50 @@ import java.io.Serializable;
 
 public class Ride implements Comparable<Ride>, Serializable
 {
+    private String clemail;
     private LocalDateTime date;
     private Point2D start; 
     private Point2D destination;
-    private Vehicle v;
     private double kms;
-    private double time; //tempo a viagem demorou 
+    private double time;             //tempo que a viagem demorou 
     private double realPrice;
-    private double estimatedPrice;
     
     public Ride()
     {
+        this.clemail = "ND";
         this.date = LocalDateTime.of(1,1,1,0,0);
         this.start = new Point2D();
         this.destination = new Point2D();
-        //this.v = new Vehicle(); ?
         this.kms = 0.0;
         this.time = 0.0;
         this.realPrice = 0.0;
-        this.estimatedPrice = 0.0;
     }
     
-    public Ride(LocalDate dt, LocalTime t, Point2D p, Point2D d, Vehicle v, double k, double time, double rp, double ep)
+    public Ride(String cle, LocalDateTime t, Point2D p, Point2D d, double k, double time, double rp)
     {
-        this.date = LocalDateTime.of(dt,t);
+        this.clemail = cle;
+        this.date = t;
         this.start = new Point2D(p);
         this.destination = new Point2D(d);
-        this.v = v.clone();
         this.kms = k;
         this.time = time;
         this.realPrice = rp;
-        this.estimatedPrice = ep;
     }
     
     public Ride(Ride r)
     {
+        this.clemail = r.getClEmail();
         this.date = r.getDate();
         this.start = r.getStart();
         this.destination = r.getDestination();
-        this.v = r.getVehicle();
         this.kms = r.getKms();
         this.time = r.getTime();
         this.realPrice = r.getRealPrice();
-        this.estimatedPrice = r.getEstimatedPrice();
     }
 
+    public String getClEmail(){return this.clemail;}
+    public void setClEmail(String cle){this.clemail = cle;}
+    
     public LocalDateTime getDate(){return this.date;}    
     public void setData(LocalDateTime d){this.date = d;}
     
@@ -59,9 +58,6 @@ public class Ride implements Comparable<Ride>, Serializable
     
     public Point2D getDestination(){return this.destination.clone();}
     public void setDestination(Point2D d){this.destination = d.clone();}
-   
-    public Vehicle getVehicle(){return this.v.clone();}
-    public void setVehicle(Vehicle v){this.v = v.clone();}
     
     public double getKms(){return this.kms;}
     public void setKms(double k){this.kms = k;}
@@ -72,21 +68,17 @@ public class Ride implements Comparable<Ride>, Serializable
     public double getRealPrice(){return this.realPrice;}
     public void setRealPrice(double p){this.realPrice = p;}
     
-    public double getEstimatedPrice(){return this.estimatedPrice;}
-    public void setEstimatedPrice(double p){ this.estimatedPrice = p;}
-    
     public String toString()
     {
         StringBuilder sb = new StringBuilder();
         
         sb.append("Data e Hora: ").append(this.date.toString()+"\n");
+        sb.append("Cliente: ").append(this.clemail.toString()+"\n");
         sb.append("Partida: ").append(this.start.toString()+"\n");
         sb.append("Destino: ").append(this.destination.toString()+"\n");
-        sb.append("Veiculo:\n").append(this.v.toString());
         sb.append("Kms a viajar: ").append(this.kms+"\n");
         sb.append("Tempo da viagem: ").append(this.time+"\n");
         sb.append("Preco real da Viagem: ").append(this.realPrice+"\n");
-        sb.append("Preco estimado da Viagem: ").append(this.estimatedPrice+"\n");
         
         return sb.toString();
     }
@@ -99,14 +91,13 @@ public class Ride implements Comparable<Ride>, Serializable
         if((o==null) || (this.getClass() != o.getClass())) return false;
         
         Ride r = (Ride) o;
-        return (this.date.equals(r.getDate()) && 
+        return (this.clemail == r.getClEmail() &&
+                this.date.equals(r.getDate()) && 
                 this.start.equals(r.getStart()) && 
                 this.destination.equals(r.getDestination()) && 
-                this.v.equals(r.getVehicle()) && 
                 this.kms == r.getKms() && 
                 this.time == r.getTime() && 
-                this.realPrice == r.getRealPrice() && 
-                this.estimatedPrice == r.getEstimatedPrice());
+                this.realPrice == r.getRealPrice());
     }
     
     public int compareTo(Ride r)

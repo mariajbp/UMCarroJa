@@ -15,7 +15,7 @@ public class ClientOrderX implements Comparator<Client>
     public int orderX(Client c)
     {
         int total = 0;
-        for(RentedCar rc : c.getRentingHistory())
+        for(RentedCar rc : c.getRentingHistoryAll())
         {
             total++;
         }

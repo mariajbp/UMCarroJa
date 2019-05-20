@@ -11,19 +11,17 @@
           private String ownerEmail;
           private String clientEmail;
           private Vehicle car;
-          private double price;
+          private double price;             //Preço real da viagem
           private Point2D start;
           private Point2D destination;
-          private double distance;
-          private double autonomy; 
-          private double walktime;
-          private double expectedtime;
+          private double autonomy;          //Autonomia usada pra viagem
+          private double time;              //Tempo que durou 
           private LocalDateTime date;
           private double kms;
          
      
-     public RentedCar(String ownerEmail, String clientEmail, Vehicle car, double price, Point2D destination, Point2D start, double distance, 
-                    double autonomy, double walktime, double expectedtime, double kms)
+     public RentedCar(String ownerEmail, String clientEmail, Vehicle car, double price, Point2D destination, Point2D start, 
+                    double autonomy, double time, LocalDateTime date, double kms)
      {
          this.ownerEmail = ownerEmail;
          this.clientEmail = clientEmail;
@@ -31,11 +29,9 @@
          this.price = price;
          this.start = start;
          this.destination = destination;
-         this.distance = distance;
          this.autonomy = autonomy;
-         this.walktime = walktime;
-         this.expectedtime = expectedtime;
-         this.date = LocalDateTime.now();
+         this.time = time;
+         this.date = date;
          this.kms = kms;
      }
 
@@ -47,10 +43,8 @@
          this.price = r.getPrice();
          this.start = r.getStart();
          this.destination = r.getDestination();
-         this.distance = r.getDistance();
          this.autonomy = r.getAutonomy();
-         this.walktime = r.getWalkTime();
-         this.expectedtime = r.getExpectedTime();
+         this.time = r.getExpectedTime();
          this.date = r.getDate();
          this.kms = r.getKms();
      }
@@ -62,10 +56,8 @@
      public double getPrice(){return this.price;}
      public Point2D getStart() {return this.start;}
      public Point2D getDestination() {return this.destination;}
-     public double getDistance() {return this.distance;}
      public double getAutonomy() {return this.autonomy;}
-     public double getWalkTime() {return this.walktime;}
-     public double getExpectedTime() {return this.expectedtime;}
+     public double getExpectedTime() {return this.time;}
      public LocalDateTime getDate() {return this.date;}
      public double getKms() {return this.kms;}
      
@@ -77,10 +69,8 @@
      public void setPrice(double price) {this.price = price;}
      public void setStart(Point2D start) {this.start = start;}
      public void setDestination(Point2D destination) {this.destination = destination;}
-     public void setDistance(double distance) {this.distance = distance;}
      public void setAutonomy(double autonomy) {this.autonomy = autonomy;}
-     public void setWalkTime(double walktime) {this.walktime = walktime;}
-     public void setExpectedTime(double expectedtime) {this.expectedtime = expectedtime;}
+     public void setExpectedTime(double time) {this.time = time;}
      public void setDate(LocalDateTime date){this.date = date;}
      public void setKms(double kms){this.kms = kms;}
      
@@ -96,10 +86,8 @@
                this.price == r.getPrice() &&
                this.start == r.getStart() &&
                this.destination == r.getDestination() &&
-               this.distance == r.getDistance() &&
                this.autonomy == r.getAutonomy() &&
-               this.walktime == r.getWalkTime() &&
-               this.expectedtime == r.getExpectedTime() &&
+               this.time == r.getExpectedTime() &&
                this.date  == r.getDate() &&
                this.kms == r.getKms();
                
@@ -122,10 +110,9 @@
                 "Preço: " + this.price + 
                 "Ponto inicial: " + this.start + 
                 "Destino: " + this.destination +
-                "Distância: " + this.distance +
+                "Distância: " + this.kms +
                 "Autonomia: " + this.autonomy + 
-                "Tempo de deslocação a pé: " + this.walktime +
-                "Tempo previsto: " + this.expectedtime +
+                "Tempo previsto: " + this.time +
                 "Data: " + this.date ;
      }
   

@@ -4,7 +4,6 @@ import java.io.Serializable;
 **/
 public class Hybrid extends Vehicle implements Serializable 
 {
-   private static String fuel = "plugin";
    
    public Hybrid()
    {
@@ -23,7 +22,7 @@ public class Hybrid extends Vehicle implements Serializable
    
    public  Hybrid clone()
    {
-      Hybrid h = new Hybrid(this.getType(), this.getBrand(), this.getPlate(), this.getNif(), this.getSpeed(),  this.getPrice(),this.getComsuption(), this.getAutonomy(), this.getX(), this.getY());
+      Hybrid h = new Hybrid(this);
       return h;
    }
 }

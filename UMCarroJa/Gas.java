@@ -21,7 +21,7 @@ public class Gas extends Vehicle implements Serializable
   
    public Gas clone()
    {
-       Gas g = new Gas(this.getType(), this.getBrand(), this.getPlate(), this.getNif(), this.getSpeed(),  this.getPrice(),this.getComsuption(), this.getAutonomy(), this.getX(), this.getY());
+       Gas g = new Gas(this);
        return g;
    }
   
