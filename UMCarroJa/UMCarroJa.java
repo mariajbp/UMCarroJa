@@ -172,6 +172,15 @@ public class UMCarroJa implements Serializable
       
     
    /*** Proprietários ***/
+   //Método que devolve um owner
+   public Owner getOwnerByNif(int nif) throws UserDoesntExistException
+   {
+       if(!this.owners.containsKey(nif))
+              throw new  UserDoesntExistException("O nif inserido não existe na nossa base de dados, por favor retifique a informação");
+       else
+            return this.owners.get(nif);
+   }
+    
    //Método que regista um novo proprietário na aplicação
    public Owner registerNewOwner(String name, String pass, String email, String  address, int nif) throws RegistrationException, UserExistsException
    {

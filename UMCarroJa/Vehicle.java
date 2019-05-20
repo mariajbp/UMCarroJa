@@ -39,7 +39,7 @@ public abstract class Vehicle implements Serializable
      this.rating = 0;
      this.available = true;
      this.rentingHistory = new TreeSet<Ride>();
-     this.deposit = 0;
+     this.deposit = 100;
   }
      
   public Vehicle(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y)
@@ -58,7 +58,7 @@ public abstract class Vehicle implements Serializable
     this.rating = 0;
     this.available = true;
     this.rentingHistory = new TreeSet<Ride>();
-    this.deposit = autonomy;
+    this.deposit = autonomy + 100;
   }
     
   public Vehicle(Vehicle v)

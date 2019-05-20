@@ -125,9 +125,9 @@ public class Owner extends USER implements Serializable
   }
   
   //aceitar ou rejeitar um aluguer 
-  public void acceptORreject(Client c, Vehicle v)
+  public boolean acceptORreject(Client c, Vehicle v)
   {
-    
+     return true;
   }
   
   /*

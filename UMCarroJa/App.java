@@ -158,7 +158,7 @@ public class App  implements Serializable
    }
    
    //Método que efetua uma viagem/aluguer requisitada pelo cliente 
-   public void ride(Client c, Vehicle v)
+   public void rent(Client c, Vehicle v)
    {
        Scanner input = new Scanner(System.in);
        double x, y, w, z, estimatedTime, realTime, realPrice, estimatedPrice;
@@ -186,36 +186,51 @@ public class App  implements Serializable
        Point2D f = new Point2D(w,z);
        
        double kms = Math.round(i.distanceTo(f));
-       //CALCULAR AUTONOMIA se não tiver não pode alugar
-       double autonomy = 0.0;
        
-       //PEDIR AO OWNER PARA ALUGAR
+       double autonomy = v.getAutonomy();
        
-       estimatedPrice = umcj.estimatedPrice(x,y,w,z,v);
-       out.println("O custo estimado da viagem é "+ estimatedPrice +" euros.");
-       
-       estimatedTime = umcj.estimatedTime(x,y,w,z,v);
-       out.println("O tempo estimado de chegada ao destino pretendido é "+ estimatedTime +" minutos.");
-        
-       
-       /**umcj.FAZER A VIAGEM;
-       out.println("O seu pedido foi efetuado, esperamos que tenha uma viagem agradável.");
-       **/
-       realTime = umcj.realTime(estimatedTime, v);
-       
-       realPrice = umcj.realPrice(estimatedTime, realTime, estimatedTime);
-      
-       out.println("Classifique o aluguer numa escala de 0 a 100.");
-       rating = input.nextInt();
-       
-       try
-       {
-           umcj.endRide(c, yr, m, d, h, min, x, y, w, z, v, kms, realTime, realPrice, estimatedPrice, autonomy, rating);
-           out.println("Viagem finalizada, Obrigado por utilizar o nosso serviço.");
+       if(autonomy < kms)
+            out.println("O carro que escolheu não possui autonomia suficiente para concluir a viagem");
+       else{
+           
+           estimatedPrice = umcj.estimatedPrice(x,y,w,z,v);
+           out.println("O custo estimado da viagem é "+ estimatedPrice +" euros.");
+           
+           estimatedTime = umcj.estimatedTime(x,y,w,z,v);
+           out.println("O tempo estimado de chegada ao destino pretendido é "+ estimatedTime +" minutos.");
+           
+           int nif = v.getNif();
+           Owner o = new Owner();
+           try
+           {
+               o = umcj.getOwnerByNif(nif);
+           }
+           catch (UserDoesntExistException e){out.println(e.getMessage());}
+           
+           //PEDIR AO OWNER PARA ALUGAR
+           if(o.acceptORreject(c, v) == true)
+           {
+               
+               out.println("O seu pedido foi efetuado, esperamos que tenha uma viagem agradável.");
+               realTime = umcj.realTime(estimatedTime, v);
+               
+               realPrice = umcj.realPrice(estimatedTime, realTime, estimatedTime);
+              
+               out.println("Classifique o aluguer numa escala de 0 a 100.");
+               rating = input.nextInt();
+               
+               try
+               {
+                   umcj.endRide(c, yr, m, d, h, min, x, y, w, z, v, kms, realTime, realPrice, estimatedPrice, autonomy, rating);
+                   out.println("Viagem finalizada, Obrigado por utilizar o nosso serviço.");
+               }
+               catch (DateException e){out.println(e.getMessage());}
+               
+               input.close();
+           }
+           else
+                out.println("O Proprietário não autorizou o seu pedido.");
        }
-       catch (DateException e){out.println(e.getMessage());}
-       
-       input.close();
    }
    
    //Método que disponibiliza a um utilizador o seu histórico de viagens no período de tempo considerado
