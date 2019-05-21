@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Vehicle
-comment0.text=\r\n\ Representa\u00E7\u00E3o\ abstrata\ da\ superclasse\ Vehicle(cont\u00E9m\ os\ dados\ comuns\ a\ todas\ as\ viaturas\ do\ sistema)\r\n
+comment0.text=\n\ Representa\u00E7\u00E3o\ abstrata\ da\ superclasse\ Vehicle(cont\u00E9m\ os\ dados\ comuns\ a\ todas\ as\ viaturas\ do\ sistema)\n
 comment1.params=
 comment1.target=Vehicle()
 comment1.text=Construtor\ vazio\ que\ cria\ uma\ inst\u00E2ncia\ Vehicle\ \ *
@@ -79,13 +79,13 @@ comment4.target=java.lang.String\ getType()
 comment4.text=GETTERS\ ************************
 comment40.params=
 comment40.target=boolean\ hasAutonomy()
-comment40.text=\r\n\ M\u00E9todo\ que\ calcula\ se\ a\ autonomia\ de\ um\ carro\ \u00E9\ superior\ a\ 10%\r\n\ @return\ true\ caso\ a\ autonomia\ seja\ superior,\ false\ caso\ a\ autonomia\ seja\ inferior\r\n
+comment40.text=\n\ M\u00E9todo\ que\ calcula\ se\ a\ autonomia\ de\ um\ carro\ \u00E9\ superior\ a\ 10%\n\ @return\ true\ caso\ a\ autonomia\ seja\ superior,\ false\ caso\ a\ autonomia\ seja\ inferior\n
 comment41.params=autonomy
 comment41.target=boolean\ hasAutonomy(double)
-comment41.text=\r\n\ M\u00E9todo\ que\ calcula\ se\ a\ autonomia\ de\ um\ carro\ \u00E9\ suficiente\ para\ fazer\ uma\ viagem\r\n\ @return\ true\ caso\ a\ autonomia\ seja\ suficiente,\ false\ caso\ a\ autonomia\ insuficiente\r\n
+comment41.text=\n\ M\u00E9todo\ que\ calcula\ se\ a\ autonomia\ de\ um\ carro\ \u00E9\ suficiente\ para\ fazer\ uma\ viagem\n\ @return\ true\ caso\ a\ autonomia\ seja\ suficiente,\ false\ caso\ a\ autonomia\ insuficiente\n
 comment42.params=walk\ localv\ localc
 comment42.target=boolean\ isNear(double,\ Point2D,\ Point2D)
-comment42.text=\r\n\ M\u00E9todo\ que\ calcula\ se\ o\ carro\ est\u00E1\ suficientemente\ perto\ para\ o\ cliente\ caminhar\ at\u00E9\ ele\r\n\ @param\ Distancia\ que\ o\ cliente\ est\u00E1\ disposto\ a\ andar\r\n\ @param\ Localiza\u00E7\u00E3o\ do\ ve\u00EDculo\r\n\ @param\ Localiza\u00E7\u00E3o\ do\ Cliente\r\n\ @return\ true\ caso\ o\ carro\ esteja\ suficientemente\ perto,\ false\ caso\ contr\u00E1rio\r\n
+comment42.text=\n\ M\u00E9todo\ que\ calcula\ se\ o\ carro\ est\u00E1\ suficientemente\ perto\ para\ o\ cliente\ caminhar\ at\u00E9\ ele\n\ @param\ Distancia\ que\ o\ cliente\ est\u00E1\ disposto\ a\ andar\n\ @param\ Localiza\u00E7\u00E3o\ do\ ve\u00EDculo\n\ @param\ Localiza\u00E7\u00E3o\ do\ Cliente\n\ @return\ true\ caso\ o\ carro\ esteja\ suficientemente\ perto,\ false\ caso\ contr\u00E1rio\n
 comment5.params=
 comment5.target=java.lang.String\ getBrand()
 comment6.params=

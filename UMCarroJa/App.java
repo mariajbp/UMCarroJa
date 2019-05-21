@@ -18,7 +18,7 @@ public class App  implements Serializable
    private static Menu menu;
    private UMCarroJa umcj; //var que contém todos os dados e métodos da app
    
-   //Construtor vazio que cria uma instância App e insere as opções do menu principal
+   /** Construtor vazio que cria uma instância App e insere as opções do menu principal **/
    public App()
    {
        try
@@ -34,7 +34,7 @@ public class App  implements Serializable
        menu = new Menu(s);
    }
    
-   //Método que inicia a aplicação no menu principal
+   /** Método que inicia a aplicação no menu principal **/
    public void run()
    {
        int op = 0;
@@ -64,7 +64,7 @@ public class App  implements Serializable
    }
    
    
-   //Método que realiza o login de um utilizador na aplicação, requisitando a inserção do seu email e password
+   /** Método que realiza o login de um utilizador na aplicação, requisitando a inserção do seu email e password **/ 
    public void login()
    {
        Scanner input = new Scanner(System.in);
@@ -136,7 +136,7 @@ public class App  implements Serializable
    public void clientArea(Client c)
    {
        String s[] = {"Alugar um veículo", "Histórico de Alugueres","Top 10 Clientes -> km ",
-                     "Top 10 Clientes -> Uso"};
+                     "Top 10 Clientes -> Uso", "Eliminar Perfil"};
        Menu m = new Menu(s);
        int op = 0;
        do
@@ -151,10 +151,43 @@ public class App  implements Serializable
                case 3: top10clientskm();
                        break;
                case 4: top10clientsx();
-                       break;  
+                       break;
+               case 5: deleteClientProfile(c);
            }
        }
        while(op != 0);
+   }
+   
+   /**
+   * Método que elimina o perfil de um determinado utilizador da aplicação 
+   * @param    Cliente com sessão iniciada
+   * @return   Retorna 1 para permitir voltar ao menu principal, caso o perfil não tenha sido possível eliminar o perfil do utilizador retorna 0
+   **/
+   public int deleteClientProfile(Client c)
+   {
+       Scanner input = new Scanner(System.in);
+       String aux, nif;
+       out.println("Tem a certeza que deseja eliminar o seu perfil permanentemente?[sim/nao] ");
+       aux = input.nextLine();
+       if(aux.equals("sim"))
+       {
+           out.println("Nif: ");
+           nif = input.nextLine();
+           if(nif.equals(c.getNif()))
+           {
+               out.println("Perfil eliminado.");
+               input.close();
+               return 1;
+           }
+           else
+           {
+               out.println("Nif incorreto.");
+               input.close();
+               return 0;
+           }
+       }
+       input.close();
+       return 0;
    }
    
    //Método que efetua uma viagem/aluguer requisitada pelo cliente 
@@ -376,7 +409,7 @@ public class App  implements Serializable
            out.println("Morada: ");
            address = input.nextLine();
            
-           Owner o = (Owner) umcj.registerNewOwner(name, email, address, nif); 
+           Owner o = (Owner) umcj.registerNewOwner(name, nif, email, address); 
            ownerArea(o);
        }catch (RegistrationException | UserExistsException e){out.println(e.getMessage());}
        
@@ -387,7 +420,7 @@ public class App  implements Serializable
    public void ownerArea(Owner o)
    {
        String s[] = {"Adicionar um veículo novo", "Lista dos meus veículos","Top 10 Clientes -> km ",
-                     "Top 10 Clientes -> Uso"};
+                     "Top 10 Clientes -> Uso", "Eliminar Perfil"};
        Menu m = new Menu(s);
        int op = 0;
        do
@@ -416,13 +449,45 @@ public class App  implements Serializable
                        break;
                case 9: acceptORReject();
                        break;
+               case 10: deleteOwnerProfile();
+                        break;
                        */
            }
        }
        while(op != 0);
    }
    
-
+   /**
+   * Método que elimina o perfil de um determinado utilizador da aplicação 
+   * @param    Proprietário com sessão iniciada
+   * @return   Retorna 1 para permitir voltar ao menu principal, caso o perfil não tenha sido possível eliminar o perfil do utilizador retorna 0
+   **/
+   public int deleteOwnerProfile(Owner o)
+   {
+       Scanner input = new Scanner(System.in);
+       String aux, nif;
+       out.println("Tem a certeza que deseja eliminar o seu perfil permanentemente?[sim/nao] ");
+       aux = input.nextLine();
+       if(aux.equals("sim"))
+       {
+           out.println("Nif: ");
+           nif = input.nextLine();
+           if(nif.equals(o.getNif()))
+           {
+               out.println("Perfil eliminado.");
+               input.close();
+               return 1;
+           }
+           else
+           {
+               out.println("Nif incorreto.");
+               input.close();
+               return 0;
+           }
+       }
+       input.close();
+       return 0;
+   }
    
    //Método que adiciona um veículo requisitando a inserção dos dados 
    public void addVehicle()
