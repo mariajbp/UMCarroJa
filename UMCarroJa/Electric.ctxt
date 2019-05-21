@@ -1,12 +1,16 @@
 #BlueJ class context
 comment0.target=Electric
-comment0.text=\n\ Representa\u00E7\u00E3o\ da\ classe\ Electric,\ subclasse\ de\ Vehicle\n
+comment0.text=\r\n\ Representa\u00E7\u00E3o\ da\ classe\ Electric,\ subclasse\ de\ Vehicle\r\n
 comment1.params=
 comment1.target=Electric()
+comment1.text=Construtor\ vazio\ *
 comment2.params=type\ brand\ plate\ nif\ speed\ price\ comsuption\ autonomy\ x\ y
 comment2.target=Electric(java.lang.String,\ java.lang.String,\ java.lang.String,\ int,\ double,\ double,\ double,\ double,\ double,\ double)
+comment2.text=Construtor\ que\ cria\ um\ novo\ veiculo\ do\ tipo\ Electric\ a\ partir\ dos\ par\u00E2metros\ dados\ *
 comment3.params=e
 comment3.target=Electric(Electric)
+comment3.text=Construtor\ de\ c\u00F3pia\ que\ cria\ uma\ nova\ inst\u00E2ncia\ do\ ve\u00EDculo\ a\ partir\ de\ um\ ve\u00EDculo\ passado\ como\ par\u00E2metro\ *
 comment4.params=
 comment4.target=Electric\ clone()
+comment4.text=M\u00E9todo\ que\ cria\ uma\ c\u00F3pia\ de\ um\ ve\u00EDculo\ *
 numComments=5

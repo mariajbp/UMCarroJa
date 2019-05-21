@@ -7,7 +7,6 @@ import java.util.ArrayList;
 **/
 public class Owner extends USER implements Serializable
 {
-  int rating;
   private Set<RentedCar> rentingHistory;
   private Map<String,Vehicle> vh;
   
@@ -15,30 +14,25 @@ public class Owner extends USER implements Serializable
   public Owner()
   {
       super();
-      this.rating = 0;
       this.rentingHistory = new TreeSet<RentedCar>();
       this.vh = new HashMap<String, Vehicle>();
   }
   /** Construtor que cria um novo Owner a partir dos parâmetros dados **/
-  public Owner(String name, String password, String email, String address, int nif)
+  public Owner(String name, int nif, String email, String address)
   {
-     super(name,password,email,address,nif);
-     this.rating = 0;
+     super(name,nif,email,address);
      this.rentingHistory = new TreeSet<RentedCar>();
      this.vh = new HashMap<String, Vehicle>();
   }
   /** Construtor de cópia que cria uma nova instância Owner a partir de um Owner passado como parâmetro **/
   public Owner(Owner o)
   {
-      super(o.getName(),o.getPassword(),o.getEmail(), o.getAddress(), o.getNif());
-      this.rating = o.getRating();
+      super(o.getName(),o.getNif(),o.getEmail(), o.getAddress());
       this.rentingHistory = o.getRentingHistoryAll();
       this.vh = o.getVehicles();
   }
     
   /************************* GETTERS *************************/
-  public int getRating(){return this.rating;}
-  
   public Set<RentedCar> getRentingHistoryAll()
   {
     Set<RentedCar> aux = new TreeSet<RentedCar>();
@@ -56,8 +50,8 @@ public class Owner extends USER implements Serializable
   /************************* SETTERS *************************/
   public void setRating(int newR)
   {
-      int nr = (this.rating + newR)/(this.rentingHistory.size());
-      this.rating = nr;
+      int nr = (this.getRating() + newR)/(this.rentingHistory.size());
+      this.setRating(nr);
   }
  
   public void setRentingHistory(Set<RentedCar> rc)
@@ -100,7 +94,6 @@ public class Owner extends USER implements Serializable
       if(o == null && this.getClass() != o.getClass()) return false;
       Owner ow = (Owner) o;     
       return super.equals(ow) &&
-             this.rating == ow.getRating() && 
              this.vh.equals(ow.getVehicles()) &&
              this.rentingHistory.equals(ow.getRentingHistoryAll());      
   } 
@@ -108,7 +101,7 @@ public class Owner extends USER implements Serializable
   /************************* TOSTRING *************************/
   public String toString()
   {
-      return "Classificação: " + rating ;       
+      return "Classificação: "  ;       
   }  
   
   /**
@@ -135,15 +128,6 @@ public class Owner extends USER implements Serializable
       v.setAutonomy(v.getDeposit());
   }
   
-  /**
-  * Método que permite o proprietário aceitar ou recusar um aluguer 
-  * @param Cliente que requisitou o aluguer
-  * @param Veículo a alugar
-  **/
-  public boolean acceptORreject(Client c, Vehicle v)
-  {
-     return true;
-  }
   
   /*
   //registar o custo de uma viagem
@@ -159,7 +143,7 @@ public class Owner extends USER implements Serializable
   public void ownerRating()
   {
      int r = this.vh.values().stream().mapToInt(Vehicle::getRating).sum();
-     this.rating = r/(this.vh.size());
+     this.setRating(r/(this.vh.size()));
   }
 
 }

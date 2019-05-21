@@ -8,36 +8,36 @@ public abstract class USER implements Serializable
 {
   private String email; 
   private String name;
-  private String password;
   private String address;
   private int nif;
+  private int rating;
   
   /** Construtor vazio que cria uma instância USER  **/
   public USER()
   {
      this.email = "";
      this.name = "";
-     this.password = "";
      this.address = "";
      this.nif = 0;
+     this.rating = 0;
   } 
   /** Construtor que cria um novo USER a partir dos parâmetros dados **/
-  public USER(String name, String password, String email, String address, int nif)
+  public USER(String name, int nif, String email, String address)
   {
     this.email = email;
     this.name = name;
-    this.password = password;
     this.address = address;
     this.nif = nif;
+    this.rating = 0;
   }
   /** Construtor de cópia que cria uma nova instância USER a partir de um USER passado como parâmetro **/
   public USER(USER u)
   {
        this.email = u.getEmail();
        this.name = u.getName();
-       this.password = u.getPassword();
        this.address = u.getAddress();
        this.nif = u.getNif();
+       this.rating = u.getRating();
   }
     
   /**
@@ -53,10 +53,10 @@ public abstract class USER implements Serializable
   public String getName(){return this.name;}
   
   /**
-  * Método que devolve a password de um utilizador
-  * @return Password do utilizador
+  * Método que devolve a rating de um utilizador
+  * @return rating do utilizador
   **/
-  public String getPassword(){return this.password;}
+  public int getRating(){return this.rating;}
   
   /**
   * Método que devolve a morada de um utilizador
@@ -84,10 +84,10 @@ public abstract class USER implements Serializable
   public void setNome(String newName){this.name = newName;}
   
   /**
-  * Método que define a password de um utilizador a partir de uma String passada como parâmetro
-  * @param Password do utilizador 
+  * Método que define o rating de um utilizador a partir de um int passado como parâmetro
+  * @param rating do utilizador 
   **/
-  public void setPassword(String newPassword){this.password = newPassword;}
+  public void setRating(int newRating){this.rating = newRating;}
   
   /**
   * Método que define a morada de um utilizador a partir de uma String passada como parâmetro
@@ -113,7 +113,7 @@ public abstract class USER implements Serializable
       USER u = (USER) o;     
        return this.name == u.getName() &&
               this.email == u.getEmail() &&
-              this.password == u.getPassword() &&
+              this.rating == u.getRating() &&
               this.address == u.getAddress() &&
               this.nif == u.getNif();
                
@@ -125,6 +125,7 @@ public abstract class USER implements Serializable
       return "Email: " + this.email +
              "Nome: " + this.name +
              "Morada: " + this.address +
-             "NIF: " + this.nif;
+             "NIF: " + this.nif + 
+             "Rating: " + this.rating;
   } 
 }

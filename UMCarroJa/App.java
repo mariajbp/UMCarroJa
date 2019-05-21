@@ -68,15 +68,16 @@ public class App  implements Serializable
    public void login()
    {
        Scanner input = new Scanner(System.in);
-       String email, password;
+       String email;
+       int nif;
        try
        {
            out.println("Email: ");
            email = input.nextLine();
            out.println("Password: ");
-           password = input.nextLine();
+           nif = input.nextInt();
        
-           USER u = umcj.validateAcess(password, email);
+           USER u = umcj.validateAcess(nif, email);
            if(u instanceof Client) clientArea((Client) u);
            else if(u instanceof Owner) ownerArea((Owner) u);
        }
@@ -95,9 +96,9 @@ public class App  implements Serializable
    public void addClient()
    {
        Scanner input = new Scanner(System.in);
-       String name, password, email, confirmPassword, address;
+       String name, email, address;
        double x, y;
-       int nif;
+       int nif, confirmNif;
        
        try
        {
@@ -105,18 +106,17 @@ public class App  implements Serializable
            name = input.nextLine();
            out.println("Email: ");
            email = input.nextLine();
-           out.println("NIF: ");
-           nif = input.nextInt();
            do
            {
-               out.println("Password: ");
-               password = input.nextLine();
-               out.println("Confirmar Password: ");
-               confirmPassword = input.nextLine();   
-               if(!password.equals(confirmPassword)) out.println("Password incorreta.");
+               out.println("NIF: ");
+               nif = input.nextInt();
+               out.println("Confirmar NIF: ");
+               confirmNif = input.nextInt();   
+               if(nif != confirmNif) out.println("NIF incorreto.");
            }
-           while(!password.equals(confirmPassword));
-       
+           while(nif != confirmNif);
+           input.nextLine();
+           
            out.println("Morada: ");
            address = input.nextLine();
            out.println("Coordenada x onde se encontra: ");
@@ -124,7 +124,7 @@ public class App  implements Serializable
            out.println("Coordenada y onde se encontra: ");
            y = input.nextDouble();
 
-           Client c = (Client) umcj.registerNewClient(name, email, password, address, x, y, nif); 
+           Client c = (Client) umcj.registerNewClient(name, nif, email, address, x, y); 
            clientArea(c);
        }catch (RegistrationException e){out.println(e.getMessage());
        }
@@ -198,17 +198,16 @@ public class App  implements Serializable
            
            estimatedTime = umcj.estimatedTime(x,y,w,z,v);
            out.println("O tempo estimado de chegada ao destino pretendido é "+ estimatedTime +" minutos.");
-           
-           int nif = v.getNif();
-           Owner o = new Owner();
-           try
-           {
-               o = umcj.getOwnerByNif(nif);
-           }
-           catch (UserDoesntExistException e){out.println(e.getMessage());}
+           boolean a = false;
            
            //PEDIR AO OWNER PARA ALUGAR
-           if(o.acceptORreject(c, v) == true)
+           try
+           {
+              a = umcj.acceptORreject(c, v);
+            }
+            catch(UserDoesntExistException e){out.println(e.getMessage());}
+            
+           if(a == true)
            {
                
                out.println("O seu pedido foi efetuado, esperamos que tenha uma viagem agradável.");
@@ -354,35 +353,30 @@ public class App  implements Serializable
    public void addOwner()
    {
        Scanner input = new Scanner(System.in);
-       String name, password, email, confirmPassword, address;
+       String name, password, email, address;
        double x, y;
-       int nif;
+       int nif, confirmNif;
        try
        {
            out.println("Nome: ");
            name = input.nextLine();
            out.println("Email: ");
            email = input.nextLine();
-           out.println("NIF: ");
-           nif = input.nextInt();
            do
            {
-               out.println("Password: ");
-               password = input.nextLine();
-               out.println("Confirmar Password: ");
-               confirmPassword = input.nextLine();   
-               if(!password.equals(confirmPassword)) out.println("Password incorreta.");
+               out.println("NIF: ");
+               nif = input.nextInt();
+               out.println("Confirmar NIF: ");
+               confirmNif = input.nextInt();   
+               if(nif != confirmNif) out.println("NIF incorreto.");
            }
-           while(!password.equals(confirmPassword));
-       
+           while(nif != confirmNif);
+           input.nextLine();
+           
            out.println("Morada: ");
            address = input.nextLine();
-           out.println("Coordenada x onde se encontra: ");
-           x = input.nextDouble();
-           out.println("Coordenada y onde se encontra: ");
-           y = input.nextDouble();
-
-           Owner o = (Owner) umcj.registerNewOwner(name, email, password, address, nif); 
+           
+           Owner o = (Owner) umcj.registerNewOwner(name, email, address, nif); 
            ownerArea(o);
        }catch (RegistrationException | UserExistsException e){out.println(e.getMessage());}
        
@@ -404,25 +398,25 @@ public class App  implements Serializable
            {
                case 1: addVehicle();
                        break; 
-               /**
-               case 2: listOfVehicles();
+                       /*
+               case 2: this.umcj.listOfVehicles(o.getNif());
                        break;  
+                      
                case 3: top10clientskm();
                        break;
                case 4: top10clientsx();
                        break;
-               case 5: carProffit();
+               case 5: carProfit();
                        break;
-               case 6: totalProffit();
+               case 6: totalProfit();
                        break;
                case 7: refuelCar();
                        break;
                case 8: changeAvailability();
                        break;
-               case 9: acceptReject();
+               case 9: acceptORReject();
                        break;
-               
-               **/
+                       */
            }
        }
        while(op != 0);

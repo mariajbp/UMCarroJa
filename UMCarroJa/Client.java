@@ -24,9 +24,9 @@ public class Client extends USER implements Serializable
 
   }
   /** Construtor que cria um novo Client a partir dos parâmetros dados **/
-  public Client(String name, String password, String email, String address, double x, double y, int nif)
+  public Client(String name, int nif, String email, String address, double x, double y)
   {
-      super(name,password,email,address, nif);
+      super(name,nif,email,address);
       this.x = x;
       this.y = y;
       this.location = new Point2D();
@@ -35,7 +35,7 @@ public class Client extends USER implements Serializable
   /** Construtor de cópia que cria uma nova instância Client a partir de um Client passado como parâmetro **/
   public Client(Client c)
   {
-      super(c.getName(), c.getPassword(), c.getEmail(), c.getAddress(), c.getNif());
+      super(c.getName(), c.getNif(), c.getEmail(), c.getAddress());
       this.x = c.getX();
       this.y = c.getY();
       this.location = c.getLocation();
@@ -81,8 +81,7 @@ public class Client extends USER implements Serializable
   /************************* CLONE *************************/
   public Client clone()
   {
-    Client c = new Client(this);
-    return c;
+    return new Client(this);
   }
     
   /************************* EQUALS *************************/
@@ -122,4 +121,11 @@ public class Client extends USER implements Serializable
      return aux;
   }
   
+  /**
+  * Método que calcula a classificação de um cliente 
+  **/
+  public void clientRating(int newR)
+  {
+     this.setRating(newR + this.getRating()/(this.rentingHistory.size()));
+  }
 }

@@ -100,22 +100,22 @@ public class UMCarroJa implements Serializable
   
    
    //Método que valida o acesso de um utilizador na aplicação através do seu email e password
-   public USER validateAcess(String password, String email) throws LoginException
+   public USER validateAcess(int nif, String email) throws LoginException
    {
-       boolean cl = this.clients.values().stream().anyMatch(u -> u.getEmail().equals(email) && u.getPassword().equals(password));
-       boolean ow = this.owners.values().stream().anyMatch(u -> u.getEmail().equals(email) && u.getPassword().equals(password));
+       boolean cl = this.clients.values().stream().anyMatch(u -> u.getEmail().equals(email) && u.getNif() == nif);
+       boolean ow = this.owners.values().stream().anyMatch(u -> u.getEmail().equals(email) && u.getNif() == nif);
        if (!cl && !ow) throw new LoginException("Acesso inválido.");   
-       if(cl){return this.clients.get(email).clone();}
-       else{return this.owners.get(email).clone();}   
+       if(cl){return this.clients.get(nif).clone();}
+       else{return this.owners.get(nif).clone();}   
    }
    
       
    
    /*** CLIENTES ***/
    //Método que regista um novo cliente na aplicação
-   public Client registerNewClient(String name, String pass, String email, String  address, double x, double y, int nif) throws RegistrationException 
+   public Client registerNewClient(String name, int nif, String email, String  address, double x, double y) throws RegistrationException 
    {
-       Client c = new Client(name, pass, email, address, x, y, nif);
+       Client c = new Client(name, nif, email, address, x, y);
        
        try{addCL(c);} 
        catch(UserExistsException e){throw new RegistrationException("Registo Inválido");}
@@ -182,9 +182,9 @@ public class UMCarroJa implements Serializable
    }
     
    //Método que regista um novo proprietário na aplicação
-   public Owner registerNewOwner(String name, String pass, String email, String  address, int nif) throws RegistrationException, UserExistsException
+   public Owner registerNewOwner(String name, String email, String  address, int nif) throws RegistrationException, UserExistsException
    {
-       Owner o = new Owner(name, pass, email, address, nif);
+       Owner o = new Owner(name, nif,  email, address);
        addOW(o);
        return o.clone();
    }  
@@ -213,7 +213,20 @@ public class UMCarroJa implements Serializable
        }
    }
    
-   
+   /**
+  * Método que permite o proprietário aceitar ou recusar um aluguer 
+  * @param Cliente que requisitou o aluguer
+  * @param Veículo a alugar
+  **/
+  public boolean acceptORreject(Client c, Vehicle v) throws UserDoesntExistException
+  {
+     int nif = v.getNif();
+     Owner o = new Owner();
+     if(!this.owners.containsKey(nif))
+            throw new UserDoesntExistException("O nif inserido não existe na nossa base de dados, por favor retifique a informação");
+     else
+        return true;
+  }
    
    
    

@@ -6,10 +6,11 @@ import java.io.Serializable;
 **/
 public abstract class Vehicle implements Serializable
 {
+  private static double deposit = 100;
+  
   private String type;
   private String brand;
   private String plate;
-  private int nif;
   private double speed;
   private double price; 
   private double comsuption;
@@ -18,11 +19,13 @@ public abstract class Vehicle implements Serializable
   private double y;
   Point2D location = new Point2D(x,y);
   private boolean available;
-  private double deposit;                  //Total que pode abastecer (autonomia inicial)
+  private int rating;
+  private int nif;
+ 
+  
   
   private Set<Ride> rentingHistory;
-  private int rating; //dada pelos clientes no final do aluguer
- 
+  
   /** Construtor vazio que cria uma instância Vehicle  **/
   public Vehicle()
   {
@@ -39,7 +42,6 @@ public abstract class Vehicle implements Serializable
      this.rating = 0;
      this.available = true;
      this.rentingHistory = new TreeSet<Ride>();
-     this.deposit = 100;
   }
   /** Construtor que cria um novo Vehicle a partir dos parâmetros dados **/
   public Vehicle(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y)
@@ -58,7 +60,6 @@ public abstract class Vehicle implements Serializable
     this.rating = 0;
     this.available = true;
     this.rentingHistory = new TreeSet<Ride>();
-    this.deposit = autonomy + 100;
   }
   /** Construtor de cópia que cria uma nova instância Vehicle a partir de um Vehicle passado como parâmetro **/  
   public Vehicle(Vehicle v)
@@ -78,7 +79,6 @@ public abstract class Vehicle implements Serializable
     this.available = v.getAvailability();
     this.rating = v.getRating();
     this.rentingHistory = v.getRentingHistoryAll();
-    this.deposit = v.getDeposit();
   }
     
     /************************* GETTERS *************************/

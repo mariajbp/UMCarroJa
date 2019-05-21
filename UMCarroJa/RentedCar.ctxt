@@ -1,8 +1,9 @@
 #BlueJ class context
 comment0.target=RentedCar
-comment0.text=\n\ Representa\u00E7\u00E3o\ das\ carateristicas\ basicas\ de\ um\ aluguer\ \n
+comment0.text=\r\n\ Representa\u00E7\u00E3o\ das\ carateristicas\ basicas\ de\ um\ aluguer\ \r\n
 comment1.params=ownerEmail\ clientEmail\ car\ price\ destination\ start\ autonomy\ time\ date\ kms
 comment1.target=RentedCar(java.lang.String,\ java.lang.String,\ Vehicle,\ double,\ Point2D,\ Point2D,\ double,\ double,\ java.time.LocalDateTime,\ double)
+comment1.text=Construtor\ vazio\ que\ cria\ uma\ inst\u00E2ncia\ RentedCar\ \ *
 comment10.params=
 comment10.target=double\ getExpectedTime()
 comment11.params=
@@ -26,6 +27,7 @@ comment19.params=autonomy
 comment19.target=void\ setAutonomy(double)
 comment2.params=r
 comment2.target=RentedCar(RentedCar)
+comment2.text=Construtor\ que\ cria\ um\ novo\ RentedCar\ a\ partir\ dos\ par\u00E2metros\ dados\ *
 comment20.params=time
 comment20.target=void\ setExpectedTime(double)
 comment21.params=date
