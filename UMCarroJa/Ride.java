@@ -14,7 +14,9 @@ public class Ride implements Comparable<Ride>, Serializable
     private double time;             //tempo que a viagem demorou 
     private double realPrice;
     
-    /** Construtor vazio que cria uma instância Ride  **/
+    /** 
+    * Construtor vazio que cria uma instância Ride  
+    **/
     public Ride()
     {
         this.clemail = "ND";
@@ -25,7 +27,10 @@ public class Ride implements Comparable<Ride>, Serializable
         this.time = 0.0;
         this.realPrice = 0.0;
     }
-    /** Construtor que cria uma nova Ride a partir dos parâmetros dados **/
+    
+    /** 
+    * Construtor que cria uma nova Ride a partir dos parâmetros dados 
+    **/
     public Ride(String cle, LocalDateTime t, Point2D p, Point2D d, double k, double time, double rp)
     {
         this.clemail = cle;
@@ -48,25 +53,95 @@ public class Ride implements Comparable<Ride>, Serializable
         this.realPrice = r.getRealPrice();
     }
     
-    /************************* GETTERS *************************/
+    /**
+    * Método que devolve o email de um cliente
+    * @return Email do cliente
+    **/
     public String getClEmail(){return this.clemail;}
-    public LocalDateTime getDate(){return this.date;}    
+    
+    /**
+    * Método que devolve a data da viagem
+    * @return Data da viagem
+    **/
+    public LocalDateTime getDate(){return this.date;} 
+    
+    /**
+    * Método que devolve a localização do inicio da viagem
+    * @return Localização do inicio da viagem
+    **/
     public Point2D getStart(){return this.start.clone();} 
+    
+    /**
+    * Método que devolve a localização do destino da viagem
+    * @return Localização do destino da viagem
+    **/
     public Point2D getDestination(){return this.destination.clone();}
+    
+    /**
+    * Método que devolve o numero de kms percorridos na viagem
+    * @return Numero de kms percorridos na viagem
+    **/
     public double getKms(){return this.kms;}
+    
+    /**
+    * Método que devolve o preço real da viagem
+    * @return Preço real da viagem
+    **/
     public double getRealPrice(){return this.realPrice;}
+    
+    /**
+    * Método que devolve o tempo real que durou da viagem
+    * @return Tempo real que durou da viagem
+    **/
     public double getTime(){return this.time;}
     
-    /************************* SETTERS *************************/
+    /**
+    * Método que devolve o email de um cliente
+    * @return Email do cliente
+    **/
     public void setClEmail(String cle){this.clemail = cle;}
+    
+    /**
+    * Método que devolve a data da viagem
+    * @return Data da viagem
+    **/
     public void setData(LocalDateTime d){this.date = d;}
+    
+    
+    /**
+    * Método que define a localização do destino da viagem
+    * @return Localização do inicio da viagem
+    **/
     public void setStart(Point2D p){this.start = p.clone();}
+    
+    /**
+    * Método que define a localização do destino da viagem
+    * @return Localização do destino da viagem
+    **/
     public void setDestination(Point2D d){this.destination = d.clone();}
+    
+    /**
+    * Método que define o numero de kms percorridos na viagem
+    * @return Numero de kms percorridos na viagem
+    **/
     public void setKms(double k){this.kms = k;}
+    
+    /**
+    * Método que define o preço real da viagem
+    * @return Preço real da viagem
+    **/
     public void setTime(double t){this.time = t;}
+    
+    /**
+    * Método que define o tempo real que durou da viagem
+    * @return Tempo real que durou da viagem
+    **/
     public void setRealPrice(double p){this.realPrice = p;}
     
-     /************************* TOSTRING *************************/
+    /**
+    * Método que converte uma identificação numa string
+    * @return  string com a identificação do utilizador
+    **/
     public String toString()
     {
         StringBuilder sb = new StringBuilder();
@@ -82,10 +157,16 @@ public class Ride implements Comparable<Ride>, Serializable
         return sb.toString();
     }
     
-    /************************* CLONE *************************/
+    /** 
+    * Método que cria uma cópia de uma identificação de um USER
+    **/
     public Ride clone(){return new Ride(this);}
     
-    /************************* EQUALS *************************/
+    /** 
+    * Método que testa se um objeto é igual a uma determinada identificação
+    * @param      objeto a ser testado
+    * @return     true se o objeto for igual à identificação, false se o objeto passado não for igual à identificação
+    **/
     public boolean equals(Object o)
     {
         if (this==o) return true;

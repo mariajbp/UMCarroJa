@@ -17,24 +17,30 @@ public class App  implements Serializable
 {
    private static Menu menu;
    private UMCarroJa umcj; //var que contém todos os dados e métodos da app
+   private Load l;
    
-   /** Construtor vazio que cria uma instância App e insere as opções do menu principal **/
+   /** 
+   * Construtor vazio que cria uma instância App e insere as opções do menu principal 
+   **/
    public App()
    {
        try
        {
            umcj = new UMCarroJa();
-           umcj = umcj.loadStatus("DataBase");
+           //umcj = umcj.loadStatus("DataBase");
+           l.readFile("logs.bak"); 
        }
        catch(FileNotFoundException e){out.println(e.getMessage());}
        catch(IOException e){out.println(e.getMessage());}
-       catch(ClassNotFoundException e){out.println(e.getMessage());}
+       //catch(ClassNotFoundException e){out.println(e.getMessage());}
 
        String[] s = {"Registar Cliente", "Registar Proprietário", "Login"};
        menu = new Menu(s);
    }
    
-   /** Método que inicia a aplicação no menu principal **/
+   /** 
+   * Método que inicia a aplicação no menu principal 
+   **/
    public void run()
    {
        int op = 0;
@@ -64,7 +70,9 @@ public class App  implements Serializable
    }
    
    
-   /** Método que realiza o login de um utilizador na aplicação, requisitando a inserção do seu email e password **/ 
+   /** 
+   * Método que realiza o login de um utilizador na aplicação, requisitando a inserção do seu email e password 
+   **/ 
    public void login()
    {
        Scanner input = new Scanner(System.in);
@@ -92,7 +100,9 @@ public class App  implements Serializable
    
    
    /*** CLIENTES ***/
-   //Método que adiciona um cliente à aplicação, requisitando a inserção dos seus dados
+   /**
+   * Método que adiciona um cliente à aplicação, requisitando a inserção dos seus dados 
+   **/
    public void addClient()
    {
        Scanner input = new Scanner(System.in);
@@ -126,13 +136,15 @@ public class App  implements Serializable
 
            Client c = umcj.registerNewClient(name, nif, email, address, x, y); 
            clientArea(c);
-       }catch (RegistrationException e){out.println(e.getMessage());
-       }
+       }catch (RegistrationException e){out.println(e.getMessage());}
        
        input.close();
    }
    
-   //Menu da área pessoal de um cliente, com as opções que este pode efetuar na aplicação
+   /** 
+   * Menu da área pessoal de um cliente, com as opções que este pode efetuar na aplicação 
+   * @param Cliente com sessão iniciada
+   **/
    public void clientArea(Client c)
    {
        String s[] = {"Alugar um veículo", "Histórico de Alugueres","Top 10 Clientes -> km ",
@@ -190,21 +202,25 @@ public class App  implements Serializable
        return 0;
    }
    
+   /** 
+   * Método que calcula a localização de um utilizador
+   * @returns Localização do utilizador
+   **/
    public Point2D askDistance()
    {
        Scanner input = new Scanner(System.in);
-       
        out.println("Digite a coordenada x do seu destino,");
        double w = input.nextDouble();
        out.println("Digite a coordenada y do seu destino,");
        double z = input.nextDouble();
        Point2D f = new Point2D(w,z);
        input.close();
-       
        return f;
     }
     
-   //Método que efetua uma viagem/aluguer requisitada pelo cliente 
+   /**
+   * Método que efetua uma viagem/aluguer requisitada pelo cliente 
+   **/
    public void rentRequest(Client c, Vehicle v, Point2D f)
    {
        Scanner input = new Scanner(System.in);
@@ -273,7 +289,9 @@ public class App  implements Serializable
        
     }
    
-   //Método que disponibiliza a um utilizador o seu histórico de viagens no período de tempo considerado
+   /** 
+   * Método que disponibiliza a um utilizador o seu histórico de viagens no período de tempo considerado 
+   **/
    public void rentingHistory(int nif)
    {
        Scanner input = new Scanner(System.in);
@@ -299,6 +317,10 @@ public class App  implements Serializable
    } 
    
    /** SUB-MENU **/
+   /** 
+   * Sub-menu da área pessoal de um cliente, que contém as opções para um aluguer
+   * @param Cliente com sessão iniciada
+   **/
    public void newRent(Client c)
    {
        String[] s = {"Escolher o veículo mais próximo", "Escolher um veículo específico", "Escolher o veículo mais barato", 
@@ -327,7 +349,10 @@ public class App  implements Serializable
        while(opt != 0);
    }
    
-   //Método que seleciona o veículo mais próximo da localização do cliente
+   /**
+   * Método que seleciona o veículo mais próximo da localização do cliente 
+   * @param Cliente com sessão iniciada
+   **/
    public void rentNearestVehicle(Client c)
    {
        Scanner input = new Scanner(System.in);
@@ -346,8 +371,10 @@ public class App  implements Serializable
        input.close();
    }
     
-   
-   //Método que seleciona o veículo específico requisitado pelo cliente para a realização de um aluguer
+   /** 
+   * Método que seleciona o veículo específico requisitado pelo cliente para a realização de um aluguer 
+   * @param Cliente com sessão iniciada
+   **/
    public void rentSpecificVehicle(Client c)
    {
        Scanner input = new Scanner(System.in);
@@ -367,7 +394,10 @@ public class App  implements Serializable
        input.close();
    }
    
-   //Método que seleciona o veículo mais barato para a realização de um aluguer
+   /** 
+   * Método que seleciona o veículo mais barato para a realização de um aluguer
+   * @param Cliente com sessão iniciada
+   **/
    public void rentCheapestVehicle(Client c)
    {
        Scanner input = new Scanner(System.in);
@@ -383,7 +413,10 @@ public class App  implements Serializable
        input.close();
     }
    
-   //Método que seleciona o veículo mais barato para a realização de um aluguer dentro de uma distancia a pé
+   /** 
+   * Método que seleciona o veículo mais barato para a realização de um aluguer dentro de uma distancia a pé 
+   * @param Cliente com sessão iniciada
+   **/
    public void rentCheapWalk(Client c)
    {
            Scanner input = new Scanner(System.in);
@@ -401,8 +434,12 @@ public class App  implements Serializable
            catch (NoVehiclesAvailableException e){System.out.println(e.getMessage());}
            rentRequest(c, v, f);
            input.close();
-    }
+   }
    
+   /** 
+   * Método que seleciona o veículo com a autonomia desejada para a realização de um aluguer dentro de uma distancia a pé 
+   * @param Cliente com sessão iniciada
+   **/
    public void rentDesiredAutonomy(Client c)
    {
            Scanner input = new Scanner(System.in);
@@ -421,7 +458,9 @@ public class App  implements Serializable
            input.close();
     }
    
-   //Método que retorna uma lista com os 10 clientes que mais utilizam o sistema (em vezes)
+   /**
+   * Método que retorna uma lista com os 10 clientes que mais utilizam o sistema (em vezes)
+   **/
    public void top10clientsx()
    {
        List<Client> cl = umcj.top10clientsX();
@@ -429,7 +468,9 @@ public class App  implements Serializable
        for(Client c : cl){out.println(c.getName());}
    }
    
-   //Método que retorna uma lista com os 10 clientes que mais utilizam o sistema (em km)
+   /**
+   * Método que retorna uma lista com os 10 clientes que mais utilizam o sistema (em km)
+   **/
    public void top10clientskm()
    {
        List<Client> cl = umcj.top10clientsKM();
@@ -438,14 +479,12 @@ public class App  implements Serializable
    }
    
    
-   
-   
-   
-   
-   
+    
    
    /*** PROPRIETARIOS ***/
-   //Método que adiciona um proprietario à aplicação, requisitando a inserção dos seus dados e dos dados do seu veículo
+   /**
+   * Método que adiciona um proprietario à aplicação, requisitando a inserção dos seus dados e dos dados do seu veículo 
+   **/
    public void addOwner()
    {
        Scanner input = new Scanner(System.in);
@@ -481,7 +520,10 @@ public class App  implements Serializable
        input.close();
    }
    
-   
+   /** 
+   * Menu da área pessoal de um proprietário, com as opções que este pode efetuar na aplicação 
+   * @param Proprietário com sessão iniciada
+   **/
    public void ownerArea(Owner o)
    {
        String s[] = {"Adicionar um veículo novo", "Lista dos meus veículos","Top 10 Clientes -> km ",
@@ -556,7 +598,9 @@ public class App  implements Serializable
        return 0;
    }
    
-   //Método que adiciona um veículo requisitando a inserção dos dados 
+   /** 
+   * Método que adiciona um veículo requisitando a inserção dos dados 
+   **/
    public void addVehicle()
    {
        Scanner input = new Scanner(System.in);
@@ -599,7 +643,9 @@ public class App  implements Serializable
        input.close();
    }
    
-   //Método que fornece o total faturado por um carro num determinado período 
+   /** 
+   * Método que fornece o total faturado por um carro num determinado período 
+   **/ 
    public void carProfit()
    {
        Scanner input = new Scanner(System.in);
@@ -628,15 +674,4 @@ public class App  implements Serializable
        catch (DateException e){out.println(e.getMessage());}
        input.close();
    }
-   /** implementar estas
-    *
-                       
-      refuelCar();
-                  
-      changeAvailability();
-                   
-
-                    
-    */
-   
 }

@@ -13,7 +13,9 @@ public class Client extends USER implements Serializable
   Point2D location = new Point2D(x,y);
   private Set<RentedCar> rentingHistory;
 
-  /** Construtor vazio que cria uma instância Client  **/
+  /** 
+  * Construtor vazio que cria uma instância Client  
+  **/
   public Client()
   {
       super();
@@ -23,7 +25,10 @@ public class Client extends USER implements Serializable
       this.rentingHistory = new TreeSet<RentedCar>();
 
   }
-  /** Construtor que cria um novo Client a partir dos parâmetros dados **/
+  
+  /** 
+  * Construtor que cria um novo Client a partir dos parâmetros dados 
+  **/
   public Client(String name, int nif, String email, String address, double x, double y)
   {
       super(name,nif,email,address);
@@ -32,7 +37,10 @@ public class Client extends USER implements Serializable
       this.location = new Point2D();
       this.rentingHistory = new TreeSet<RentedCar>();
   }
-  /** Construtor de cópia que cria uma nova instância Client a partir de um Client passado como parâmetro **/
+ 
+  /** 
+  * Construtor de cópia que cria uma nova instância Client a partir de um Client passado como parâmetro 
+  **/
   public Client(Client c)
   {
       super(c.getName(), c.getNif(), c.getEmail(), c.getAddress());
@@ -43,12 +51,34 @@ public class Client extends USER implements Serializable
   }
   
     
-  /************************* GETTERS *************************/
+  /**
+  * Método que devolve o numero de km que um cliente está disposto a caminhar
+  * @return Numero de km que um cliente está disposto a caminhar
+  **/
   public double getWalk(){return this.walk;}
+  
+  /**
+  * Método que devolve a coordernada X da localização do cliente
+  * @return Coordernada X da localização do cliente
+  **/
   public double getX(){return this.x;}
+  
+  /**
+  * Método que devolve a coordernada Y da localização do cliente
+  * @return Coordernada Y da localização do cliente
+  **/
   public double getY(){return this.y;}
+  
+  /**
+  * Método que devolve a localização do cliente
+  * @return Localização do cliente
+  **/
   public Point2D getLocation(){return this.location.clone();}
   
+  /**
+  * Método que devolve o historico de alugueres de um cliente
+  * @return Historico de alugueres de um cliente
+  **/
   public Set<RentedCar> getRentingHistoryAll()
   {
      Set<RentedCar> aux = new TreeSet<RentedCar>();
@@ -56,35 +86,65 @@ public class Client extends USER implements Serializable
      return aux;
   }
   
-  
-  /************************* SETTERS *************************/
+  /**
+  * Método que define o numero de km que um cliente está disposto a caminhar a partir de uma número passada como parâmetro
+  * @param Numero de km que um cliente está disposto a caminhar
+  **/
   public void setWalk(double w){this.walk = w;}
+  
+  /**
+  * Método que define o a coordenada X do cliente
+  * @param Coordenada X do cliente
+  **/
   public void setX(double x){this.x = x;}
+  
+  /**
+  * Método que define o a coordenada Y do cliente
+  * @param Coordenada Y do cliente
+  **/
   public void setY(double y){this.y = y;}
+  
+  /**
+  * Método que define o a localização do cliente
+  * @param Localização do cliente
+  **/
   public void setLocation(Point2D p){this.location = p.clone();}
   
+  /**
+  * Método que define o historico de alugueres do cliente
+  * @param Historico de alugueres do cliente
+  **/
   public void setRentingHistory(Set<RentedCar> rc)
   {
       this.rentingHistory.clear();
       for(RentedCar r: rc){this.rentingHistory.add(r.clone());}
   }
   
+  /**
+  * Método que adiciona um aluguer ao historico
+  * @param Aluguer realizado pelo cliente
+  **/
   public void addRentedCar(RentedCar r){this.rentingHistory.add(r.clone());}
   
+  /**
+  * Método que remove um aluguer ao historico
+  * @param Aluguer realizado pelo cliente
+  **/
   public void removeRentedCar(RentedCar r){this.rentingHistory.remove(r);}
-    
-  public void addSetRentedCar(Set<RentedCar> h)
-  {
-      for(RentedCar r : h) this.rentingHistory.add(r.clone());
-  }
-
-  /************************* CLONE *************************/
+   
+  /** 
+  * Método que cria uma cópia de uma identificação de um Client
+  **/
   public Client clone()
   {
     return new Client(this);
   }
     
-  /************************* EQUALS *************************/
+  /** 
+  * Método que testa se um objeto é igual a uma determinada identificação
+  * @param      Objeto a ser testado
+  * @return     True se o objeto for igual à identificação, false se o objeto passado não for igual à identificação
+  **/
   public boolean equals(Object o)
   {
       if(this == o) return true;
@@ -96,7 +156,10 @@ public class Client extends USER implements Serializable
              this.rentingHistory.equals(c.getRentingHistoryAll());
   }
     
-  /************************* TOSTRING *************************/
+  /**
+  * Método que converte uma identificação numa string
+  * @return  string com a identificação do utilizador
+  **/
   public String toString()
   {
       return "Distancia que está disposto a percorrer a pé: " + walk;
@@ -106,7 +169,7 @@ public class Client extends USER implements Serializable
   
   /**
   * Método que calcula o total de km percorridos pelo cliente
-  * @return total de km percorridos pelo cliente
+  * @return Total de km percorridos pelo cliente
   **/
   public double totalKms()
   {

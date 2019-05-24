@@ -1,6 +1,9 @@
 import java.util.Comparator;
 
-public class ClientOrderX implements Comparator<Client>
+/**
+* Classe ClientComparatorX que impõem uma ordem quando se quer adicionar um cliente a uma coleção
+**/
+public class ClientComparatorX implements Comparator<Client>
 {
     public int compare(Client c1, Client c2)
     {

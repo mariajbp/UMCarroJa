@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.Serializable;
 
 /**
-* Representação abstrata da superclasse da entidade USER(o utilizador da aplicação)
+* Representação abstrata da superclasse da entidade USER (o utilizador da aplicação)
 **/
 public abstract class USER implements Serializable
 {
@@ -13,7 +13,9 @@ public abstract class USER implements Serializable
   private int rating;
 
   
-  /** Construtor vazio que cria uma instância USER  **/
+  /** 
+  * Construtor vazio que cria uma instância USER  
+  **/
   public USER()
   {
      this.email = "";
@@ -22,7 +24,10 @@ public abstract class USER implements Serializable
      this.nif = 0;
      this.rating = 0;
   } 
-  /** Construtor que cria um novo USER a partir dos parâmetros dados **/
+  
+  /** 
+  * Construtor que cria um novo USER a partir dos parâmetros dados 
+  **/
   public USER(String name, int nif, String email, String address)
   {
     this.email = email;
@@ -31,7 +36,10 @@ public abstract class USER implements Serializable
     this.nif = nif;
     this.rating = 0;
   }
-  /** Construtor de cópia que cria uma nova instância USER a partir de um USER passado como parâmetro **/
+  
+  /** 
+  * Construtor de cópia que cria uma nova instância USER a partir de um USER passado como parâmetro 
+  **/
   public USER(USER u)
   {
        this.email = u.getEmail();
@@ -71,7 +79,6 @@ public abstract class USER implements Serializable
   **/
   public int getNif(){return this.nif;}
   
-  
   /**
   * Método que define o email de um utilizador a partir de uma String passada como parâmetro
   * @param Email do utilizador 
@@ -102,10 +109,16 @@ public abstract class USER implements Serializable
   **/
   public void setNif(int nif){this.nif = nif;}
   
-   /************************* CLONE *************************/
+  /** 
+  * Método que cria uma cópia de uma identificação de um USER
+  **/
   public abstract USER clone();
     
-    /************************* EQUALS *************************/
+  /** 
+  * Método que testa se um objeto é igual a uma determinada identificação
+  * @param      objeto a ser testado
+  * @return     True se o objeto for igual à identificação, false se o objeto passado não for igual à identificação
+  **/
   public boolean equals(Object o)
   {
       if(this == o) return true;
@@ -119,7 +132,10 @@ public abstract class USER implements Serializable
                
   }
     
-   /************************* TOSTRING *************************/
+  /**
+  * Método que converte uma identificação numa string
+  * @return    String com a identificação do utilizador
+  **/
   public String toString()
   {
       return "Email: " + this.email +

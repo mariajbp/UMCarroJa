@@ -1,4 +1,5 @@
 import java.io.Serializable;
+
 /**
 * Representação da classe Electric, subclasse de Vehicle
 **/

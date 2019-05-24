@@ -1,5 +1,6 @@
 #BlueJ class context
 comment0.target=LoginException
+comment0.text=\n\ Classe\ LoginException\ que\ devolve\ uma\ mensagem\ caso\ nenhum\ veiculo\ esteja\ disponivel\ de\ momento\n
 comment1.params=
 comment1.target=LoginException()
 comment2.params=message

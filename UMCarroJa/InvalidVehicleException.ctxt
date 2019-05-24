@@ -1,5 +1,6 @@
 #BlueJ class context
 comment0.target=InvalidVehicleException
+comment0.text=\n\ Classe\ InvalidVehicleException\ que\ devolve\ uma\ mensagem\ caso\ nenhum\ veiculo\ esteja\ disponivel\ de\ momento\n
 comment1.params=
 comment1.target=InvalidVehicleException()
 comment2.params=message

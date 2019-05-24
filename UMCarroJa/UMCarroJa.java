@@ -22,7 +22,9 @@ public class UMCarroJa implements Serializable
    private Map<Integer, Owner> owners;              //NIF
    private Map<Integer, Vehicle> vehicles;          //NIF
    
-   /** Construtor vazio que cria uma instância UMCarroJa **/
+   /** 
+   * Construtor vazio que cria uma instância UMCarroJa 
+   **/
    public UMCarroJa()
    {
        this.clients = new HashMap<Integer,Client>();
@@ -30,7 +32,9 @@ public class UMCarroJa implements Serializable
        this.vehicles = new HashMap<Integer,Vehicle>();
    }
    
-   /** Construtor que cria uma nova instância UMCarroJa a partir de um UMCarroJa passado como parâmetro **/
+   /** 
+   * Construtor que cria uma nova instância UMCarroJa a partir de um UMCarroJa passado como parâmetro 
+   **/
    public UMCarroJa(UMCarroJa u)
    {
        this.clients = u.getClients();
@@ -38,7 +42,10 @@ public class UMCarroJa implements Serializable
        this.vehicles = u.getVehicles();
    }
    
-   /** Método que devolve os veiculos inscritos na aplicação **/
+   /** 
+   * Método que devolve os veiculos inscritos na aplicação 
+   * @returns   HashMap dos veículos inscritos na aplicação
+   **/
    public Map<Integer,Vehicle> getVehicles()
    {
        Map<Integer,Vehicle> vh = new HashMap<Integer,Vehicle>();
@@ -46,7 +53,10 @@ public class UMCarroJa implements Serializable
        return vh;
    }
    
-   /** Método que define um hashMap a partir de um hashMap passado como parâmetro **/
+   /** 
+   * Método que define um hashMap a partir de um hashMap passado como parâmetro 
+   * @param    HashMap dos veículos inscritos na aplicação
+   **/
    public void setVehicles(Map<Integer,Vehicle> vh)
    {
        this.vehicles.clear();
@@ -55,6 +65,7 @@ public class UMCarroJa implements Serializable
    
    /**
    * Método que devolve os clientes inscritos na aplicação
+   * @returns   HashMap dos clientes inscritos na aplicação
    **/
    public Map<Integer,Client> getClients()
    {
@@ -65,7 +76,8 @@ public class UMCarroJa implements Serializable
    
    /**
    * Método que define um hashMap a partir de um hashMap passado como parâmetro
-   **/
+   * * @param    HashMap dos clientes inscritos na aplicação
+   **/ 
    public void setClients(Map<Integer,Client> cl)
    {
        this.clients.clear();
@@ -74,6 +86,7 @@ public class UMCarroJa implements Serializable
    
    /**
    * Método que devolve os clientes inscritos na aplicação
+   * @returns   HashMap dos proprietários inscritos na aplicação
    **/
    public Map<Integer,Owner> getOwners()
    {
@@ -84,6 +97,7 @@ public class UMCarroJa implements Serializable
    
    /**
    * Método que define um hashMap a partir de um hashMap passado como parâmetro
+   * * @param    HashMap dos proprietários inscritos na aplicação
    **/
    public void setOwners(Map<Integer,Owner> ow)
    {
@@ -91,13 +105,21 @@ public class UMCarroJa implements Serializable
        for(Map.Entry<Integer,Owner> o : ow.entrySet()) {this.owners.put(o.getKey(), o.getValue().clone());}
    }
    
-   /** Método que devolve uma representação, no formato textual, de uma instância UMCarroJa **/
+   /** 
+   * Método que devolve uma representação, no formato textual, de uma instância UMCarroJa 
+   **/
    public String toString(){return this.vehicles.toString()+"\n"+this.owners.toString()+"\n"+this.clients.toString()+"\n";}
    
-   /** Método que cria uma cópia de uma instância UMCarroJa **/
+   /** 
+   * Método que cria uma cópia de uma identificação de um UMCarroJa 
+   **/
    public UMCarroJa clone(){return new UMCarroJa(this); }
    
-   /** Método que testa se um objeto é igual a uma determinada UMCarroJa **/
+   /** 
+   * Método que testa se um objeto é igual a uma determinada identificação
+   * @param      Objeto a ser testado
+   * @return     True se o objeto for igual à identificação, false se o objeto passado não for igual à identificação
+   **/
    public boolean equals(Object o)
    {
        if(this == o) return true;
@@ -109,9 +131,9 @@ public class UMCarroJa implements Serializable
 
    /**
    * Método que valida o acesso de um utilizador na aplicação através do seu email e password
-   * @param Nif do utilizador
-   * @param Email do utilizador
-   * @return Utilizador inscrito na aplicação
+   * @param     Nif do utilizador
+   * @param     Email do utilizador
+   * @return    Utilizador inscrito na aplicação
    **/
    public USER validateAcess(int nif, String email) throws LoginException
    {
@@ -127,12 +149,12 @@ public class UMCarroJa implements Serializable
    /*** CLIENTES ***/
    /**
    * Método que regista um novo cliente na aplicação
-   * @param Nome do utilizador
-   * @param Nif do utilizador
-   * @param Email do utilizador
-   * @param Morada do utilizador
-   * @param Coordenadas X e Y da localização do utilizador
-   * @return Novo utilizador registado na aplicação
+   * @param    Nome do utilizador
+   * @param    Nif do utilizador
+   * @param    Email do utilizador
+   * @param    Morada do utilizador
+   * @param    Coordenadas X e Y da localização do utilizador
+   * @return   Novo utilizador registado na aplicação
    **/
    public Client registerNewClient(String name, int nif, String email, String  address, double x, double y) throws RegistrationException 
    {
@@ -146,7 +168,7 @@ public class UMCarroJa implements Serializable
    
    /**
    * Método que adiciona um novo cliente na aplicação
-   * @param Cliente a adicionar 
+   * @param    Cliente a adicionar 
    **/
    public void addCL(Client c) throws UserExistsException 
    {
@@ -156,17 +178,17 @@ public class UMCarroJa implements Serializable
    
    /**
    * Método que remvoe um cliente na aplicação
-   * @param Cliente a remover
+   * @param    Cliente a remover
    **/
    public void deleteCL(Client c){this.clients.remove(c.getNif());}
    
    /**
    * Método que retorna uma lista com os 10 clientes que mais utilizam o sistema (em vezes)
-   * @return Lista de Clientes
+   * @return    Lista dos 10 Clientes que mais utilizam o sistema (em vezes)
    **/
    public List<Client> top10clientsX()
    {
-       Set<Client> clOrder = new TreeSet<Client>(new ClientOrderX());
+       Set<Client> clOrder = new TreeSet<Client>(new ClientComparatorX());
        List<Client> clList = new ArrayList<Client>(); 
        
        for(Client c: this.clients.values()){clOrder.add(c.clone());}    
@@ -182,11 +204,11 @@ public class UMCarroJa implements Serializable
    
    /**
    * Método que retorna uma lista com os 10 clientes que mais utilizam o sistema (em km)
-   * @return Lista de Clientes
+   * @return      Lista dos 10 Clientes que mais utilizam o sistema (em km)
    **/
    public List<Client> top10clientsKM()
    {
-      Set<Client> clOrder = new TreeSet<Client>(new ClientOrderKM());  
+      Set<Client> clOrder = new TreeSet<Client>(new ClientComparatorKM());  
       List<Client> clList = new ArrayList<Client>(); 
        
        for(Client c: this.clients.values()){clOrder.add(c.clone());}    
@@ -208,8 +230,8 @@ public class UMCarroJa implements Serializable
    /*** Proprietários ***/
    /**
    * Método que devolve um proprietário que corresponde ao nif passado como parametro
-   * @param Nif do utilizador
-   * @return Utilizador registado na aplicação
+   * @param       Nif do utilizador
+   * @return      Utilizador registado na aplicação
    **/
    public Owner getOwnerByNif(int nif) throws UserDoesntExistException
    {
@@ -221,11 +243,11 @@ public class UMCarroJa implements Serializable
     
    /**
    * Método que regista um novo cliente na aplicação
-   * @param Nome do utilizador
-   * @param Nif do utilizador
-   * @param Email do utilizador
-   * @param Morada do utilizador
-   * @return Novo utilizador registado na aplicação
+   * @param     Nome do utilizador
+   * @param     Nif do utilizador
+   * @param     Email do utilizador
+   * @param     Morada do utilizador
+   * @return    Novo utilizador registado na aplicação
    **/
    public Owner registerNewOwner(String name, int nif, String email, String  address) throws RegistrationException, UserExistsException
    {
@@ -236,7 +258,7 @@ public class UMCarroJa implements Serializable
    
    /**
    * Método que  adiciona um novo proprietário na aplicação
-   * @param Utilizador a adicionar
+   * @param     Utilizador a adicionar
    **/
    public void addOW(Owner o) throws UserExistsException, RegistrationException 
    {
@@ -246,14 +268,14 @@ public class UMCarroJa implements Serializable
    
    /**
    * Método que remove o perfil de um proprietário da aplicação
-   * @param Utilizador a remvoer
+   * @param     Utilizador a remover
    **/
    public void deleteOW(Owner o){this.owners.remove(o.getNif());}
    
    /**
    * Método que retorna uma lista com todos os veículos de um determinado proprietario
    * @param Nif do proprietário
-   * @return Lista de veículos de um determinado proprietário
+   * @return    Lista de veículos de um determinado proprietário
    **/
    public List<Vehicle> listOfVehicles(int nif) throws UserDoesntExistException
    { 
@@ -268,26 +290,31 @@ public class UMCarroJa implements Serializable
        }
    }
    
-  /**
-  * Método que permite o proprietário aceitar ou recusar um aluguer 
-  * @param Cliente que requisitou o aluguer
-  * @param Veículo a alugar
-  **/
-  public boolean acceptORreject(Client c, Vehicle v) throws UserDoesntExistException
-  {
+   /**
+   * Método que permite o proprietário aceitar ou recusar um aluguer 
+   * @param    Cliente que requisitou o aluguer
+   * @param    Veículo a alugar
+   **/
+   public boolean acceptORreject(Client c, Vehicle v) throws UserDoesntExistException
+   {
      int nif = v.getNif();
      Owner o = new Owner();
      if(!this.owners.containsKey(nif))
             throw new UserDoesntExistException("O nif inserido não existe na nossa base de dados, por favor retifique a informação");
      else
         return true;
-  }
+   }
    
    
    
    
    
    /*** Vehicles ***/
+   /**
+   * Método que permite associar um veículo ao seu proprietário
+   * @param    Nif do proprietário
+   * @param    Veículo a adicionar
+   **/
    public void  addVehicleToOwner(int nif, Vehicle v) throws VehicleExistsException, UserDoesntExistException
    {
        if(!this.owners.containsKey(nif)) throw new  UserDoesntExistException("Este proprietário não existe na nossa base de dados");
@@ -304,8 +331,8 @@ public class UMCarroJa implements Serializable
    
    /**
    * Método que verifica se um veículo já existe a partir do seu nif
-   * @param Nif do veiculo
-   * @return true caso o veículo exista, false caso contrário
+   * @param     Nif do veiculo
+   * @return    True caso o veículo exista, false caso contrário
    **/
    public boolean vehicleExists(int nif)
    {
@@ -315,16 +342,16 @@ public class UMCarroJa implements Serializable
 
    /**
    * Método que verifica o tipo de veículo que se pretende criar e que cria o veículo em questão a partir de funções auxiliares
-   * @param Tipo do veiculo
-   * @param Marca do veiculo
-   * @param Matricula do veiculo
-   * @param Nif do veiculo
-   * @param Velocidade média do veiculo
-   * @param Velocidade do veiculo
-   * @param Consumo do veiculo
-   * @param Autonomia do veiculo
-   * @param Coordenadas X e Y da localização do veiculo
-   * @return Novo veículo
+   * @param    Tipo do veiculo
+   * @param    Marca do veiculo
+   * @param    Matricula do veiculo
+   * @param    Nif do veiculo
+   * @param    Velocidade média do veiculo
+   * @param    Velocidade do veiculo
+   * @param    Consumo do veiculo
+   * @param    Autonomia do veiculo
+   * @param    Coordenadas X e Y da localização do veiculo
+   * @return   Novo veículo
    **/
    public Vehicle vType(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y) throws InvalidVehicleException,  VehicleExistsException
    {
@@ -338,16 +365,16 @@ public class UMCarroJa implements Serializable
   
    /**
    * Método que cria um novo carro a gasolina
-   * @param Tipo do veiculo
-   * @param Marca do veiculo
-   * @param Matricula do veiculo
-   * @param Nif do veiculo
-   * @param Velocidade média do veiculo
-   * @param Velocidade do veiculo
-   * @param Consumo do veiculo
-   * @param Autonomia do veiculo
-   * @param Coordenadas X e Y da localização do veiculo
-   * @return Novo veículo a gasolina
+   * @param    Tipo do veiculo
+   * @param    Marca do veiculo
+   * @param    Matricula do veiculo
+   * @param    Nif do veiculo
+   * @param    Velocidade média do veiculo
+   * @param    Velocidade do veiculo
+   * @param    Consumo do veiculo
+   * @param    Autonomia do veiculo
+   * @param    Coordenadas X e Y da localização do veiculo
+   * @return   Novo veículo a gasolina
    **/
    public Vehicle gasRegistration(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y) throws VehicleExistsException
    {         
@@ -363,16 +390,16 @@ public class UMCarroJa implements Serializable
    
    /**
    * Método que cria um novo carro a gasolina
-   * @param Tipo do veiculo
-   * @param Marca do veiculo
-   * @param Matricula do veiculo
-   * @param Nif do veiculo
-   * @param Velocidade média do veiculo
-   * @param Velocidade do veiculo
-   * @param Consumo do veiculo
-   * @param Autonomia do veiculo
-   * @param Coordenadas X e Y da localização do veiculo
-   * @return Novo veículo  eletrico
+   * @param    Tipo do veiculo
+   * @param    Marca do veiculo
+   * @param    Matricula do veiculo
+   * @param    Nif do veiculo
+   * @param    Velocidade média do veiculo
+   * @param    Velocidade do veiculo
+   * @param    Consumo do veiculo
+   * @param    Autonomia do veiculo
+   * @param    Coordenadas X e Y da localização do veiculo
+   * @return   Novo veículo  eletrico
    **/
    public Vehicle electricRegistration(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y) throws VehicleExistsException
    {         
@@ -388,16 +415,16 @@ public class UMCarroJa implements Serializable
    
    /**
    * Método que cria um novo carro a gasolina
-   * @param Tipo do veiculo
-   * @param Marca do veiculo
-   * @param Matricula do veiculo
-   * @param Nif do veiculo
-   * @param Velocidade média do veiculo
-   * @param Velocidade do veiculo
-   * @param Consumo do veiculo
-   * @param Autonomia do veiculo
-   * @param Coordenadas X e Y da localização do veiculo
-   * @return Novo veículo hibrido
+   * @param   Tipo do veiculo
+   * @param   Marca do veiculo
+   * @param   Matricula do veiculo
+   * @param   Nif do veiculo
+   * @param   Velocidade média do veiculo
+   * @param   Velocidade do veiculo
+   * @param   Consumo do veiculo
+   * @param   Autonomia do veiculo
+   * @param   Coordenadas X e Y da localização do veiculo
+   * @return  Novo veículo hibrido
    **/
    public Vehicle hybridRegistration(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y) throws VehicleExistsException
    {         
@@ -414,8 +441,8 @@ public class UMCarroJa implements Serializable
 
    /**
    * Método que retorna o veículo mais próximo da localização de um determinado cliente
-   * @param Point 2D da localização do Cliente
-   * @return Veículo mais proximo do cliente
+   * @param   Point 2D da localização do Cliente
+   * @return  Veículo mais proximo do cliente
    **/
    public Vehicle nearestVehicle(Point2D clLocation, double kms) throws NoVehiclesAvailableException 
    {
@@ -445,8 +472,8 @@ public class UMCarroJa implements Serializable
    
    /**
    * Método que retorna um veículo especifico requisitado por um determinado cliente
-   * @param Matricula do veiculo
-   * @return Veículo escolhido
+   * @param   Matricula do veiculo
+   * @return  Veículo escolhido
    **/
    public Vehicle specificVehicle(String plate, double kms) throws VehicleDoesntExistException 
    {
@@ -464,11 +491,11 @@ public class UMCarroJa implements Serializable
    
    /**
    * Método que retorna um veículo mais barato
-   * @return Veículo mais barato da aplicação
+   * @return   Veículo mais barato da aplicação
    **/
    public Vehicle cheapestVehicle(double kms) throws NoVehiclesAvailableException
    {
-      Set<Vehicle> vOrder = new TreeSet<Vehicle>(new VehicleOrderP()); 
+      Set<Vehicle> vOrder = new TreeSet<Vehicle>(new VehicleComparatorP()); 
       Vehicle v = new Gas();
       if(vOrder.size() == 0) throw new NoVehiclesAvailableException("Não existem veículos disponiveis");
       else
@@ -488,15 +515,15 @@ public class UMCarroJa implements Serializable
   
    /**
    * Método que retorna um veículo mais barato dentro de uma distania que o cliente está disposto a caminhar
-   * @param  km que o cliente está disposto a caminhar
-   * @param  Localização do cliente
-   * @return Veículo escolhido
+   * @param   km que o cliente está disposto a caminhar
+   * @param   Localização do cliente
+   * @return  Veículo escolhido
    **/
    public Vehicle cheapestWalkVehicle(double walk, Point2D localc, double kms) throws NoVehiclesAvailableException
    {
        Set<Vehicle> near;
        near = this.vehicles.values().stream().filter(u -> u.isNear(walk, u.getLocation(), localc)).collect(Collectors.toCollection(TreeSet::new));
-       Set<Vehicle> vOrder = new TreeSet<Vehicle>(new VehicleOrderP()); 
+       Set<Vehicle> vOrder = new TreeSet<Vehicle>(new VehicleComparatorP()); 
        Vehicle v = new Gas();
        if(vOrder.size() == 0) throw new NoVehiclesAvailableException("Não existem veículos disponiveis");
        else
@@ -515,14 +542,14 @@ public class UMCarroJa implements Serializable
    
    /**
    * Método que retorna um veículo com a autonomia desejada
-   * @param  Autonomia desejada
-   * @return Veículo com a autonomia desejada
+   * @param   Autonomia desejada
+   * @return  Veículo com a autonomia desejada
    **/
    public Vehicle desiredAutonomyVehicle(double autonomy) throws NoVehiclesAvailableException
    {
        Set<Vehicle> desired;
        desired = this.vehicles.values().stream().filter(u -> u.desiredAutonomy(autonomy)).collect(Collectors.toCollection(TreeSet::new));
-       Set<Vehicle> vOrder = new TreeSet<Vehicle>(new VehicleOrderA()); 
+       Set<Vehicle> vOrder = new TreeSet<Vehicle>(new VehicleComparatorA()); 
        Vehicle v;
        if(vOrder.size() == 0) throw new NoVehiclesAvailableException("Não existem veículos disponiveis");
        else
@@ -536,10 +563,10 @@ public class UMCarroJa implements Serializable
    
    /**
    * Método que determina o tempo estimado de uma viagem
-   * @param  Localização X e Y do ponto inicial da viagem
-   * @param  Localização X e Y do destino da viagem
-   * @param  Veículo alugado para a viagem
-   * @return Tempo estimado
+   * @param   Localização X e Y do ponto inicial da viagem
+   * @param   Localização X e Y do destino da viagem
+   * @param   Veículo alugado para a viagem
+   * @return  Tempo estimado
    **/
    public double estimatedTime(double x, double y, double w, double z, Vehicle v)
    {
@@ -552,10 +579,10 @@ public class UMCarroJa implements Serializable
    
    /**
    * Método que determina o tempo real de uma viagem
-   * @param  Localização X e Y do ponto inicial da viagem
-   * @param  Localização X e Y do destino da viagem
-   * @param  Veículo alugado para a viagem
-   * @return Tempo real
+   * @param   Localização X e Y do ponto inicial da viagem
+   * @param   Localização X e Y do destino da viagem
+   * @param   Veículo alugado para a viagem
+   * @return  Tempo real
    **/
    public double realTime(double estimatedTime, Vehicle v)
    {                                       
@@ -565,10 +592,10 @@ public class UMCarroJa implements Serializable
    
    /**
    * Método que determina o custo estimado de uma viagem
-   * @param  Localização X e Y do ponto inicial da viagem
-   * @param  Localização X e Y do destino da viagem
-   * @param  Veículo alugado para a viagem
-   * @return Custo estimado
+   * @param   Localização X e Y do ponto inicial da viagem
+   * @param   Localização X e Y do destino da viagem
+   * @param   Veículo alugado para a viagem
+   * @return  Custo estimado
    **/
    public double estimatedPrice(double x, double y, double w, double z, Vehicle v)
    {
@@ -581,10 +608,10 @@ public class UMCarroJa implements Serializable
    
    /**
    * Método que determina o custo real de uma viagem
-   * @param  Localização X e Y do ponto inicial da viagem
-   * @param  Localização X e Y do destino da viagem
-   * @param  Veículo alugado para a viagem
-   * @return Custo real
+   * @param   Localização X e Y do ponto inicial da viagem
+   * @param   Localização X e Y do destino da viagem
+   * @param   Veículo alugado para a viagem
+   * @return  Custo real
    **/
    public double realPrice(double estimatedTime, double realTime, double estimatedPrice)
    {
@@ -596,19 +623,19 @@ public class UMCarroJa implements Serializable
    
    /**
    * Método que gera um random de 0 a 100 correspondente à probabilidade de chover
-   * @return A probabilidade de chover
-   **/
+   * @return    A probabilidade de chover
+   **/ 
    public double chanceofrain(){return Math.round(Math.random() * 100);}
    
    /**
    * Método que gera um random de 0 a 100 correspondente à probabilidade de estar nevoeiro
-   * @return A probabilidade de estar nevoeiro
+   * @return    A probabilidade de estar nevoeiro
    **/
    public double chanceoffog(){return Math.round(Math.random() * 100);}
    
    /**
    * Método que gera um random de 0 a 100 correspondente à probabilidade de estar transito
-   * @return A probabilidade de estar transito
+   * @return    A probabilidade de estar transito
    **/
    public double chanceoftraffic(){return Math.round(Math.random() * 100);}
    
@@ -653,32 +680,6 @@ public class UMCarroJa implements Serializable
                   return total;
                 }
    }
-   
-   /**
-   public double ownerProfit(String email, int yi, int mi, int di, int yf, int mf, int df) throws DateException, UserDoesntExistException
-   {
-      double total = 0;
-      if(yi < 0 || mi < 1 || mi > 12 || di < 1 || di > 31 || yf < 0 || mf < 1 || mf > 12 || df < 1 || df > 31 || yi > yf || 
-         (yi == yf && mi > mf) || (yi == yf && mi == mf && di > df))
-          throw new DateException("Formato de data e hora incorreto, por favor tente novamente com uma data e hora válidas.");
-          else if(!this.owners.containsKey(email)) throw new UserDoesntExistException("O utilizador inserido não existe na nossa base de dados, por favor retifique a informação");
-          else{ 
-                  LocalDateTime i = LocalDateTime.of(yi,mi,di,00,00);
-                  LocalDateTime f = LocalDateTime.of(yf,mf,df,23,59);
-                  
-                  Owner o = this.owners.get(email);
-       
-                  for(RentedCar r: o.getRentingHistory())
-                  {
-                      if((r.getDate().isAfter(i) || r.getDate().equals(i)) && (r.getDate().isBefore(f) || r.getDate().equals(f)))
-                            total += r.getRealPrice();
-                  }
-                  
-             }
-     return total;
-   } */
-   
-   
    
    /*** VIAGEM/ALUGUER ***/
    /**
@@ -740,7 +741,7 @@ public class UMCarroJa implements Serializable
    * @param     Tempo que a viagem demorou
    * @param     Custo real da viagem
    * @param     Custo estimado da viagem
-   * @param     ??????
+   * @param     Autonomia do veículo
    * @param     Classificação do aluguer
    **/
    public void endRide(Client c, int yr, int m, int d, int h, int min, double x, double y, double w, double z, Vehicle v, double kms, 
@@ -786,14 +787,75 @@ public class UMCarroJa implements Serializable
    }
    
   
-
+   /** LOAD AUX **/
+    /**
+   * Método que devolve um veículo que corresponde à matricula passada como parametro
+   * @param     Matricula do veículo
+   * @return    Veículo registado na aplicação
+   **/
+   public Vehicle getVehiclebyPlate(String plate) throws VehicleDoesntExistException
+   {
+       if(!this.vehicles.containsKey(plate))
+              throw new  VehicleDoesntExistException("O veículo inserido não existe na nossa base de dados, por favor retifique a informação");
+       else
+            return this.vehicles.get(plate);
+   }
+    
+   /**
+   * Método que devolve um veículo que corresponde ao Nif passado como parametro
+   * @param     Nif do veículo
+   * @return    Veículo registado na aplicação
+   **/
+    public Vehicle getVehiclebyNif(int nif) throws VehicleDoesntExistException
+    {
+       if(!this.vehicles.containsKey(nif))
+              throw new  VehicleDoesntExistException("O veículo inserido não existe na nossa base de dados, por favor retifique a informação");
+       else
+            return this.vehicles.get(nif);
+    }
+    
+   /**
+   * Método que devolve o email de um cliente
+   * @param     Nif do cliente a procurar
+   * @return    Email do cliente
+   **/
+    public Client getClientbyNif(int nif) throws UserDoesntExistException
+    {
+       Client c;
+       if(!this.clients.containsKey(nif))
+              throw new  UserDoesntExistException("O veículo inserido não existe na nossa base de dados, por favor retifique a informação");
+       else
+            c = this.clients.get(nif);
+       return c;     
+   }
+   
+   /**
+   * Método que devolve o email de um cliente
+   * @param      Nif do cliente a procurar
+   * @return     Email do cliente
+   **/
+    public Point2D getLocationbyNif(int nif) throws UserDoesntExistException
+    {
+       Client c;
+       Point2D p = new Point2D();
+       if(!this.clients.containsKey(nif))
+              throw new  UserDoesntExistException("O veículo inserido não existe na nossa base de dados, por favor retifique a informação");
+       else
+            c = this.clients.get(nif);
+           p = c.getLocation();
+       return p;     
+   }
    
   
    
    
+   
+   
    /*** STATUS ***/
    
-   /** Método que guarda o estado de uma instância num ficheiro de texto. **/
+   /** 
+   * Método que guarda o estado de uma instância num ficheiro de texto
+   **/
    public void writeToTxt(String fileName) throws IOException 
    {
        PrintWriter fich = new PrintWriter(fileName);
@@ -802,7 +864,10 @@ public class UMCarroJa implements Serializable
        fich.flush();
        fich.close();
    }
-   /** Método que guarda em ficheiro de objectos o objecto que recebe a mensagem. **/
+   
+   /** 
+   * Método que guarda em ficheiro de objectos o objecto que recebe a mensagem
+   **/
    public void saveStatus(String fileName) throws FileNotFoundException,IOException 
    {
        FileOutputStream fos = new FileOutputStream(fileName);
@@ -811,7 +876,10 @@ public class UMCarroJa implements Serializable
        oos.flush();
        oos.close();
    }
-   /** Método que recupera uma instância de UMCarroJa de um ficheiro de objectos. **/
+   
+   /** 
+   * Método que recupera uma instância de UMCarroJa de um ficheiro de objectos 
+   **/
    public static UMCarroJa loadStatus(String fileName) throws FileNotFoundException,IOException, ClassNotFoundException 
    {
       FileInputStream fis = new FileInputStream(fileName);
@@ -820,7 +888,10 @@ public class UMCarroJa implements Serializable
       ois.close();
       return umcj;
    }
-   /** Corre a aplicação, gerando um menu interativo **/
+   
+   /** 
+   * Corre a aplicação, gerando um menu interativo 
+   **/
    public static void main()
    {
        new App().run();

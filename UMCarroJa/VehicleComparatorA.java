@@ -1,6 +1,9 @@
 import java.util.Comparator;
 
-public class VehicleOrderA implements Comparator<Vehicle>
+/**
+* Classe VehicleComparatorA que impõem uma ordem quando se quer adicionar um veículo a uma coleção
+**/
+public class VehicleComparatorA implements Comparator<Vehicle>
 {
     public int compare(Vehicle v1, Vehicle v2)
     {
