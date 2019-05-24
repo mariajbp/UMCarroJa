@@ -11,7 +11,7 @@ public abstract class USER implements Serializable
   private String address;
   private int nif;
   private int rating;
-  private List<Integer> requests;        //pedidos com o nif do user que fez o pedido/ a quem fez o pedido
+
   
   /** Construtor vazio que cria uma instância USER  **/
   public USER()
@@ -21,7 +21,6 @@ public abstract class USER implements Serializable
      this.address = "";
      this.nif = 0;
      this.rating = 0;
-     this.requests = new ArrayList<Integer>();
   } 
   /** Construtor que cria um novo USER a partir dos parâmetros dados **/
   public USER(String name, int nif, String email, String address)
@@ -31,7 +30,6 @@ public abstract class USER implements Serializable
     this.address = address;
     this.nif = nif;
     this.rating = 0;
-    this.requests = new ArrayList<Integer>();
   }
   /** Construtor de cópia que cria uma nova instância USER a partir de um USER passado como parâmetro **/
   public USER(USER u)
@@ -41,7 +39,6 @@ public abstract class USER implements Serializable
        this.address = u.getAddress();
        this.nif = u.getNif();
        this.rating = u.getRating();
-       this.requests = u.getRequests();
   }
     
   /**
@@ -74,24 +71,6 @@ public abstract class USER implements Serializable
   **/
   public int getNif(){return this.nif;}
   
-  /**
-  * Método que devolve um pedido de um utilizador
-  * @param posição no array
-  * @return pedido do utilizador
-  **/
-  public int getRequest(int i){return this.requests.get(i);}
-  
-  /**
-  * Método que devolve os pedidos de um utilizador
-  * @return lista com pedidos do utilizador
-  **/
-  public List<Integer> getRequests()
-  {
-      return new ArrayList<Integer>(this.requests);
-   }
-
-  public int getRequestsSize(){return this.requests.size();}
-  
   
   /**
   * Método que define o email de um utilizador a partir de uma String passada como parâmetro
@@ -123,18 +102,6 @@ public abstract class USER implements Serializable
   **/
   public void setNif(int nif){this.nif = nif;}
   
-  /**
-  * Método que acrescenta um pedido à lista de um utilizador a partir de um int passado como parâmetro
-  * @param pedido
-  **/
-  public void setRequest(int i, int p){this.requests.add(i, p);}
-  
-  public void removeRequest(int nif)
-  {
-      int i = this.requests.indexOf(nif);
-      this.requests.remove(i);
-    }
-  
    /************************* CLONE *************************/
   public abstract USER clone();
     
@@ -148,8 +115,7 @@ public abstract class USER implements Serializable
               this.email == u.getEmail() &&
               this.rating == u.getRating() &&
               this.address == u.getAddress() &&
-              this.nif == u.getNif() &&
-              this.requests.equals(u.getRequests());
+              this.nif == u.getNif();
                
   }
     
@@ -160,7 +126,6 @@ public abstract class USER implements Serializable
              "Nome: " + this.name +
              "Morada: " + this.address +
              "NIF: " + this.nif + 
-             "Rating: " + this.rating +
-             "Pedidos: " + this.requests.toArray().toString();
+             "Rating: " + this.rating ;
   } 
 }

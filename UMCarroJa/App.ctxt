@@ -36,8 +36,6 @@ comment21.params=
 comment21.target=void\ addVehicle()
 comment22.params=
 comment22.target=void\ carProfit()
-comment23.params=o
-comment23.target=void\ acceptORReject(Owner)
 comment3.params=
 comment3.target=void\ login()
 comment3.text=M\u00E9todo\ que\ realiza\ o\ login\ de\ um\ utilizador\ na\ aplica\u00E7\u00E3o,\ requisitando\ a\ inser\u00E7\u00E3o\ do\ seu\ email\ e\ password\ *
@@ -55,5 +53,4 @@ comment8.params=c\ v\ f
 comment8.target=void\ rentRequest(Client,\ Vehicle,\ Point2D)
 comment9.params=nif
 comment9.target=void\ rentingHistory(int)
-comment9.text=\ \ \ //PEDIR\ AO\ OWNER\ PARA\ ALUGAR\r\n\ \ \ \ \ \ \ try\r\n\ \ \ \ \ \ \ {\r\n\ \ \ \ \ \ \ \ \ \ \ a\ \=\ umcj.acceptORreject(c,\ v);\r\n\ \ \ \ \ \ \ \ }\r\n\ \ \ \ \ \ \ catch(UserDoesntExistException\ e){out.println(e.getMessage());}\r\n\ \ \ \ \ \ \ \ \ \ \ \ \r\n\ \ \ \ \ \ \ if(a\ \=\=\ true)\r\n\ \ \ \ \ \ \ {\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ out.println("O\ seu\ pedido\ foi\ efetuado,\ esperamos\ que\ tenha\ uma\ viagem\ agrad\u00E1vel.");\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ realTime\ \=\ umcj.realTime(estimatedTime,\ v);\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ realPrice\ \=\ umcj.realPrice(estimatedTime,\ realTime,\ estimatedTime);\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ out.println("Classifique\ o\ aluguer\ numa\ escala\ de\ 0\ a\ 100.");\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rating\ \=\ input.nextInt();\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ try\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ {\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ umcj.endRide(c,\ yr,\ m,\ d,\ h,\ min,\ x,\ y,\ w,\ z,\ v,\ kms,\ realTime,\ realPrice,\ estimatedPrice,\ v.getAutonomy(),\ rating);\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ out.println("Viagem\ finalizada,\ Obrigado\ por\ utilizar\ o\ nosso\ servi\u00E7o.");\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ catch\ (DateException\ e){out.println(e.getMessage());}\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input.close();\r\n\ \ \ \ \ \ \ }\r\n\ \ \ \ \ \ \ else\r\n\ \ \ \ \ \ \ {\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ out.println("O\ Propriet\u00E1rio\ n\u00E3o\ autorizou\ o\ seu\ pedido.");\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ input.close();\r\n\ \ \ \ \ \ \ }\r\n\ \ \ \ \ \ \ \r\n}
-numComments=24
+numComments=23

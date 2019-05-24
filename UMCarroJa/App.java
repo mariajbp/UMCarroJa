@@ -237,26 +237,15 @@ public class App  implements Serializable
            
        estimatedTime = umcj.estimatedTime(x,y,w,z,v);
        out.println("O tempo estimado de chegada ao destino pretendido é "+ estimatedTime +" minutos.");
-       
-       //Arquiva os pedidos
-       c.setRequest(c.getRequestsSize(), v.getNif());
-       Owner o = new Owner();
-       try
-       {
-           o = umcj.getOwnerByNif(v.getNif());
-        }catch(UserDoesntExistException e){out.println(e.getMessage());}
-       o.setRequest(o.getRequestsSize(), c.getNif());
-       
-       out.println("O seu pedido foi efetuado, aguarde pela confirmação do proprietário.");
-    }
+       boolean a = false;
     
-    /*   //PEDIR AO OWNER PARA ALUGAR
        try
        {
            a = umcj.acceptORreject(c, v);
         }
        catch(UserDoesntExistException e){out.println(e.getMessage());}
-            
+       
+      
        if(a == true)
        {
                out.println("O seu pedido foi efetuado, esperamos que tenha uma viagem agradável.");
@@ -282,7 +271,7 @@ public class App  implements Serializable
                 input.close();
        }
        
-   }*/
+    }
    
    //Método que disponibiliza a um utilizador o seu histórico de viagens no período de tempo considerado
    public void rentingHistory(int nif)
@@ -496,8 +485,8 @@ public class App  implements Serializable
    public void ownerArea(Owner o)
    {
        String s[] = {"Adicionar um veículo novo", "Lista dos meus veículos","Top 10 Clientes -> km ",
-                     "Top 10 Clientes -> Uso", "Lucro dos meus Carros", "Reabastecer um carro", "Mudar a dispinibilidade de um carro", 
-                     "Pedidos", "Eliminar Perfil"};
+                     "Top 10 Clientes -> Uso", "Lucro dos meus Carros", 
+                     "Eliminar Perfil"};
 
        Menu m = new Menu(s);
        int op = 0;
@@ -523,17 +512,11 @@ public class App  implements Serializable
                        break;
                case 5: carProfit();
                        break;
-                       /*
-               case 6: refuelCar();
-                       break;
-                       
+               case 6: deleteOwnerProfile(o);
+                        break;
+                       /*               
                case 7: changeAvailability();
                        break;
-                       */
-               case 8: acceptORReject(o);
-                       break;/*
-               case 9: deleteOwnerProfile();
-                        break;
                        */
 
            }
@@ -645,35 +628,14 @@ public class App  implements Serializable
        catch (DateException e){out.println(e.getMessage());}
        input.close();
    }
-   
-   public void acceptORReject(Owner o)
-   {   int nif;
-       Scanner input = new Scanner(System.in);
-       String d;
-       if( (nif = o.checkRequest()) > 0 )
-            out.println("O Cliente :" + nif + "requesitou um dos seus carros. Pretende aceitar o pedido? [sim/nao]");
-            d = input.nextLine();
-            if(d == "sim")
-            {
-                o.removeRequest(nif);
-                //cliente faz cenas
-                out.println("Pedido aceite com sucesso.");
-            }
-            else
-            {
-                o.removeRequest(nif);
-                //cliente faz cenas
-                out.println("Pedido recusado com sucesso");
-            }
-    }
    /** implementar estas
-    * totalProffit();
+    *
                        
       refuelCar();
                   
       changeAvailability();
                    
-      acceptReject();
+
                     
     */
    
