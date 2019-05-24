@@ -124,7 +124,7 @@ public class App  implements Serializable
            out.println("Coordenada y onde se encontra: ");
            y = input.nextDouble();
 
-           Client c = (Client) umcj.registerNewClient(name, nif, email, address, x, y); 
+           Client c = umcj.registerNewClient(name, nif, email, address, x, y); 
            clientArea(c);
        }catch (RegistrationException e){out.println(e.getMessage());
        }
@@ -146,7 +146,7 @@ public class App  implements Serializable
            switch(op){
                case 1: newRent(c);  //sub-menu para realizar um aluguer
                        break;
-               case 2: rentingHistory(c);
+               case 2: rentingHistory(c.getNif());
                        break;
                case 3: top10clientskm();
                        break;
@@ -173,11 +173,10 @@ public class App  implements Serializable
        h = input.nextInt();
        min = input.nextInt();
        
-       out.println("Digite a coordenada x onde se encontra,");
-       x = input.nextDouble();
-       out.println("Digite a coordenada y onde se encontra,");
-       y = input.nextDouble();
-       Point2D i = new Point2D(x,y);
+       //Localização do Cliente
+       x = c.getX();
+       y = c.getY();
+       Point2D i = c.getLocation();
        
        out.println("Digite a coordenada x do seu destino,");
        w = input.nextDouble();
@@ -187,10 +186,11 @@ public class App  implements Serializable
        
        double kms = Math.round(i.distanceTo(f));
        
-       double autonomy = v.getAutonomy();
-       
-       if(autonomy < kms)
+       if(!v.hasAutonomy(kms))
+       {
             out.println("O carro que escolheu não possui autonomia suficiente para concluir a viagem");
+            input.close();
+       }
        else{
            
            estimatedPrice = umcj.estimatedPrice(x,y,w,z,v);
@@ -220,7 +220,7 @@ public class App  implements Serializable
                
                try
                {
-                   umcj.endRide(c, yr, m, d, h, min, x, y, w, z, v, kms, realTime, realPrice, estimatedPrice, autonomy, rating);
+                   umcj.endRide(c, yr, m, d, h, min, x, y, w, z, v, kms, realTime, realPrice, estimatedPrice, v.getAutonomy(), rating);
                    out.println("Viagem finalizada, Obrigado por utilizar o nosso serviço.");
                }
                catch (DateException e){out.println(e.getMessage());}
@@ -228,12 +228,15 @@ public class App  implements Serializable
                input.close();
            }
            else
+           {
                 out.println("O Proprietário não autorizou o seu pedido.");
+                input.close();
+            }
        }
    }
    
    //Método que disponibiliza a um utilizador o seu histórico de viagens no período de tempo considerado
-   public void rentingHistory(Client  c)
+   public void rentingHistory(int nif)
    {
        Scanner input = new Scanner(System.in);
        int di, mi, yi, yf, mf, df;
@@ -250,7 +253,7 @@ public class App  implements Serializable
        
        try
        {
-           List<RentedCar> h = umcj.rentingRegist(c.getEmail(), yi, mi, di, yf, mf, df);
+           List<RentedCar> h = umcj.rentingRegist(nif, yi, mi, di, yf, mf, df);
            out.println("Durante o período submetido efetuou as seguintes viagens:\n "+ h.toString());
        }catch (DateException e){out.println(e.getMessage());}
         
@@ -274,11 +277,11 @@ public class App  implements Serializable
                        break;
                case 2: rentSpecificVehicle(c);
                        break;
-               case 3: rentCheapestVehicle();
+               case 3: rentCheapestVehicle(c);
                        break;
-               case 4: rentCheapWalk();
+               case 4: rentCheapWalk(c);
                        break;
-               case 5: rentDesiredAutonomy();
+               case 5: rentDesiredAutonomy(c);
                        break; 
                       
            }
@@ -292,15 +295,14 @@ public class App  implements Serializable
        Scanner input = new Scanner(System.in);
        double x, y;
  
-       Vehicle v;
-       
-       out.println("Digite a coordenada x onde se encontra: ");
-       x = input.nextDouble();
-       out.println("Digite a coordenada y onde se encontra: ");
-       y = input.nextDouble();
+       Vehicle v = new Gas();
 
-       try{v = umcj.nearestVehicle(x,y);}
+       try
+       {
+           v = umcj.nearestVehicle(c.getLocation());
+       }
        catch (NoVehiclesAvailableException e){out.println(e.getMessage());}
+       rent(c, v);
        input.close();
    }
     
@@ -312,18 +314,63 @@ public class App  implements Serializable
        String plate;
        out.println("Digite a matrícula do veículo que deseja. [xx-xx-xx]");
        plate = input.nextLine();
-       try{Vehicle v = umcj.specificVehicle(plate); }
+       Vehicle v = new Gas();
+       try
+       {
+           v = umcj.specificVehicle(plate); 
+        }
        catch (VehicleDoesntExistException e){System.out.println(e.getMessage());}
+       rent(c,v);
        input.close();
    }
    
    //Método que seleciona o veículo mais barato para a realização de um aluguer
-   public void rentCheapestVehicle(){}
+   public void rentCheapestVehicle(Client c)
+   {
+       Scanner input = new Scanner(System.in);
+       Vehicle v = new Gas();
+       
+       try
+       {
+           v = umcj.cheapestVehicle(); 
+        }
+       catch (NoVehiclesAvailableException e){System.out.println(e.getMessage());}
+       rent(c,v);
+       input.close();
+    }
    
    //Método que seleciona o veículo mais barato para a realização de um aluguer dentro de uma distancia a pé
-   public void rentCheapWalk(){}
+   public void rentCheapWalk(Client c)
+   {
+           Scanner input = new Scanner(System.in);
+           double walk;
+           out.println("Digite a distância que está disposto a andar até ao veículo.");
+           walk = input.nextDouble();
+           Vehicle v = new Gas();
+           try
+           {
+               v = umcj.cheapestWalkVehicle(walk, c.getLocation()); 
+            }
+           catch (NoVehiclesAvailableException e){System.out.println(e.getMessage());}
+           rent(c,v);
+           input.close();
+    }
    
-   public void rentDesiredAutonomy(){}
+   public void rentDesiredAutonomy(Client c)
+   {
+           Scanner input = new Scanner(System.in);
+           double a;
+           out.println("Digite a autonomia desejada.");
+           a = input.nextDouble();
+           Vehicle v = new Gas();
+           try
+           {
+               v = umcj.desiredAutonomyVehicle(a); 
+            }
+           catch (NoVehiclesAvailableException e){System.out.println(e.getMessage());}
+           rent(c,v);
+           input.close();
+    }
    
    //Método que retorna uma lista com os 10 clientes que mais utilizam o sistema (em vezes)
    public void top10clientsx()
@@ -376,7 +423,7 @@ public class App  implements Serializable
            out.println("Morada: ");
            address = input.nextLine();
            
-           Owner o = (Owner) umcj.registerNewOwner(name, email, address, nif); 
+           Owner o = umcj.registerNewOwner(name, email, address, nif); 
            ownerArea(o);
        }catch (RegistrationException | UserExistsException e){out.println(e.getMessage());}
        
@@ -387,7 +434,7 @@ public class App  implements Serializable
    public void ownerArea(Owner o)
    {
        String s[] = {"Adicionar um veículo novo", "Lista dos meus veículos","Top 10 Clientes -> km ",
-                     "Top 10 Clientes -> Uso"};
+                     "Top 10 Clientes -> Uso", "Lucro dos meus Carros"};
        Menu m = new Menu(s);
        int op = 0;
        do
@@ -398,25 +445,28 @@ public class App  implements Serializable
            {
                case 1: addVehicle();
                        break; 
-                       /*
-               case 2: this.umcj.listOfVehicles(o.getNif());
+                    
+               case 2: 
+                       try
+                       {
+                           this.umcj.listOfVehicles(o.getNif());
+                       }
+                       catch ( UserDoesntExistException e){out.println(e.getMessage());}
                        break;  
-                      
                case 3: top10clientskm();
                        break;
                case 4: top10clientsx();
                        break;
                case 5: carProfit();
                        break;
-               case 6: totalProfit();
+                       /*
+               case 6: refuelCar();
                        break;
-               case 7: refuelCar();
+               case 7: changeAvailability();
                        break;
-               case 8: changeAvailability();
+               case 8: acceptORReject();
                        break;
-               case 9: acceptORReject();
-                       break;
-                       */
+                      */
            }
        }
        while(op != 0);

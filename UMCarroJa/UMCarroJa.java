@@ -305,9 +305,8 @@ public class UMCarroJa implements Serializable
    }
    
    //Método que retorna o veículo mais próximo da localização de um determinado cliente
-   public Vehicle nearestVehicle(double x, double y) throws NoVehiclesAvailableException
+   public Vehicle nearestVehicle(Point2D clLocation) throws NoVehiclesAvailableException 
    {
-       Point2D clLocation = new Point2D(x,y);
        Point2D vlLocation;
        double dist = -1;
        Vehicle vf = new Gas();
@@ -328,6 +327,7 @@ public class UMCarroJa implements Serializable
                        vh = vf;
                        dist = vlLocation.distanceTo(clLocation);
                    }
+                   else throw new NoVehiclesAvailableException("Não existem veículos disponiveis.");
               }
        }
        return vf;
@@ -383,7 +383,7 @@ public class UMCarroJa implements Serializable
    public Vehicle desiredAutonomyVehicle(double autonomy) throws NoVehiclesAvailableException
    {
        Set<Vehicle> near;
-       near = this.vehicles.values().stream().filter(u -> u.hasAutonomy(autonomy)).collect(Collectors.toCollection(TreeSet::new));
+       near = this.vehicles.values().stream().filter(u -> u.desiredAutonomy(autonomy)).collect(Collectors.toCollection(TreeSet::new));
        Set<Vehicle> vOrder = new TreeSet<Vehicle>(new VehicleOrderA()); 
        Vehicle v;
        if(vOrder.size() == 0) throw new NoVehiclesAvailableException("Não existem veículos disponiveis");
@@ -496,7 +496,7 @@ public class UMCarroJa implements Serializable
    
    /*** VIAGEM/ALUGUER ***/
    //Método que retorna o registo de viagens de um utilizador num determinado período
-   public List<RentedCar> rentingRegist(String email, int yi, int mi, int di, int yf, int mf, int df) throws DateException
+   public List<RentedCar> rentingRegist(int nif, int yi, int mi, int di, int yf, int mf, int df) throws DateException
    {
       if(yi < 0 || mi < 1 || mi > 12 || di < 1 || di > 31 || yf < 0 || mf < 1 || mf > 12 || df < 1 || df > 31 || yi > yf || 
          (yi == yf && mi > mf) || (yi == yf && mi == mf && di > df))
@@ -506,18 +506,18 @@ public class UMCarroJa implements Serializable
           LocalDateTime f = LocalDateTime.of(yf,mf,df,23,59);
           List<RentedCar> r = new ArrayList<RentedCar>();
           
-          if(this.clients.containsKey(email))
+          if(this.clients.containsKey(nif))
           {
-               Client c = this.clients.get(email);
+               Client c = this.clients.get(nif);
                for(RentedCar rc: c.getRentingHistoryAll())
                {
                   if((rc.getDate().isAfter(i) || rc.getDate().equals(i)) && (rc.getDate().isBefore(f) || rc.getDate().equals(f)))
                        r.add(rc);
                }
           }
-          else if (this.owners.containsKey(email))
+          else if (this.owners.containsKey(nif))
           {
-              Owner o = this.owners.get(email);
+              Owner o = this.owners.get(nif);
               for(RentedCar rc: o.getRentingHistoryAll()) 
               {
                   if((rc.getDate().isAfter(i) || rc.getDate().equals(i)) && (rc.getDate().isBefore(f) || rc.getDate().equals(f)))
@@ -551,7 +551,7 @@ public class UMCarroJa implements Serializable
            v.addRide(r);
            
            //Caracteristicas do Carro
-           if(!v.hasAutonomy())
+           if(!v.hasAutonomy10())
                 o.refuel(v.getPlate());
                 
                v.setAvailability(true);

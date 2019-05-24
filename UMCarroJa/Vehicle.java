@@ -184,19 +184,32 @@ public abstract class Vehicle implements Serializable
   * Método que calcula se a autonomia de um carro é superior a 10%
   * @return true caso a autonomia seja superior, false caso a autonomia seja inferior
   **/
-  public boolean hasAutonomy()
+  public boolean hasAutonomy10()
   {
-    if(this.autonomy == 0.1*this.deposit)
+    if(this.autonomy*this.comsuption <= 0.1*this.deposit)
         return false;
     else
         return true;
   }
   
   /**
-  * Método que calcula se a autonomia de um carro é suficiente para fazer uma viagem
+   * Método que verifica se o carro tem autonomia suficiente para realizar a viagem
+   * @param kms a percorrer
+   * @return true se tiver autonomia suficiente, false caso contrário
+   */
+  public boolean hasAutonomy(double kms){
+      if(this.autonomy >= kms)
+        return true;
+      else
+        return false;
+    }
+    
+    
+  /**
+  * Método que calcula se a autonomia de um carro é a desejada
   * @return true caso a autonomia seja suficiente, false caso a autonomia insuficiente
   **/
-   public boolean hasAutonomy(double autonomy)
+   public boolean desiredAutonomy(double autonomy)
    {
        if(this.autonomy == autonomy)
             return true;
