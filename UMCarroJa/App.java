@@ -190,8 +190,22 @@ public class App  implements Serializable
        return 0;
    }
    
+   public Point2D askDistance()
+   {
+       Scanner input = new Scanner(System.in);
+       
+       out.println("Digite a coordenada x do seu destino,");
+       double w = input.nextDouble();
+       out.println("Digite a coordenada y do seu destino,");
+       double z = input.nextDouble();
+       Point2D f = new Point2D(w,z);
+       input.close();
+       
+       return f;
+    }
+    
    //Método que efetua uma viagem/aluguer requisitada pelo cliente 
-   public void rent(Client c, Vehicle v)
+   public void rentRequest(Client c, Vehicle v, Point2D f)
    {
        Scanner input = new Scanner(System.in);
        double x, y, w, z, estimatedTime, realTime, realPrice, estimatedPrice;
@@ -207,42 +221,44 @@ public class App  implements Serializable
        min = input.nextInt();
        
        //Localização do Cliente
-       x = c.getX();
-       y = c.getY();
+       out.println("Digite a coordenada x de onde se encontra,");
+       x = input.nextDouble();
+       out.println("Digite a coordenada y de onde se encontra,");
+       y = input.nextDouble();
        Point2D i = c.getLocation();
-       
-       out.println("Digite a coordenada x do seu destino,");
-       w = input.nextDouble();
-       out.println("Digite a coordenada y do seu destino,");
-       z = input.nextDouble();
-       Point2D f = new Point2D(w,z);
+ 
+       w = f.getX();
+       z = f.getY();
        
        double kms = Math.round(i.distanceTo(f));
+    
+       estimatedPrice = umcj.estimatedPrice(x,y,w,z,v);
+       out.println("O custo estimado da viagem é "+ estimatedPrice +" euros.");
+           
+       estimatedTime = umcj.estimatedTime(x,y,w,z,v);
+       out.println("O tempo estimado de chegada ao destino pretendido é "+ estimatedTime +" minutos.");
        
-       if(!v.hasAutonomy(kms))
+       //Arquiva os pedidos
+       c.setRequest(c.getRequestsSize(), v.getNif());
+       Owner o = new Owner();
+       try
        {
-            out.println("O carro que escolheu não possui autonomia suficiente para concluir a viagem");
-            input.close();
-       }
-       else{
-           
-           estimatedPrice = umcj.estimatedPrice(x,y,w,z,v);
-           out.println("O custo estimado da viagem é "+ estimatedPrice +" euros.");
-           
-           estimatedTime = umcj.estimatedTime(x,y,w,z,v);
-           out.println("O tempo estimado de chegada ao destino pretendido é "+ estimatedTime +" minutos.");
-           boolean a = false;
-           
-           //PEDIR AO OWNER PARA ALUGAR
-           try
-           {
-              a = umcj.acceptORreject(c, v);
-            }
-            catch(UserDoesntExistException e){out.println(e.getMessage());}
+           o = umcj.getOwnerByNif(v.getNif());
+        }catch(UserDoesntExistException e){out.println(e.getMessage());}
+       o.setRequest(o.getRequestsSize(), c.getNif());
+       
+       out.println("O seu pedido foi efetuado, aguarde pela confirmação do proprietário.");
+    }
+    
+    /*   //PEDIR AO OWNER PARA ALUGAR
+       try
+       {
+           a = umcj.acceptORreject(c, v);
+        }
+       catch(UserDoesntExistException e){out.println(e.getMessage());}
             
-           if(a == true)
-           {
-               
+       if(a == true)
+       {
                out.println("O seu pedido foi efetuado, esperamos que tenha uma viagem agradável.");
                realTime = umcj.realTime(estimatedTime, v);
                
@@ -259,14 +275,14 @@ public class App  implements Serializable
                catch (DateException e){out.println(e.getMessage());}
                
                input.close();
-           }
-           else
-           {
+       }
+       else
+       {
                 out.println("O Proprietário não autorizou o seu pedido.");
                 input.close();
-            }
        }
-   }
+       
+   }*/
    
    //Método que disponibiliza a um utilizador o seu histórico de viagens no período de tempo considerado
    public void rentingHistory(int nif)
@@ -329,13 +345,15 @@ public class App  implements Serializable
        double x, y;
  
        Vehicle v = new Gas();
-
+       Point2D f = askDistance();
+       double kms = Math.round(c.getLocation().distanceTo(f));
+       
        try
        {
-           v = umcj.nearestVehicle(c.getLocation());
+           v = umcj.nearestVehicle(c.getLocation(), kms);
        }
        catch (NoVehiclesAvailableException e){out.println(e.getMessage());}
-       rent(c, v);
+       rentRequest(c, v, f);
        input.close();
    }
     
@@ -347,13 +365,16 @@ public class App  implements Serializable
        String plate;
        out.println("Digite a matrícula do veículo que deseja. [xx-xx-xx]");
        plate = input.nextLine();
+       
        Vehicle v = new Gas();
+       Point2D f = askDistance();
+       double kms = Math.round(c.getLocation().distanceTo(f));
        try
        {
-           v = umcj.specificVehicle(plate); 
+           v = umcj.specificVehicle(plate, kms); 
         }
        catch (VehicleDoesntExistException e){System.out.println(e.getMessage());}
-       rent(c,v);
+       rentRequest(c, v, f);
        input.close();
    }
    
@@ -362,13 +383,14 @@ public class App  implements Serializable
    {
        Scanner input = new Scanner(System.in);
        Vehicle v = new Gas();
-       
+       Point2D f = askDistance();
+       double kms = Math.round(c.getLocation().distanceTo(f));
        try
        {
-           v = umcj.cheapestVehicle(); 
+           v = umcj.cheapestVehicle(kms); 
         }
        catch (NoVehiclesAvailableException e){System.out.println(e.getMessage());}
-       rent(c,v);
+       rentRequest(c, v, f);
        input.close();
     }
    
@@ -380,12 +402,15 @@ public class App  implements Serializable
            out.println("Digite a distância que está disposto a andar até ao veículo.");
            walk = input.nextDouble();
            Vehicle v = new Gas();
+           
+           Point2D f = askDistance();
+           double kms = Math.round(c.getLocation().distanceTo(f));
            try
            {
-               v = umcj.cheapestWalkVehicle(walk, c.getLocation()); 
+               v = umcj.cheapestWalkVehicle(walk, c.getLocation(), kms); 
             }
            catch (NoVehiclesAvailableException e){System.out.println(e.getMessage());}
-           rent(c,v);
+           rentRequest(c, v, f);
            input.close();
     }
    
@@ -396,12 +421,14 @@ public class App  implements Serializable
            out.println("Digite a autonomia desejada.");
            a = input.nextDouble();
            Vehicle v = new Gas();
+           Point2D f = askDistance();
+
            try
            {
                v = umcj.desiredAutonomyVehicle(a); 
             }
            catch (NoVehiclesAvailableException e){System.out.println(e.getMessage());}
-           rent(c,v);
+           rentRequest(c, v, f);
            input.close();
     }
    
@@ -469,7 +496,8 @@ public class App  implements Serializable
    public void ownerArea(Owner o)
    {
        String s[] = {"Adicionar um veículo novo", "Lista dos meus veículos","Top 10 Clientes -> km ",
-                     "Top 10 Clientes -> Uso", "Lucro dos meus Carros","Eliminar Perfil"};
+                     "Top 10 Clientes -> Uso", "Lucro dos meus Carros", "Reabastecer um carro", "Mudar a dispinibilidade de um carro", 
+                     "Pedidos", "Eliminar Perfil"};
 
        Menu m = new Menu(s);
        int op = 0;
@@ -498,10 +526,12 @@ public class App  implements Serializable
                        /*
                case 6: refuelCar();
                        break;
+                       
                case 7: changeAvailability();
                        break;
-               case 8: acceptORReject();
-                       break;
+                       */
+               case 8: acceptORReject(o);
+                       break;/*
                case 9: deleteOwnerProfile();
                         break;
                        */
@@ -616,6 +646,26 @@ public class App  implements Serializable
        input.close();
    }
    
+   public void acceptORReject(Owner o)
+   {   int nif;
+       Scanner input = new Scanner(System.in);
+       String d;
+       if( (nif = o.checkRequest()) > 0 )
+            out.println("O Cliente :" + nif + "requesitou um dos seus carros. Pretende aceitar o pedido? [sim/nao]");
+            d = input.nextLine();
+            if(d == "sim")
+            {
+                o.removeRequest(nif);
+                //cliente faz cenas
+                out.println("Pedido aceite com sucesso.");
+            }
+            else
+            {
+                o.removeRequest(nif);
+                //cliente faz cenas
+                out.println("Pedido recusado com sucesso");
+            }
+    }
    /** implementar estas
     * totalProffit();
                        

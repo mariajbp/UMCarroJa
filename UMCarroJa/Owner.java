@@ -128,12 +128,26 @@ public class Owner extends USER implements Serializable
       v.setAutonomy(v.getDeposit());
   }
   
+  //Devolve o primeiro pedido que encontrar
+  public int checkRequest()
+  {
+      int r = -1;
+      for(int i = 0; i < this.getRequestsSize(); i++)
+      {
+          if(this.getRequest(i) != 0)
+          {
+             return r;
+          }
+      }
+      return r;
+  }
   
+
   /*
   //registar o custo de uma viagem
   public void priceReg(String plate, double price)
   {
-      
+
   }
   */
  
