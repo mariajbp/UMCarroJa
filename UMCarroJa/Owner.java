@@ -62,15 +62,6 @@ public class Owner extends USER implements Serializable
        return aux;
   }
   
-  /**
-  * Método que define o historico de um proprietário
-  * @param Historico de um proprietário
-  **/
-  public void setRating(int newR)
-  {
-      int nr = (this.getRating() + newR)/(this.rentingHistory.size());
-      this.setRating(nr);
-  }
   
   /**
   * Método que devolve todos os veículos de um proprietário
@@ -186,10 +177,15 @@ public class Owner extends USER implements Serializable
   /**
   * Método que calcula a classificação de um proprietário 
   **/
-  public void ownerRating()
+  public void ownerRating(int newR)
   {
-     int r = this.vh.values().stream().mapToInt(Vehicle::getRating).sum();
-     this.setRating(r/(this.vh.size()));
+     if(this.rentingHistory.size() == 0)
+            this.setRating(newR);
+      else
+      {
+          int nr = (this.getRating() + newR)/(this.rentingHistory.size());
+          this.setRating(nr);
+        }
   }
 
 }

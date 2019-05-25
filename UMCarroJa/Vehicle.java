@@ -4,7 +4,7 @@ import java.io.Serializable;
 /**
 * Representação abstrata da superclasse Vehicle(contém os dados comuns a todas as viaturas do sistema)
 **/
-public abstract class Vehicle implements Serializable
+public class Vehicle implements Serializable
 {
   private static double deposit = 100;
   
@@ -42,7 +42,7 @@ public abstract class Vehicle implements Serializable
      this.x = 0.0;
      this.y= 0.0;
      this.rating = 0;
-     this.available = true;
+     this.available = false;
      this.rentingHistory = new TreeSet<Ride>();
   }
   
@@ -61,7 +61,7 @@ public abstract class Vehicle implements Serializable
     this.autonomy = autonomy;
     this.x = x;
     this.y = y;
-    this.location = new Point2D();
+    this.location = new Point2D(x, y);
     this.rating = 0;
     this.available = true;
     this.rentingHistory = new TreeSet<Ride>();
@@ -311,7 +311,10 @@ public abstract class Vehicle implements Serializable
   /** 
   * Método que cria uma cópia de uma identificação de um Vehicle
   **/
-  public abstract Vehicle clone();  
+  public Vehicle clone()
+  {
+      return new Vehicle(this);
+    };  
 
   /** 
   * Método que testa se um objeto é igual a uma determinada identificação
@@ -343,14 +346,15 @@ public abstract class Vehicle implements Serializable
   **/
   public String toString()
   {
-      return "Tipo: " + this.type +
-             "Marca: " + this.brand +
-             "Matrícula: " + this.plate +
-             "NIF : " + this.nif +
-             "Velocidade média por km: " + speed +
-             "Preço base por km: " + price +
-             "Consumo de gasolina/bateria por km: " + comsuption +
-             "Classificação: " + rating;           
+      return "Tipo: " + this.type + "\n" +
+             "Marca: " + this.brand + "\n" +
+             "Matrícula: " + this.plate + "\n" +
+             "NIF : " + this.nif + "\n" +
+             "Velocidade média por km: " + speed + "\n" +
+             "Preço base por km: " + price + "\n" +
+             "Consumo de gasolina/bateria por km: " + comsuption + "\n" +
+             "Classificação: " + rating + "\n"  +
+             "Coordenadas: " + x + ", " + y + "\n";           
   }
   
   

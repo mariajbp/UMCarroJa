@@ -34,7 +34,7 @@ public class Client extends USER implements Serializable
       super(name,nif,email,address);
       this.x = x;
       this.y = y;
-      this.location = new Point2D();
+      this.location = new Point2D(x,y);
       this.rentingHistory = new TreeSet<RentedCar>();
   }
  
@@ -189,6 +189,12 @@ public class Client extends USER implements Serializable
   **/
   public void clientRating(int newR)
   {
-     this.setRating(newR + this.getRating()/(this.rentingHistory.size()));
+     if(this.rentingHistory.size() == 0)
+            this.setRating(newR);
+      else
+      {
+          int nr = (this.getRating() + newR)/(this.rentingHistory.size());
+          this.setRating(nr);
+        }
   }
 }

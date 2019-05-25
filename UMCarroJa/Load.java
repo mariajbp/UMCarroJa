@@ -60,11 +60,12 @@ public class Load
                                catch(RegistrationException e) {out.println(e.getMessage());}
                                break;
                               
-           case "NovoCarro": Vehicle v = new Gas();
-                             try {v = umcj.vType(snd[0],snd[1],snd[2],Integer.parseInt(snd[3]),Double.parseDouble(snd[4]),Double.parseDouble(snd[5]),Double.parseDouble(snd[6]),Double.parseDouble(snd[7]),Double.parseDouble(snd[8]),Double.parseDouble(snd[9]));}
-                             catch (InvalidVehicleException | VehicleExistsException e) {out.println(e.getMessage());}
-                             try {umcj.addVehicleToOwner(Integer.parseInt(snd[3]),v);}
-                             catch(VehicleExistsException | UserDoesntExistException e) {out.println(e.getMessage());}  
+           case "NovoCarro": Vehicle v = new Vehicle();
+                             try 
+                             {  v = umcj.vType(snd[0],snd[1],snd[2],Integer.parseInt(snd[3]),Double.parseDouble(snd[4]),Double.parseDouble(snd[5]),Double.parseDouble(snd[6]),Double.parseDouble(snd[7]),Double.parseDouble(snd[8]),Double.parseDouble(snd[9]));
+                                umcj.addVehicleToOwner(Integer.parseInt(snd[3]),v);
+                                }
+                             catch (InvalidVehicleException | VehicleExistsException | UserDoesntExistException e) {out.println(e.getMessage());}
                              break;
                              
            case "Aluguer": Client cl = new Client();

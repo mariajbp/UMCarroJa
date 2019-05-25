@@ -326,7 +326,6 @@ public class UMCarroJa implements Serializable
            else
            {
                Owner o = this.owners.get(nif);
-               v.setNif(o.getNif());
                this.vehicles.put(nif, v.clone());
                o.addVehicle(v); 
            }
@@ -459,51 +458,68 @@ public class UMCarroJa implements Serializable
    /**
    * Método que retorna o veículo mais próximo da localização de um determinado cliente
    * @param   Point 2D da localização do Cliente
+   * @param   Quilómetros a percorrer
    * @return  Veículo mais proximo do cliente
    **/
    public Vehicle nearestVehicle(Point2D clLocation, double kms) throws NoVehiclesAvailableException 
    {
        Point2D vLocation;
        double dist = -1;
-       Vehicle vh = new Gas();
-       
-       for(Vehicle v : this.vehicles.values())
-       {
-              if(v.getAvailability())
+       Vehicle vh = new Vehicle();
+       boolean f = false;
+       Iterator<Map.Entry<Integer, Vehicle>> it = vehicles.entrySet().iterator();
+        while(it.hasNext()){
+            
+            Map.Entry<Integer, Vehicle> v = it.next();
+
+              if(v.getValue().getAvailability())
               {
-                   vLocation = v.getLocation();
+                   vLocation = v.getValue().getLocation();
                    if(dist == -1)
-                        dist = vLocation.distanceTo(clLocation);
-                   else if(vLocation.distanceTo(clLocation) < dist)
                    {
-                       if(v.hasAutonomy(kms)){
-                           dist = vLocation.distanceTo(clLocation);
-                           vh = v;
-                       }
+                        System.out.println(v.toString());
+                        dist = vLocation.distanceTo(clLocation);
+                        System.out.println(dist);
+                        System.out.println(clLocation.toString());
+                        vh = v.getValue();
+                    }
+                   else if(vLocation.distanceTo(clLocation) < dist)
+                        {
+                           
+                           if(v.getValue().hasAutonomy(kms)){
+                               dist = vLocation.distanceTo(clLocation);
+                               vh = v.getValue().clone();
+                               if(f == false)
+                                    f = true;
+                           }
                    }
-                   else throw new NoVehiclesAvailableException("Não existem veículos disponiveis.");
               }
-       }
-       return vh;
+        }
+       if(f == false)
+            throw new NoVehiclesAvailableException("Não existem veículos disponiveis.");
+       else {
+        System.out.println(vh.toString());
+            return vh;
+        }
    }
    
    /**
    * Método que retorna um veículo especifico requisitado por um determinado cliente
    * @param   Matricula do veiculo
+   * @param   Quilómetros a percorrer
    * @return  Veículo escolhido
    **/
    public Vehicle specificVehicle(String plate, double kms) throws VehicleDoesntExistException 
    {
-      Vehicle v = new Gas();
-      if(!this.vehicles.containsKey(plate)) throw new VehicleDoesntExistException("O veículo inserido não existe na nossa base de dados");
-      else
-      {
-        Vehicle v1;
-        v1 = this.vehicles.get(plate);
-        if(v1.hasAutonomy(kms))
-            v = v1.clone();
-      }
-      return v;
+      Vehicle v;
+      try{
+          v = this.getVehiclebyPlate(plate);
+          if(v.hasAutonomy(kms))
+                return v.clone();
+          else
+                throw new VehicleDoesntExistException("O Veículo que inseriu não existe na nossa base de dados.");
+        }catch(VehicleDoesntExistException e) {throw new VehicleDoesntExistException("O Veículo que inseriu não existe na nossa base de dados.");}
+       
    }
    
    /**
@@ -513,11 +529,13 @@ public class UMCarroJa implements Serializable
    public Vehicle cheapestVehicle(double kms) throws NoVehiclesAvailableException
    {
       Set<Vehicle> vOrder = new TreeSet<Vehicle>(new VehicleComparatorP()); 
-      Vehicle v = new Gas();
+      Vehicle v = new Vehicle();
+      
+      for(Vehicle c: this.vehicles.values()){vOrder.add(c.clone());} 
       if(vOrder.size() == 0) throw new NoVehiclesAvailableException("Não existem veículos disponiveis");
       else
       {
-          for(Vehicle c: this.vehicles.values()){vOrder.add(c.clone());}    
+          
           Iterator<Vehicle> i = vOrder.iterator();
           
           while(i.hasNext())
@@ -541,11 +559,13 @@ public class UMCarroJa implements Serializable
        Set<Vehicle> near;
        near = this.vehicles.values().stream().filter(u -> u.isNear(walk, u.getLocation(), localc)).collect(Collectors.toCollection(TreeSet::new));
        Set<Vehicle> vOrder = new TreeSet<Vehicle>(new VehicleComparatorP()); 
-       Vehicle v = new Gas();
+       Vehicle v = new Vehicle();
+       
+       for(Vehicle c: near){vOrder.add(c.clone());}    
        if(vOrder.size() == 0) throw new NoVehiclesAvailableException("Não existem veículos disponiveis");
        else
        {
-          for(Vehicle c: near){vOrder.add(c.clone());}    
+          
           Iterator<Vehicle> i = vOrder.iterator();
           while(i.hasNext())
           {
@@ -568,10 +588,10 @@ public class UMCarroJa implements Serializable
        desired = this.vehicles.values().stream().filter(u -> u.desiredAutonomy(autonomy)).collect(Collectors.toCollection(TreeSet::new));
        Set<Vehicle> vOrder = new TreeSet<Vehicle>(new VehicleComparatorA()); 
        Vehicle v;
+       for(Vehicle c: desired){vOrder.add(c.clone());}    
        if(vOrder.size() == 0) throw new NoVehiclesAvailableException("Não existem veículos disponiveis");
        else
        {
-          for(Vehicle c: desired){vOrder.add(c.clone());}    
           Iterator<Vehicle> i = vOrder.iterator();
           v = i.next();
        }
@@ -668,13 +688,13 @@ public class UMCarroJa implements Serializable
    * @param     Dia final considerado
    * @return    O total faturado
    **/
-   public double carProfit(String plate, int yi, int mi, int di, int yf, int mf, int df) throws DateException, VehicleDoesntExistException
+   public double carProfit(int nif, String plate, int yi, int mi, int di, int yf, int mf, int df) throws DateException, VehicleDoesntExistException
    {
       double total = 0;
        if(yi < 0 || mi < 1 || mi > 12 || di < 1 || di > 31 || yf < 0 || mf < 1 || mf > 12 || df < 1 || df > 31 || yi > yf || 
          (yi == yf && mi > mf) || (yi == yf && mi == mf && di > df))
           throw new DateException("Formato de data e hora incorreto, por favor tente novamente com uma data e hora válidas.");
-      else if(!this.vehicles.containsKey(plate)) 
+      else if(!vehicleExists(nif, plate)) 
                 throw new VehicleDoesntExistException("A matricula inserida não existe na nossa base de dados, por favor retifique a informação");
            else{ 
                   LocalDateTime i = LocalDateTime.of(yi,mi,di,00,00);
@@ -682,7 +702,7 @@ public class UMCarroJa implements Serializable
             
                   Vehicle v, v1;
                  
-                  v1 = this.vehicles.get(plate);
+                  v1 = this.getVehiclebyPlate(plate);
                   v = v1.clone();
                   
                   Ride r;
@@ -793,7 +813,7 @@ public class UMCarroJa implements Serializable
                v.setRating(classificacao);
                
            //Classificação do owner
-           o.ownerRating();
+           o.ownerRating(classificacao);
            
            //Atualiza a posição do cliente
            c.setX(w);
@@ -812,21 +832,18 @@ public class UMCarroJa implements Serializable
    **/
    public Vehicle getVehiclebyPlate(String plate) throws VehicleDoesntExistException
    {
-       Vehicle vh = new Gas();
+       Vehicle vh = new Vehicle();
        boolean p = false;
        Iterator<Map.Entry<Integer, Vehicle>> it = vehicles.entrySet().iterator();
         while(it.hasNext() && p == false){
             Map.Entry<Integer, Vehicle> v = it.next();
             if(v.getValue().getPlate().equals(plate)){
-                vh = v.getValue().clone();
-                p = true;
+                return v.getValue().clone();
             }
         }
         if(p == false)
-            throw new VehicleDoesntExistException("O veículo inserido não existe na nossa base de dados, por favor retifique a informação");
-        else{
-            return vh;
-        }
+            throw new VehicleDoesntExistException("O veículo inserido não existe na nossa base de dados, por favor retifique a informação");    
+        return vh;
    }
     
    /**

@@ -6,7 +6,7 @@
     * Representação das carateristicas basicas de um aluguer 
     **/
     
-    public class RentedCar implements Serializable
+    public class RentedCar implements Comparable<RentedCar>, Serializable
     {
        private String ownerEmail;
        private String clientEmail;
@@ -225,4 +225,15 @@
                 "Tempo previsto: " + this.time +
                 "Data: " + this.date ;
      }
+     
+     /**
+    * Método que implementa um comparador de RentedCar através das datas
+    * @param RentedCar r 
+    **/
+    public int compareTo(RentedCar r)
+    {
+        if(this.date.isAfter(r.getDate())) return 1;
+        if(this.date.isBefore(r.getDate())) return -1;
+        return 0;
+    }
 }

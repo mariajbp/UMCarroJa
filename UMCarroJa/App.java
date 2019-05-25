@@ -27,7 +27,7 @@ public class App  implements Serializable
        try
        {
            umcj = new UMCarroJa();
-           //umcj = umcj.loadStatus("DataBase");
+           //umcj = umcj.loadStatus("DataBase");}
            l = new Load(umcj, "logs.bak"); 
        }
        catch(FileNotFoundException e){out.println(e.getMessage());}
@@ -164,7 +164,8 @@ public class App  implements Serializable
                        break;
                case 4: top10clientsx();
                        break;
-               case 5: deleteClientProfile(c);
+               case 5: if(deleteClientProfile(c) == 1)
+                             op = 0;
            }
        }
        while(op != 0);
@@ -178,14 +179,15 @@ public class App  implements Serializable
    public int deleteClientProfile(Client c)
    {
        Scanner input = new Scanner(System.in);
-       String aux, nif;
+       String aux;
+       int nif;
        out.println("Tem a certeza que deseja eliminar o seu perfil permanentemente?[sim/nao] ");
        aux = input.nextLine();
        if(aux.equals("sim"))
        {
            out.println("Nif: ");
-           nif = input.nextLine();
-           if(nif.equals(c.getNif()))
+           nif = input.nextInt();
+           if(nif == c.getNif())
            {
                out.println("Perfil eliminado.");
                input.close();
@@ -258,35 +260,33 @@ public class App  implements Serializable
        try
        {
            a = umcj.acceptORreject(c, v);
+               if(a == true)
+           {
+                   out.println("O seu pedido foi efetuado, esperamos que tenha uma viagem agradável.");
+                   realTime = umcj.realTime(estimatedTime, v);
+                   
+                   realPrice = umcj.realPrice(estimatedTime, realTime, estimatedTime);
+                  
+                   out.println("Classifique o aluguer numa escala de 0 a 100.");
+                   rating = input.nextInt();
+                   
+                   try
+                   {
+                       umcj.endRide(c, yr, m, d, h, min, x, y, w, z, v, kms, realTime, realPrice, estimatedPrice, v.getAutonomy(), rating);
+                       out.println("Viagem finalizada, Obrigado por utilizar o nosso serviço.");
+                   }
+                   catch (DateException e){out.println(e.getMessage());}
+                   
+                   input.close();
+           }
+           else
+           {
+                    out.println("O Proprietário não autorizou o seu pedido.");
+                    input.close();
+           }
         }
        catch(UserDoesntExistException e){out.println(e.getMessage());}
-       
-      
-       if(a == true)
-       {
-               out.println("O seu pedido foi efetuado, esperamos que tenha uma viagem agradável.");
-               realTime = umcj.realTime(estimatedTime, v);
-               
-               realPrice = umcj.realPrice(estimatedTime, realTime, estimatedTime);
-              
-               out.println("Classifique o aluguer numa escala de 0 a 100.");
-               rating = input.nextInt();
-               
-               try
-               {
-                   umcj.endRide(c, yr, m, d, h, min, x, y, w, z, v, kms, realTime, realPrice, estimatedPrice, v.getAutonomy(), rating);
-                   out.println("Viagem finalizada, Obrigado por utilizar o nosso serviço.");
-               }
-               catch (DateException e){out.println(e.getMessage());}
-               
-               input.close();
-       }
-       else
-       {
-                out.println("O Proprietário não autorizou o seu pedido.");
-                input.close();
-       }
-       
+       input.close();
     }
    
    /** 
@@ -364,10 +364,12 @@ public class App  implements Serializable
        
        try
        {
+           System.out.println("c.location" + c.getLocation());
            v = umcj.nearestVehicle(c.getLocation(), kms);
+           rentRequest(c, v, f);
        }
        catch (NoVehiclesAvailableException e){out.println(e.getMessage());}
-       rentRequest(c, v, f);
+       
        input.close();
    }
     
@@ -388,9 +390,10 @@ public class App  implements Serializable
        try
        {
            v = umcj.specificVehicle(plate, kms); 
+           rentRequest(c, v, f);
         }
        catch (VehicleDoesntExistException e){System.out.println(e.getMessage());}
-       rentRequest(c, v, f);
+       
        input.close();
    }
    
@@ -407,9 +410,10 @@ public class App  implements Serializable
        try
        {
            v = umcj.cheapestVehicle(kms); 
+           rentRequest(c, v, f);
         }
        catch (NoVehiclesAvailableException e){System.out.println(e.getMessage());}
-       rentRequest(c, v, f);
+       
        input.close();
     }
    
@@ -430,9 +434,10 @@ public class App  implements Serializable
            try
            {
                v = umcj.cheapestWalkVehicle(walk, c.getLocation(), kms); 
+               rentRequest(c, v, f);
             }
            catch (NoVehiclesAvailableException e){System.out.println(e.getMessage());}
-           rentRequest(c, v, f);
+           
            input.close();
    }
    
@@ -452,9 +457,10 @@ public class App  implements Serializable
            try
            {
                v = umcj.desiredAutonomyVehicle(a); 
+               rentRequest(c, v, f);
             }
            catch (NoVehiclesAvailableException e){System.out.println(e.getMessage());}
-           rentRequest(c, v, f);
+           
            input.close();
     }
    
@@ -539,33 +545,33 @@ public class App  implements Serializable
            switch(op)
            {
                case 1: addVehicle();
-                       break; 
-                    
-               case 2: 
-                       try
-                       {
-                           this.umcj.listOfVehicles(o.getNif());
-                       }
-                       catch ( UserDoesntExistException e){out.println(e.getMessage());}
+                       break;       
+               case 2: printVehicles(o);   
                        break;  
                case 3: top10clientskm();
                        break;
                case 4: top10clientsx();
                        break;
-               case 5: carProfit();
+               case 5: carProfit(o);
                        break;
-               case 6: deleteOwnerProfile(o);
-                        break;
-                       /*               
-               case 7: changeAvailability();
+               case 6: if(deleteOwnerProfile(o) == 1)
+                             op = 0;
                        break;
-                       */
-
            }
        }
        while(op != 0);
    }
    
+   public void printVehicles(Owner o)
+   {
+       try
+       {
+            List<Vehicle> v = this.umcj.listOfVehicles(o.getNif());
+            System.out.println("Os meus veículos: \n" + v.toString() );
+        }
+       catch ( UserDoesntExistException e){out.println(e.getMessage());}
+       
+    }
    /**
    * Método que elimina o perfil de um determinado utilizador da aplicação 
    * @param    Proprietário com sessão iniciada
@@ -574,14 +580,15 @@ public class App  implements Serializable
    public int deleteOwnerProfile(Owner o)
    {
        Scanner input = new Scanner(System.in);
-       String aux, nif;
+       String aux;
+       int nif;
        out.println("Tem a certeza que deseja eliminar o seu perfil permanentemente?[sim/nao] ");
        aux = input.nextLine();
        if(aux.equals("sim"))
        {
            out.println("Nif: ");
-           nif = input.nextLine();
-           if(nif.equals(o.getNif()))
+           nif = input.nextInt();
+           if(nif == o.getNif())
            {
                out.println("Perfil eliminado.");
                input.close();
@@ -646,7 +653,7 @@ public class App  implements Serializable
    /** 
    * Método que fornece o total faturado por um carro num determinado período 
    **/ 
-   public void carProfit()
+   public void carProfit(Owner o)
    {
        Scanner input = new Scanner(System.in);
        String plate;
@@ -661,12 +668,13 @@ public class App  implements Serializable
        mf = input.nextInt();
        df = input.nextInt();
        
+       input.nextLine();
        try
        {
            out.println("Digite a matricula do veiculo que pretende consultar:");
            plate = input.nextLine();
            
-           double total = umcj.carProfit(plate, yi, mi, di, yf, mf, df);
+           double total = umcj.carProfit(o.getNif(), plate, yi, mi, di, yf, mf, df);
            
            out.println("No período submetido o veiculo "+ plate +" faturou " +total+ " euros");
        }
