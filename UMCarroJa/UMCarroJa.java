@@ -16,6 +16,9 @@ import java.io.FileNotFoundException;
 import java.io.*; 
 import java.util.stream.Collectors;
 
+/**
+*Classe que gere a aplicação, onde estão definidas as principais funções que dão resposta ao enunciado.
+**/
 public class UMCarroJa implements Serializable
 {
    private Map<Integer, Client> clients;            //NIF

@@ -1,13 +1,14 @@
 #BlueJ class context
 comment0.target=Load
+comment0.text=\n\ Classe\ que\ permite\ carregar\ os\ dados\ do\ ficheiros\ de\ logs\ fornecido\n
 comment1.params=umcj\ fileName
 comment1.target=Load(UMCarroJa,\ java.lang.String)
 comment2.params=fileName
 comment2.target=void\ readFile(java.lang.String)
-comment2.text=\ \n\ \ M\u00E9todo\ que\ carrega\ a\ informa\u00E7\u00E3o\ do\ ficheiro\ \n
+comment2.text=\ \n\ M\u00E9todo\ que\ carrega\ a\ informa\u00E7\u00E3o\ do\ ficheiro\ \n\ @param\ \ \ \ Nome\ do\ ficheiro\ \n
 comment3.params=c
 comment3.target=void\ registerData(java.lang.String)
-comment3.text=\ \n\ \ M\u00E9todo\ que\ faz\ parse\ dos\ dados\ do\ ficheiro\n
+comment3.text=\ \n\ \ M\u00E9todo\ que\ faz\ parse\ dos\ dados\ do\ ficheiro\n\ \ @param\ \ \ \ Linha\ do\ ficheiro\ a\ processar\ \n
 comment4.params=p
 comment4.target=double\ getLocationX(Point2D)
 comment4.text=\n\ M\u00E9todo\ que\ devolve\ a\ coordenada\ X\ de\ um\ ponto\n\ @param\ Ponto\ no\ espa\u00E7o\ \n\ @return\ Coordenada\ X\n

@@ -214,16 +214,20 @@
      **/
      public String toString()
      {
-         return "Email do Proprietário: " + this.ownerEmail + " \n" +
-                "Email do Cliente: " + this.clientEmail + " \n" +
-                "Carro: " + this.car + " \n" +
-                "Preço: " + this.price + " \n" +
-                "Ponto inicial: " + this.start + " \n" +
-                "Destino: " + this.destination + " \n" +
-                "Distância: " + this.kms + " \n" +
-                "Autonomia: " + this.autonomy + " \n" +
-                "Tempo previsto: " + this.time + " \n" +
-                "Data: " + this.date ;
+         StringBuilder sb = new StringBuilder();
+         
+         sb.append("Email do Proprietário: ").append(this.ownerEmail).append("\n");
+         sb.append("Email do Cliente: ").append(this.clientEmail).append("\n");
+         sb.append("Carro: ").append(this.car).append("\n");
+         sb.append("Preço: ").append(this.price).append("\n");
+         sb.append("Ponto inicial: ").append(this.start).append("\n");
+         sb.append("Destino: ").append(this.destination).append("\n");
+         sb.append("Distância: ").append(this.kms).append("\n");
+         sb.append("Autonomia: ").append(this.autonomy).append("\n");
+         sb.append("Tempo previsto: ").append(this.time).append("\n");
+         sb.append("Data: ").append(this.date);
+         
+         return sb.toString();
      }
      
      /**

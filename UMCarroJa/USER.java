@@ -139,11 +139,11 @@ public abstract class USER implements Serializable
   {
      StringBuilder sb = new StringBuilder();
      
-     sb.append("Email: ").append(this.email).append(" \n");
-     sb.append("Nome: ").append(this.name).append(" \n");
-     sb.append("Morada: ").append(this.address).append(" \n");
-     sb.append("NIF: ").append(this.nif).append(" \n");
-     sb.append("Classificação: ").append(this.rating).append(" \n");
+     sb.append("Email: ").append(this.email).append("\n");
+     sb.append("Nome: ").append(this.name).append("\n");
+     sb.append("Morada: ").append(this.address).append("\n");
+     sb.append("NIF: ").append(this.nif).append("\n");
+     sb.append("Classificação: ").append(this.rating).append("\n");
              
      return sb.toString();
   } 

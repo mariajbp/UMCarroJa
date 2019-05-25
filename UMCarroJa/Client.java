@@ -162,11 +162,7 @@ public class Client extends USER implements Serializable
   public String toString()
   {
        StringBuilder sb = new StringBuilder();
-       
-       sb.append(super.toString()).append(" \n");
-       sb.append("Distancia que está disposto a percorrer a pé: ").append(walk).append(" \n");
-       sb.append("Localização: ").append(location); 
-       
+       sb.append(super.toString()).append("\n");
        return sb.toString();
   }
   

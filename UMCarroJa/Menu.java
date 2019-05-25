@@ -7,7 +7,7 @@ import java.util.InputMismatchException;
 import static java.lang.System.out;
 
 /**
-* Esta classe implementa um menu em modo texto.
+* Classe que implementa um menu em modo texto.
 **/
 
 public class Menu implements Serializable

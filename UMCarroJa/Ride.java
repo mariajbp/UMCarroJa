@@ -4,6 +4,9 @@ import java.time.LocalTime;
 import java.lang.Comparable;
 import java.io.Serializable;
 
+/**
+* Representação das carateristicas basicas de uma viagem num carro alugado
+**/
 public class Ride implements Comparable<Ride>, Serializable
 {
     private String clemail;

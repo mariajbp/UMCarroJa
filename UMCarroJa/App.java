@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 import static java.lang.System.out;
 
 /**
-* 
+* Classe que cria o menu da aplicação, onde estão definidos os métodos que gerem a interação entre a aplicação e os utilizadores
 **/
 
 public class App  implements Serializable
@@ -147,24 +147,25 @@ public class App  implements Serializable
    **/
    public void clientArea(Client c)
    {
-       String s[] = {"Alugar um veículo", "Histórico de Alugueres","Top 10 Clientes -> km ",
-                     "Top 10 Clientes -> Uso", "Ver Perfil", "Eliminar Perfil"};
+       String s[] = {"Ver Perfil", "Alugar um veículo", "Histórico de Alugueres","Top 10 Clientes -> km ",
+                     "Top 10 Clientes -> Uso", "Eliminar Perfil"};
        Menu m = new Menu(s);
        int op = 0;
        do
        {
            m.exec();
            op = m.getOption();
-           switch(op){
-               case 1: newRent(c);  //sub-menu para realizar um aluguer
+           switch(op)
+           {
+               case 1: printCLProfile(c);
                        break;
-               case 2: rentingHistory(c.getNif());
+               case 2: newRent(c);  //sub-menu para realizar um aluguer
                        break;
-               case 3: top10clientskm();
+               case 3: rentingHistory(c.getNif());
                        break;
-               case 4: top10clientsx();
+               case 4: top10clientskm();
                        break;
-               case 5: printProfile(c);
+               case 5: top10clientsx();
                        break;
                case 6: if(deleteClientProfile(c) == 1)
                              op = 0;
@@ -173,9 +174,15 @@ public class App  implements Serializable
        while(op != 0);
    }
    
-   public String printProfile(Client c)
+   /**
+   * Método que mostra o perfil de um determinado Cliente
+   * @param    Cliente com sessão iniciada
+   **/
+   public void printCLProfile(Client c)
    {
-       return c.toString();
+       out.println("**************************************** "); 
+       out.println(c.toString());
+       out.println("**************************************** \n"); 
    }
    
    /**
@@ -538,7 +545,7 @@ public class App  implements Serializable
    **/
    public void ownerArea(Owner o)
    {
-       String s[] = {"Adicionar um veículo novo", "Lista dos meus veículos","Top 10 Clientes -> km ",
+       String s[] = {"Ver Perfil", "Adicionar um veículo novo", "Lista dos meus veículos","Top 10 Clientes -> km ",
                      "Top 10 Clientes -> Uso", "Lucro dos meus Carros", 
                      "Eliminar Perfil"};
 
@@ -550,17 +557,19 @@ public class App  implements Serializable
            op = m.getOption();
            switch(op)
            {
-               case 1: addVehicle();
+               case 1: printOProfile(o);
+                       break; 
+               case 2: addVehicle();
                        break;       
-               case 2: printVehicles(o);   
+               case 3: printVehicles(o);   
                        break;  
-               case 3: top10clientskm();
+               case 4: top10clientskm();
                        break;
-               case 4: top10clientsx();
+               case 5: top10clientsx();
                        break;
-               case 5: carProfit(o);
+               case 6: carProfit(o);
                        break;
-               case 6: if(deleteOwnerProfile(o) == 1)
+               case 7: if(deleteOwnerProfile(o) == 1)
                              op = 0;
                        break;
            }
@@ -568,6 +577,21 @@ public class App  implements Serializable
        while(op != 0);
    }
    
+   /**
+   * Método que mostra o perfil de um determinado Proprietário
+   * @param    Proprietário com sessão iniciada
+   **/
+   public void printOProfile(Owner o)
+   {
+       out.println("**************************************** "); 
+       out.println(o.toString());
+       out.println("**************************************** \n"); 
+   }
+   
+   /**
+   * Método que imprime a lista de veículos de um determinado Proprietário
+   * @param    Proprietário com sessão iniciada
+   **/
    public void printVehicles(Owner o)
    {
        try
@@ -578,6 +602,8 @@ public class App  implements Serializable
        catch ( UserDoesntExistException e){out.println(e.getMessage());}
        
     }
+    
+    
    /**
    * Método que elimina o perfil de um determinado utilizador da aplicação 
    * @param    Proprietário com sessão iniciada
