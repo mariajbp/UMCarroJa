@@ -23,7 +23,6 @@ public class Client extends USER implements Serializable
       this.y = 0.0;
       this.location = new Point2D();
       this.rentingHistory = new TreeSet<RentedCar>();
-
   }
   
   /** 
@@ -124,13 +123,13 @@ public class Client extends USER implements Serializable
   * Método que adiciona um aluguer ao historico
   * @param Aluguer realizado pelo cliente
   **/
-  public void addRentedCar(RentedCar r){this.rentingHistory.add(r.clone());}
+  public void addRentedCar(RentedCar rc){this.rentingHistory.add(rc.clone());}
   
   /**
   * Método que remove um aluguer ao historico
   * @param Aluguer realizado pelo cliente
   **/
-  public void removeRentedCar(RentedCar r){this.rentingHistory.remove(r);}
+  public void removeRentedCar(RentedCar rc){this.rentingHistory.remove(rc);}
    
   /** 
   * Método que cria uma cópia de uma identificação de um Client
@@ -162,9 +161,13 @@ public class Client extends USER implements Serializable
   **/
   public String toString()
   {
-      return "Distancia que está disposto a percorrer a pé: " + walk;
-             
-                    
+       StringBuilder sb = new StringBuilder();
+       
+       sb.append(super.toString()).append(" \n");
+       sb.append("Distancia que está disposto a percorrer a pé: ").append(walk).append(" \n");
+       sb.append("Localização: ").append(location); 
+       
+       return sb.toString();
   }
   
   /**

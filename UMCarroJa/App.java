@@ -148,7 +148,7 @@ public class App  implements Serializable
    public void clientArea(Client c)
    {
        String s[] = {"Alugar um veículo", "Histórico de Alugueres","Top 10 Clientes -> km ",
-                     "Top 10 Clientes -> Uso", "Eliminar Perfil"};
+                     "Top 10 Clientes -> Uso", "Ver Perfil", "Eliminar Perfil"};
        Menu m = new Menu(s);
        int op = 0;
        do
@@ -164,11 +164,18 @@ public class App  implements Serializable
                        break;
                case 4: top10clientsx();
                        break;
-               case 5: if(deleteClientProfile(c) == 1)
+               case 5: printProfile(c);
+                       break;
+               case 6: if(deleteClientProfile(c) == 1)
                              op = 0;
            }
        }
        while(op != 0);
+   }
+   
+   public String printProfile(Client c)
+   {
+       return c.toString();
    }
    
    /**

@@ -214,15 +214,15 @@
      **/
      public String toString()
      {
-         return "Email do Proprietário: " + this.ownerEmail + 
-                "Email do Cliente: " + this.clientEmail +
-                "Carro: " + this.car + 
-                "Preço: " + this.price + 
-                "Ponto inicial: " + this.start + 
-                "Destino: " + this.destination +
-                "Distância: " + this.kms +
-                "Autonomia: " + this.autonomy + 
-                "Tempo previsto: " + this.time +
+         return "Email do Proprietário: " + this.ownerEmail + " \n" +
+                "Email do Cliente: " + this.clientEmail + " \n" +
+                "Carro: " + this.car + " \n" +
+                "Preço: " + this.price + " \n" +
+                "Ponto inicial: " + this.start + " \n" +
+                "Destino: " + this.destination + " \n" +
+                "Distância: " + this.kms + " \n" +
+                "Autonomia: " + this.autonomy + " \n" +
+                "Tempo previsto: " + this.time + " \n" +
                 "Data: " + this.date ;
      }
      
