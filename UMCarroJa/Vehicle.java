@@ -268,8 +268,13 @@ public abstract class Vehicle implements Serializable
   **/
   public void setRating(int newR)
   {
-      int nr = (this.rating + newR)/(this.rentingHistory.size());
-      this.rating = nr;
+      if(this.rentingHistory.size() == 0)
+            this.rating = newR;
+      else
+      {
+          int nr = (this.rating + newR)/(this.rentingHistory.size());
+          this.rating = nr;
+        }
   }
   
   /**

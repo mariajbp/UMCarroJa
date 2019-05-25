@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=VehicleComparatorP
-comment0.text=\n\ Classe\ VehicleComparatorP\ que\ imp\u00F5em\ uma\ ordem\ quando\ se\ quer\ adicionar\ um\ ve\u00EDculo\ a\ uma\ cole\u00E7\u00E3o\n
+comment0.text=\r\n\ Classe\ VehicleComparatorP\ que\ imp\u00F5em\ uma\ ordem\ quando\ se\ quer\ adicionar\ um\ ve\u00EDculo\ a\ uma\ cole\u00E7\u00E3o\r\n
 comment1.params=v1\ v2
 comment1.target=int\ compare(Vehicle,\ Vehicle)
 numComments=2

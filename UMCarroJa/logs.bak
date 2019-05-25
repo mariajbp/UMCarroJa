@@ -1,13 +1,3 @@
---NovoProp: nome, nif, email,morada
---NovoCliente:nome,nif,email,morada,X,Y
-     -- X e Y : posicçao onde se encontra
---NovoCarro:tipo,marca,matricula,nif,velocidade media,preço por km, consumo por km, autonomia, X, Y
-     -- X e Y : posicçao onde se encontra
---Aluguer: nif cliente, X destino, Y destino, tipoCombustivel , preferencia
---Classificar: matricula ou nif (cliente ou prop) , nota (0-100)
-
-
-Logs
 NovoProp:Laurindo,558192493,558192493@gmail.com,Miranda do Douro
 NovoProp:Wesley,611843917,611843917@gmail.com,Fundão
 NovoProp:Constantino,928862669,928862669@gmail.com,Castelo de Vide
@@ -3303,5 +3293,3 @@ Classificar:UC-21-33,49
 Classificar:RT-87-95,33
 Classificar:ZR-21-82,93
 Classificar:FO-71-54,24
-
-

@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=NoVehiclesAvailableException
-comment0.text=\n\ Classe\ NoVehiclesAvailableException\ que\ devolve\ uma\ mensagem\ caso\ nenhum\ veiculo\ esteja\ disponivel\ de\ momento\n
+comment0.text=\r\n\ Classe\ NoVehiclesAvailableException\ que\ devolve\ uma\ mensagem\ caso\ nenhum\ veiculo\ esteja\ disponivel\ de\ momento\r\n
 comment1.params=
 comment1.target=NoVehiclesAvailableException()
 comment2.params=message

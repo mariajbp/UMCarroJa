@@ -28,7 +28,7 @@ public class App  implements Serializable
        {
            umcj = new UMCarroJa();
            //umcj = umcj.loadStatus("DataBase");
-           l.readFile("logs.bak"); 
+           l = new Load(umcj, "logs.bak"); 
        }
        catch(FileNotFoundException e){out.println(e.getMessage());}
        catch(IOException e){out.println(e.getMessage());}
@@ -512,10 +512,10 @@ public class App  implements Serializable
            address = input.nextLine();
            
 
-           Owner o = (Owner) umcj.registerNewOwner(name, nif, address, email); 
-
+           umcj.registerNewOwner(name, nif, address, email); 
+           Owner o = umcj.getOwnerByNif(nif);
            ownerArea(o);
-       }catch (RegistrationException | UserExistsException e){out.println(e.getMessage());}
+       }catch (RegistrationException | UserDoesntExistException e){out.println(e.getMessage());}
        
        input.close();
    }

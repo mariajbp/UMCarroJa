@@ -18,8 +18,9 @@ public class Load
     private BufferedReader br;
     private UMCarroJa umcj;
      
-    public Load(String fileName) throws IOException  
+    public Load(UMCarroJa umcj, String fileName) throws IOException  
     {
+        this.umcj = umcj;
         readFile("logs.bak");
     }
     
@@ -47,40 +48,42 @@ public class Load
        String[] fst = c.split(":");
        String id = fst[0];
        String[] snd = fst[1].split(",");
+      // System.out.println(snd[0] + " " + snd[1] + " " + snd[2] + " " +snd[3]);
        switch(id)
        {
-           case "NovoProp": try{umcj.registerNewOwner(fst[0], Integer.parseInt(fst[1]), fst[2],fst[3]);}
-                            catch(RegistrationException | UserExistsException e) {out.println(e.getMessage());}
+           
+           case "NovoProp": try{umcj.registerNewOwner(snd[0], Integer.parseInt(snd[1]), snd[2],snd[3]);}
+                            catch(RegistrationException e) {out.println(e.getMessage());}
                             break;
                            
-           case "NovoCliente": try{umcj.registerNewClient(fst[0], Integer.parseInt(fst[1]), fst[2],fst[3], Integer.parseInt(fst[4]), Integer.parseInt(fst[5]));}
+           case "NovoCliente": try{umcj.registerNewClient(snd[0], Integer.parseInt(snd[1]), snd[2], snd[3], Double.parseDouble(snd[4]), Double.parseDouble(snd[5]));}
                                catch(RegistrationException e) {out.println(e.getMessage());}
                                break;
                               
            case "NovoCarro": Vehicle v = new Gas();
-                             try {v = umcj.vType(fst[0],fst[1],fst[2],Integer.parseInt(fst[3]),Double.parseDouble(fst[4]),Double.parseDouble(fst[5]),Double.parseDouble(fst[6]),Double.parseDouble(fst[7]),Double.parseDouble(fst[8]),Double.parseDouble(fst[9]));}
+                             try {v = umcj.vType(snd[0],snd[1],snd[2],Integer.parseInt(snd[3]),Double.parseDouble(snd[4]),Double.parseDouble(snd[5]),Double.parseDouble(snd[6]),Double.parseDouble(snd[7]),Double.parseDouble(snd[8]),Double.parseDouble(snd[9]));}
                              catch (InvalidVehicleException | VehicleExistsException e) {out.println(e.getMessage());}
-                             try {umcj.addVehicleToOwner(Integer.parseInt(fst[3]),v);}
+                             try {umcj.addVehicleToOwner(Integer.parseInt(snd[3]),v);}
                              catch(VehicleExistsException | UserDoesntExistException e) {out.println(e.getMessage());}  
                              break;
                              
            case "Aluguer": Client cl = new Client();
                            Vehicle vh = new Gas();
-                           double w = Double.parseDouble(fst[1]); 
-                           double z = Double.parseDouble(fst[2]);
+                           double w = Double.parseDouble(snd[1]); 
+                           double z = Double.parseDouble(snd[2]);
                            Point2D pf = new Point2D(w,z); //localização final
                            Point2D p = new Point2D(); //localização do cliente aka inicial
-                           try{p = umcj.getLocationbyNif(Integer.parseInt(fst[0]));} catch(UserDoesntExistException e) {out.println(e.getMessage());}    
+                           try{p = umcj.getLocationbyNif(Integer.parseInt(snd[0]));} catch(UserDoesntExistException e) {out.println(e.getMessage());}    
                            double km = p.distanceTo(pf);
                            LocalDateTime date = LocalDateTime.now(); 
                            double x = 0;
                            double y = 0;
                            try{x = getLocationX(p);} catch(UserDoesntExistException e) {out.println(e.getMessage());} 
                            try{y = getLocationY(p);} catch(UserDoesntExistException e) {out.println(e.getMessage());} 
-                           if((fst[3]) == "MaisPerto") 
+                           if((snd[3]) == "MaisPerto") 
                            {   
                               try{vh = umcj.nearestVehicle(p,km);} catch(NoVehiclesAvailableException e) {out.println(e.getMessage());}
-                              try{cl = umcj.getClientbyNif(Integer.parseInt(fst[0]));} catch(UserDoesntExistException e) {out.println(e.getMessage());}                            
+                              try{cl = umcj.getClientbyNif(Integer.parseInt(snd[0]));} catch(UserDoesntExistException e) {out.println(e.getMessage());}                            
                               
                               double estimatedTime = umcj.estimatedTime(x,y,w,z,vh); 
                               double time = umcj.realTime(estimatedTime, vh);
@@ -92,10 +95,10 @@ public class Load
                                            x,y,w,z,vh,km,time,price,estimatedPrice,vh.getAutonomy(),vh.getRating());
                               }catch(DateException e) {out.println(e.getMessage());}
                            }
-                           else if((fst[3]) == "MaisBarato")
+                           else if((snd[3]) == "MaisBarato")
                                 {
                                    try{vh = umcj.nearestVehicle(p,km);} catch(NoVehiclesAvailableException e) {out.println(e.getMessage());}
-                                   try{cl = umcj.getClientbyNif(Integer.parseInt(fst[0]));} catch(UserDoesntExistException e) {out.println(e.getMessage());}                            
+                                   try{cl = umcj.getClientbyNif(Integer.parseInt(snd[0]));} catch(UserDoesntExistException e) {out.println(e.getMessage());}                            
                            
                                    double estimatedTime = umcj.estimatedTime(x,y,w,z,vh); 
                                    double time = umcj.realTime(estimatedTime, vh);
@@ -111,15 +114,15 @@ public class Load
                            
            
            case "Classificar": Vehicle vhc = new Gas();
-                               if(fst[0].contains ("-")) //se é matricula
+                               if(snd[0].contains ("-")) //se é matricula
                                {
-                                  try{ vhc = umcj.getVehiclebyPlate(fst[0]);} catch(VehicleDoesntExistException e) {out.println(e.getMessage());}
-                                  vhc.setRating(Integer.parseInt(fst[1]));  
+                                  try{ vhc = umcj.getVehiclebyPlate(snd[0]);} catch(VehicleDoesntExistException e) {out.println(e.getMessage());}
+                                  vhc.setRating(5);  
                                }
                                else //nif
                                {
-                                  try{vhc= umcj.getVehiclebyNif(Integer.parseInt(fst[0]));} catch(VehicleDoesntExistException e) {out.println(e.getMessage());}
-                                  vhc.setRating(Integer.parseInt(fst[1])); 
+                                  try{vhc= umcj.getVehiclebyNif(Integer.parseInt(snd[0]));} catch(VehicleDoesntExistException e) {out.println(e.getMessage());}
+                                  vhc.setRating(5); 
                                }
         }      
     }

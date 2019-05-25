@@ -172,7 +172,7 @@ public class UMCarroJa implements Serializable
    **/
    public void addCL(Client c) throws UserExistsException 
    {
-       if(!this.clients.containsKey(c.getEmail())) this.clients.put(c.getNif(), c.clone());
+       if(!this.clients.containsKey(c.getNif())) this.clients.put(c.getNif(), c.clone());
        else throw new UserExistsException("Cliente já existe.");    
    } 
    
@@ -249,18 +249,19 @@ public class UMCarroJa implements Serializable
    * @param     Morada do utilizador
    * @return    Novo utilizador registado na aplicação
    **/
-   public Owner registerNewOwner(String name, int nif, String email, String  address) throws RegistrationException, UserExistsException
+   public void registerNewOwner(String name, int nif, String email, String  address) throws RegistrationException
    {
        Owner o = new Owner(name, nif,  email, address);
-       addOW(o);
-       return o.clone();
+       try{addOW(o);}
+       catch(UserExistsException e){throw new RegistrationException("Registo Inválido");}
+
    }  
    
    /**
    * Método que  adiciona um novo proprietário na aplicação
    * @param     Utilizador a adicionar
    **/
-   public void addOW(Owner o) throws UserExistsException, RegistrationException 
+   public void addOW(Owner o) throws UserExistsException
    {
        if(!this.owners.containsKey(o.getNif())) this.owners.put(o.getNif(), o.clone());
        else throw new UserExistsException("Proprietário já existe.");    
@@ -317,28 +318,44 @@ public class UMCarroJa implements Serializable
    **/
    public void  addVehicleToOwner(int nif, Vehicle v) throws VehicleExistsException, UserDoesntExistException
    {
-       if(!this.owners.containsKey(nif)) throw new  UserDoesntExistException("Este proprietário não existe na nossa base de dados");
-       if(vehicleExists(v.getNif())) 
-            throw new VehicleExistsException("Matrícula já existente.");
-       else
-       {
-           Owner o = this.owners.get(nif);
-           v.setNif(o.getNif());
-           o.addVehicle(v); 
+       if(!this.owners.containsKey(nif)) 
+            throw new  UserDoesntExistException("Este proprietário não existe na nossa base de dados");
+       else{
+           if(vehicleExists(v.getNif(), v.getPlate())) 
+                throw new VehicleExistsException("Matrícula já existente.");
+           else
+           {
+               Owner o = this.owners.get(nif);
+               v.setNif(o.getNif());
+               this.vehicles.put(nif, v.clone());
+               o.addVehicle(v); 
+           }
        }
    }
    
    
    /**
-   * Método que verifica se um veículo já existe a partir do seu nif
+   * Método que verifica se um veículo já existe a partir do seu nif e matrícula
    * @param     Nif do veiculo
+   * @param     Matrícula do veiculo
    * @return    True caso o veículo exista, false caso contrário
    **/
-   public boolean vehicleExists(int nif)
+   public boolean vehicleExists(int nif, String plate)
    {
-     boolean p = this.vehicles.containsKey(nif);
+     boolean p = false;
+     if( this.vehicles.containsKey(nif) )
+     {
+        Iterator<Map.Entry<Integer, Vehicle>> it = vehicles.entrySet().iterator();
+        while(it.hasNext()){
+            Map.Entry<Integer, Vehicle> v = it.next();
+            if(v.getValue().getPlate().equals(plate)){
+                p = true;
+                return p;
+            }
+        }
+     }
      return p;
-   }
+}
 
    /**
    * Método que verifica o tipo de veículo que se pretende criar e que cria o veículo em questão a partir de funções auxiliares
@@ -358,7 +375,7 @@ public class UMCarroJa implements Serializable
        Vehicle v;
        if(type.equals("Gasolina")) v = gasRegistration(type,brand, plate, nif, speed, price, comsuption, autonomy, x, y);
        else if(type.equals("Eletrico")) v = electricRegistration(type,brand, plate, nif, speed, price, comsuption, autonomy, x, y);
-            else if(type.equals("Monovolume")) v = hybridRegistration(type,brand, plate, nif, speed, price, comsuption, autonomy, x, y);
+            else if(type.equals("Hibrido")) v = hybridRegistration(type,brand, plate, nif, speed, price, comsuption, autonomy, x, y);
                  else{throw new InvalidVehicleException("Classe de veículo inválida, tente novamente.");}
        return v;
    }
@@ -378,7 +395,7 @@ public class UMCarroJa implements Serializable
    **/
    public Vehicle gasRegistration(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y) throws VehicleExistsException
    {         
-       if(vehicleExists(nif)) 
+       if(vehicleExists(nif, plate)) 
             throw new VehicleExistsException("Matrícula já existe.");
        else
        {
@@ -403,7 +420,7 @@ public class UMCarroJa implements Serializable
    **/
    public Vehicle electricRegistration(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y) throws VehicleExistsException
    {         
-       if(vehicleExists(nif)) 
+       if(vehicleExists(nif, plate)) 
             throw new VehicleExistsException("Matrícula já existe.");
        else
        {
@@ -428,7 +445,7 @@ public class UMCarroJa implements Serializable
    **/
    public Vehicle hybridRegistration(String type, String brand, String plate, int nif, double speed, double price, double comsuption, double autonomy, double x, double y) throws VehicleExistsException
    {         
-       if(vehicleExists(nif)) 
+       if(vehicleExists(nif, plate)) 
             throw new VehicleExistsException("Matrícula já existente.");
        else
        {
@@ -795,10 +812,21 @@ public class UMCarroJa implements Serializable
    **/
    public Vehicle getVehiclebyPlate(String plate) throws VehicleDoesntExistException
    {
-       if(!this.vehicles.containsKey(plate))
-              throw new  VehicleDoesntExistException("O veículo inserido não existe na nossa base de dados, por favor retifique a informação");
-       else
-            return this.vehicles.get(plate);
+       Vehicle vh = new Gas();
+       boolean p = false;
+       Iterator<Map.Entry<Integer, Vehicle>> it = vehicles.entrySet().iterator();
+        while(it.hasNext() && p == false){
+            Map.Entry<Integer, Vehicle> v = it.next();
+            if(v.getValue().getPlate().equals(plate)){
+                vh = v.getValue().clone();
+                p = true;
+            }
+        }
+        if(p == false)
+            throw new VehicleDoesntExistException("O veículo inserido não existe na nossa base de dados, por favor retifique a informação");
+        else{
+            return vh;
+        }
    }
     
    /**
@@ -811,7 +839,7 @@ public class UMCarroJa implements Serializable
        if(!this.vehicles.containsKey(nif))
               throw new  VehicleDoesntExistException("O veículo inserido não existe na nossa base de dados, por favor retifique a informação");
        else
-            return this.vehicles.get(nif);
+            return this.vehicles.get(nif).clone();
     }
     
    /**
@@ -830,9 +858,9 @@ public class UMCarroJa implements Serializable
    }
    
    /**
-   * Método que devolve o email de um cliente
+   * Método que devolve a localização de um cliente
    * @param      Nif do cliente a procurar
-   * @return     Email do cliente
+   * @return     Localização do cliente
    **/
     public Point2D getLocationbyNif(int nif) throws UserDoesntExistException
     {
@@ -840,9 +868,10 @@ public class UMCarroJa implements Serializable
        Point2D p = new Point2D();
        if(!this.clients.containsKey(nif))
               throw new  UserDoesntExistException("O veículo inserido não existe na nossa base de dados, por favor retifique a informação");
-       else
+       else{
             c = this.clients.get(nif);
-           p = c.getLocation();
+            p = c.getLocation();
+        }
        return p;     
    }
    
