@@ -477,10 +477,8 @@ public class UMCarroJa implements Serializable
                    vLocation = v.getValue().getLocation();
                    if(dist == -1)
                    {
-                        System.out.println(v.toString());
+
                         dist = vLocation.distanceTo(clLocation);
-                        System.out.println(dist);
-                        System.out.println(clLocation.toString());
                         vh = v.getValue();
                     }
                    else if(vLocation.distanceTo(clLocation) < dist)
@@ -497,10 +495,9 @@ public class UMCarroJa implements Serializable
         }
        if(f == false)
             throw new NoVehiclesAvailableException("Não existem veículos disponiveis.");
-       else {
-        System.out.println(vh.toString());
+       else
             return vh;
-        }
+        
    }
    
    /**
@@ -746,7 +743,7 @@ public class UMCarroJa implements Serializable
                for(RentedCar rc: c.getRentingHistoryAll())
                {
                   if((rc.getDate().isAfter(i) || rc.getDate().equals(i)) && (rc.getDate().isBefore(f) || rc.getDate().equals(f)))
-                       r.add(rc);
+                       r.add(rc.clone());
                }
           }
           else if (this.owners.containsKey(nif))
@@ -755,7 +752,7 @@ public class UMCarroJa implements Serializable
               for(RentedCar rc: o.getRentingHistoryAll()) 
               {
                   if((rc.getDate().isAfter(i) || rc.getDate().equals(i)) && (rc.getDate().isBefore(f) || rc.getDate().equals(f)))
-                       r.add(rc);
+                       r.add(rc.clone());
               }   
           }
           return r;

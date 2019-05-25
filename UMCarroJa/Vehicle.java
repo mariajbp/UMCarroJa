@@ -4,7 +4,7 @@ import java.io.Serializable;
 /**
 * Representação abstrata da superclasse Vehicle(contém os dados comuns a todas as viaturas do sistema)
 **/
-public class Vehicle implements Serializable
+public class Vehicle implements Comparable<Vehicle>, Serializable
 {
   private static double deposit = 100;
   
@@ -411,5 +411,16 @@ public class Vehicle implements Serializable
        else
             return false;
   } 
+  
+  /**
+    * Método que implementa um comparador de Vehicle através do preço
+    * @param Vehicle v
+    **/
+    public int compareTo(Vehicle v)
+    {
+        if(this.price <= v.getPrice()) return 1;
+        if(this.price > v.getPrice()) return -1;
+        return 0;
+    }
 }
 
