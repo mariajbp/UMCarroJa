@@ -1,7 +1,6 @@
 import java.io.Serializable;
 import java.util.Scanner;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import static java.lang.System.out;
@@ -49,7 +48,7 @@ public class Menu implements Serializable
   {
      int op;
      Scanner input = new Scanner(System.in);
-     out.print("\nOpção: ");
+     out.print("\nOpção: \n");
      
      try {op = input.nextInt();}
      catch (InputMismatchException e) {op = -1;} //Não foi escrito um int

@@ -12,7 +12,6 @@ public abstract class USER implements Serializable
   private int nif;
   private int rating;
 
-  
   /** 
   * Construtor vazio que cria uma instância USER  
   **/

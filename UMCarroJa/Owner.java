@@ -1,6 +1,5 @@
 import java.util.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
 * Representação da classe propietário, subclasse de USER

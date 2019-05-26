@@ -1,16 +1,11 @@
-import java.util.TreeSet; 
 import java.io.Serializable;
 import java.io.*; 
 import java.io.File;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.io.IOException;
 import static java.lang.System.out;
 import java.time.LocalDateTime;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 /**
 * Classe que permite carregar os dados do ficheiros de logs fornecido
