@@ -24,13 +24,12 @@ public class App  implements Serializable
        try
        {
            umcj = new UMCarroJa();
-           //umcj = umcj.loadStatus("DataBase");}
-           l = new Load(umcj, "logs.bak"); 
-           
+           umcj = umcj.loadStatus("DataBase");
+           //l = new Load(umcj, "logs.bak"); 
        }
        catch(FileNotFoundException e){out.println(e.getMessage());}
        catch(IOException e){out.println(e.getMessage());}
-       //catch(ClassNotFoundException e){out.println(e.getMessage());}
+       catch(ClassNotFoundException e){out.println(e.getMessage());}
 
        String[] s = {"Registar Cliente", "Registar Proprietário", "Login"};
        menu = new Menu(s);
