@@ -115,15 +115,20 @@ public class Load
                            
            
            case "Classificar": Vehicle vhc = new Gas();
+                               Client cli = new Client();
                                if(snd[0].contains ("-")) //se é matricula
                                {
-                                  try{ vhc = umcj.getVehiclebyPlate(snd[0]);} catch(VehicleDoesntExistException e) {out.println(e.getMessage());}
-                                  vhc.setRating(5);  
+                                  try{
+                                      vhc = umcj.getVehiclebyPlate(snd[0]);
+                                      umcj.setRatingLoad(vhc, 5);} 
+                                  catch(VehicleDoesntExistException e) {out.println(e.getMessage());}  
                                }
                                else //nif
                                {
-                                  try{vhc= umcj.getVehiclebyNif(Integer.parseInt(snd[0]));} catch(VehicleDoesntExistException e) {out.println(e.getMessage());}
-                                  vhc.setRating(5); 
+                                  try{
+                                      cli = umcj.getClientbyNif(Integer.parseInt(snd[0]));
+                                      umcj.setRatingLoad(cli, 5); }
+                                  catch(UserDoesntExistException e) {out.println(e.getMessage());}
                                }
         }      
     }

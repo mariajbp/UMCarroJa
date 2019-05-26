@@ -29,6 +29,7 @@ public class App  implements Serializable
            umcj = new UMCarroJa();
            //umcj = umcj.loadStatus("DataBase");}
            l = new Load(umcj, "logs.bak"); 
+           
        }
        catch(FileNotFoundException e){out.println(e.getMessage());}
        catch(IOException e){out.println(e.getMessage());}
