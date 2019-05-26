@@ -1,5 +1,6 @@
 #BlueJ class context
 comment0.target=Ride
+comment0.text=\r\n\ Representa\u00E7\u00E3o\ das\ carateristicas\ basicas\ de\ uma\ viagem\ num\ carro\ alugado\r\n
 comment1.params=
 comment1.target=Ride()
 comment1.text=\ \r\n\ Construtor\ vazio\ que\ cria\ uma\ inst\u00E2ncia\ Ride\ \ \r\n

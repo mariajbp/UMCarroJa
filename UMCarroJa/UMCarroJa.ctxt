@@ -1,5 +1,6 @@
 #BlueJ class context
 comment0.target=UMCarroJa
+comment0.text=\r\nClasse\ que\ gere\ a\ aplica\u00E7\u00E3o,\ onde\ est\u00E3o\ definidas\ as\ principais\ fun\u00E7\u00F5es\ que\ d\u00E3o\ resposta\ ao\ enunciado.\r\n
 comment1.params=
 comment1.target=UMCarroJa()
 comment1.text=\ \r\n\ Construtor\ vazio\ que\ cria\ uma\ inst\u00E2ncia\ UMCarroJa\ \r\n

@@ -214,16 +214,20 @@
      **/
      public String toString()
      {
-         return "Email do Proprietário: " + this.ownerEmail + 
-                "Email do Cliente: " + this.clientEmail +
-                "Carro: " + this.car + 
-                "Preço: " + this.price + 
-                "Ponto inicial: " + this.start + 
-                "Destino: " + this.destination +
-                "Distância: " + this.kms +
-                "Autonomia: " + this.autonomy + 
-                "Tempo previsto: " + this.time +
-                "Data: " + this.date ;
+         StringBuilder sb = new StringBuilder();
+         
+         sb.append("Email do Proprietário: ").append(this.ownerEmail).append("\n");
+         sb.append("Email do Cliente: ").append(this.clientEmail).append("\n");
+         sb.append("Carro: ").append(this.car).append("\n");
+         sb.append("Preço: ").append(this.price).append("\n");
+         sb.append("Ponto inicial: ").append(this.start).append("\n");
+         sb.append("Destino: ").append(this.destination).append("\n");
+         sb.append("Distância: ").append(this.kms).append("\n");
+         sb.append("Autonomia: ").append(this.autonomy).append("\n");
+         sb.append("Tempo previsto: ").append(this.time).append("\n");
+         sb.append("Data: ").append(this.date);
+         
+         return sb.toString();
      }
      
      /**

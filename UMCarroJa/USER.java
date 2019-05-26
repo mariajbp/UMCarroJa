@@ -128,8 +128,7 @@ public abstract class USER implements Serializable
               this.email == u.getEmail() &&
               this.rating == u.getRating() &&
               this.address == u.getAddress() &&
-              this.nif == u.getNif();
-               
+              this.nif == u.getNif();       
   }
     
   /**
@@ -138,10 +137,14 @@ public abstract class USER implements Serializable
   **/
   public String toString()
   {
-      return "Email: " + this.email +
-             "Nome: " + this.name +
-             "Morada: " + this.address +
-             "NIF: " + this.nif + 
-             "Rating: " + this.rating ;
+     StringBuilder sb = new StringBuilder();
+     
+     sb.append("Email: ").append(this.email).append("\n");
+     sb.append("Nome: ").append(this.name).append("\n");
+     sb.append("Morada: ").append(this.address).append("\n");
+     sb.append("NIF: ").append(this.nif).append("\n");
+     sb.append("Classificação: ").append(this.rating).append("\n");
+             
+     return sb.toString();
   } 
 }

@@ -16,6 +16,9 @@ import java.io.FileNotFoundException;
 import java.io.*; 
 import java.util.stream.Collectors;
 
+/**
+*Classe que gere a aplicação, onde estão definidas as principais funções que dão resposta ao enunciado.
+**/
 public class UMCarroJa implements Serializable
 {
    private Map<Integer, Client> clients;            //NIF
@@ -657,19 +660,19 @@ public class UMCarroJa implements Serializable
    * Método que gera um random de 0 a 100 correspondente à probabilidade de chover
    * @return    A probabilidade de chover
    **/ 
-   public double chanceofrain(){return Math.round(Math.random() * 100);}
+   public double chanceofrain(){return (Math.round(Math.random() * 99)) + 1;}
    
    /**
    * Método que gera um random de 0 a 100 correspondente à probabilidade de estar nevoeiro
    * @return    A probabilidade de estar nevoeiro
    **/
-   public double chanceoffog(){return Math.round(Math.random() * 100);}
+   public double chanceoffog(){return (Math.round(Math.random() * 99)) + 1;}
    
    /**
    * Método que gera um random de 0 a 100 correspondente à probabilidade de estar transito
    * @return    A probabilidade de estar transito
    **/
-   public double chanceoftraffic(){return Math.round(Math.random() * 100);}
+   public double chanceoftraffic(){return (Math.round(Math.random() * 99)) + 1;}
    
    
    /**

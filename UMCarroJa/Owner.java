@@ -147,7 +147,9 @@ public class Owner extends USER implements Serializable
   **/
   public String toString()
   {
-      return "Classificação: "  ;       
+       StringBuilder sb = new StringBuilder();
+       sb.append(super.toString()).append("\n");
+       return sb.toString();   
   }  
   
   /**

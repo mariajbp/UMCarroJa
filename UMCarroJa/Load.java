@@ -12,6 +12,9 @@ import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+* Classe que permite carregar os dados do ficheiros de logs fornecido
+**/
 public class Load
 {
     private File file;
@@ -25,7 +28,8 @@ public class Load
     }
     
     /** 
-    *  Método que carrega a informação do ficheiro 
+    * Método que carrega a informação do ficheiro 
+    * @param    Nome do ficheiro 
     **/
     public void readFile(String fileName) throws IOException 
     {
@@ -42,6 +46,7 @@ public class Load
    
     /** 
     *  Método que faz parse dos dados do ficheiro
+    *  @param    Linha do ficheiro a processar 
     **/
     public void registerData(String c)
     {
@@ -123,7 +128,7 @@ public class Load
                                       umcj.setRatingLoad(vhc, 5);} 
                                   catch(VehicleDoesntExistException e) {out.println(e.getMessage());}  
                                }
-                               else //nif
+                               else //se é nif
                                {
                                   try{
                                       cli = umcj.getClientbyNif(Integer.parseInt(snd[0]));
@@ -134,23 +139,17 @@ public class Load
     }
    
     
-   /**
-   * Método que devolve a coordenada X de um ponto
-   * @param Ponto no espaço 
-   * @return Coordenada X
-   **/
-    public double getLocationX(Point2D p) throws UserDoesntExistException
-    {  
-       return p.getX();
-    }
+    /**
+    * Método que devolve a coordenada X de um ponto
+    * @param Ponto no espaço 
+    * @return Coordenada X
+    **/
+    public double getLocationX(Point2D p) throws UserDoesntExistException{  return p.getX();}
     
-   /**
-   * Método que devolve a coordenada Y de um ponto
-   * @param Ponto no espaço 
-   * @return Coordenada Y
-   **/
-    public double getLocationY(Point2D p) throws UserDoesntExistException
-    { 
-       return p.getY();
-    }
+    /**
+    * Método que devolve a coordenada Y de um ponto
+    * @param Ponto no espaço 
+    * @return Coordenada Y
+    **/
+    public double getLocationY(Point2D p) throws UserDoesntExistException{ return p.getY();}
 }  

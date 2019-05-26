@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 import static java.lang.System.out;
 
 /**
-* 
+* Classe que cria o menu da aplicação, onde estão definidos os métodos que gerem a interação entre a aplicação e os utilizadores
 **/
 
 public class App  implements Serializable
@@ -148,7 +148,7 @@ public class App  implements Serializable
    **/
    public void clientArea(Client c)
    {
-       String s[] = {"Alugar um veículo", "Histórico de Alugueres","Top 10 Clientes -> km ",
+       String s[] = {"Ver Perfil", "Alugar um veículo", "Histórico de Alugueres","Top 10 Clientes -> km ",
                      "Top 10 Clientes -> Uso", "Eliminar Perfil"};
        Menu m = new Menu(s);
        int op = 0;
@@ -156,20 +156,34 @@ public class App  implements Serializable
        {
            m.exec();
            op = m.getOption();
-           switch(op){
-               case 1: newRent(c);  //sub-menu para realizar um aluguer
+           switch(op)
+           {
+               case 1: printCLProfile(c);
                        break;
-               case 2: rentingHistory(c.getNif());
+               case 2: newRent(c);  //sub-menu para realizar um aluguer
                        break;
-               case 3: top10clientskm();
+               case 3: rentingHistory(c.getNif());
                        break;
-               case 4: top10clientsx();
+               case 4: top10clientskm();
                        break;
-               case 5: if(deleteClientProfile(c) == 1)
+               case 5: top10clientsx();
+                       break;
+               case 6: if(deleteClientProfile(c) == 1)
                              op = 0;
            }
        }
        while(op != 0);
+   }
+   
+   /**
+   * Método que mostra o perfil de um determinado Cliente
+   * @param    Cliente com sessão iniciada
+   **/
+   public void printCLProfile(Client c)
+   {
+       out.println("**************************************** "); 
+       out.println(c.toString());
+       out.println("**************************************** \n"); 
    }
    
    /**
@@ -182,11 +196,11 @@ public class App  implements Serializable
        Scanner input = new Scanner(System.in);
        String aux;
        int nif;
-       out.println("Tem a certeza que deseja eliminar o seu perfil permanentemente?[sim/nao] ");
+       out.println("Tem a certeza que deseja eliminar o seu perfil permanentemente? [sim/nao] ");
        aux = input.nextLine();
        if(aux.equals("sim"))
        {
-           out.println("Nif: ");
+           out.println("NIF: ");
            nif = input.nextInt();
            if(nif == c.getNif())
            {
@@ -196,7 +210,7 @@ public class App  implements Serializable
            }
            else
            {
-               out.println("Nif incorreto.");
+               out.println("NIF incorreto.");
                input.close();
                return 0;
            }
@@ -212,9 +226,9 @@ public class App  implements Serializable
    public Point2D askDistance()
    {
        Scanner input = new Scanner(System.in);
-       out.println("Digite a coordenada x do seu destino,");
+       out.println("Digite a coordenada x do seu destino:");
        double w = input.nextDouble();
-       out.println("Digite a coordenada y do seu destino,");
+       out.println("Digite a coordenada y do seu destino:");
        double z = input.nextDouble();
        Point2D f = new Point2D(w,z);
        input.close();
@@ -230,19 +244,19 @@ public class App  implements Serializable
        double x, y, w, z, estimatedTime, realTime, realPrice, estimatedPrice;
        int d, m, yr, h, min, rating;
        
-       out.println("Data de quando deseja alugar a viatura.[aaaa mm dd]");
+       out.println("Data de quando deseja alugar a viatura. [aaaa mm dd]");
        yr = input.nextInt();
        m = input.nextInt();
        d = input.nextInt();
        
-       out.println("Hora de quando deseja alugar a viatura.[hh mm]");
+       out.println("Hora de quando deseja alugar a viatura. [hh mm]");
        h = input.nextInt();
        min = input.nextInt();
        
        //Localização do Cliente
-       out.println("Digite a coordenada x de onde se encontra,");
+       out.println("Digite a coordenada x de onde se encontra: ");
        x = input.nextDouble();
-       out.println("Digite a coordenada y de onde se encontra,");
+       out.println("Digite a coordenada y de onde se encontra: ");
        y = input.nextDouble();
        Point2D i = c.getLocation();
  
@@ -252,7 +266,7 @@ public class App  implements Serializable
        double kms = Math.round(i.distanceTo(f));
     
        estimatedPrice = umcj.estimatedPrice(x,y,w,z,v);
-       out.println("O custo estimado da viagem é "+ estimatedPrice +" euros.");
+       out.println("\nO custo estimado da viagem é "+ estimatedPrice +" euros.");
            
        estimatedTime = umcj.estimatedTime(x,y,w,z,v);
        out.println("O tempo estimado de chegada ao destino pretendido é "+ estimatedTime +" minutos.");
@@ -263,18 +277,18 @@ public class App  implements Serializable
            a = umcj.acceptORreject(c, v);
                if(a == true)
            {
-                   out.println("O seu pedido foi efetuado, esperamos que tenha uma viagem agradável.");
+                   out.println("\nO seu pedido foi efetuado, esperamos que tenha uma viagem agradável.");
                    realTime = umcj.realTime(estimatedTime, v);
                    
                    realPrice = umcj.realPrice(estimatedTime, realTime, estimatedTime);
                   
-                   out.println("Classifique o aluguer numa escala de 0 a 100.");
+                   out.println("\nClassifique o aluguer numa escala de 0 a 100.");
                    rating = input.nextInt();
                    
                    try
                    {
                        umcj.endRide(c, yr, m, d, h, min, x, y, w, z, v, kms, realTime, realPrice, estimatedPrice, v.getAutonomy(), rating);
-                       out.println("Viagem finalizada, Obrigado por utilizar o nosso serviço.");
+                       out.println("\nViagem finalizada, Obrigado por utilizar o nosso serviço.");
                    }
                    catch (DateException e){out.println(e.getMessage());}
                    
@@ -311,7 +325,7 @@ public class App  implements Serializable
        try
        {
            List<RentedCar> h = umcj.rentingRegist(nif, yi, mi, di, yf, mf, df);
-           out.println("Durante o período submetido efetuou as seguintes viagens:\n "+ h.toString());
+           out.println("Durante o período submetido efetuou as seguintes viagens: \n "+ h.toString());
        }catch (DateException e){out.println(e.getMessage());}
         
        input.close();
@@ -365,7 +379,6 @@ public class App  implements Serializable
        
        try
        {
-           System.out.println("c.location" + c.getLocation());
            v = umcj.nearestVehicle(c.getLocation(), kms);
            rentRequest(c, v, f);
        }
@@ -382,7 +395,7 @@ public class App  implements Serializable
    {
        Scanner input = new Scanner(System.in);
        String plate;
-       out.println("Digite a matrícula do veículo que deseja. [xx-xx-xx]");
+       out.println("Digite a matrícula do veículo que deseja (por ex: [HF-12-45])");
        plate = input.nextLine();
        
        Vehicle v = new Gas();
@@ -426,7 +439,7 @@ public class App  implements Serializable
    {
            Scanner input = new Scanner(System.in);
            double walk;
-           out.println("Digite a distância que está disposto a andar até ao veículo.");
+           out.println("Digite a distância que está disposto a andar até ao veículo: ");
            walk = input.nextDouble();
            Vehicle v = new Gas();
            
@@ -450,7 +463,7 @@ public class App  implements Serializable
    {
            Scanner input = new Scanner(System.in);
            double a;
-           out.println("Digite a autonomia desejada.");
+           out.println("Digite a autonomia desejada: ");
            a = input.nextDouble();
            Vehicle v = new Gas();
            Point2D f = askDistance();
@@ -471,7 +484,7 @@ public class App  implements Serializable
    public void top10clientsx()
    {
        List<Client> cl = umcj.top10clientsX();
-       out.println("De momento estes são os 10 clientes que mais usaram a aplicação:");
+       out.println("De momento estes são os 10 clientes que mais usaram a aplicação: \n");
        for(Client c : cl){out.println(c.getName());}
    }
    
@@ -481,7 +494,7 @@ public class App  implements Serializable
    public void top10clientskm()
    {
        List<Client> cl = umcj.top10clientsKM();
-       out.println("De momento estes são os 10 clientes que viajaram mais km através da aplicação:");
+       out.println("De momento estes são os 10 clientes que viajaram mais km através da aplicação: \n");
        for(Client c : cl){out.println(c.getName());}
    }
    
@@ -533,7 +546,7 @@ public class App  implements Serializable
    **/
    public void ownerArea(Owner o)
    {
-       String s[] = {"Adicionar um veículo novo", "Lista dos meus veículos","Top 10 Clientes -> km ",
+       String s[] = {"Ver Perfil", "Adicionar um veículo novo", "Lista dos meus veículos","Top 10 Clientes -> km ",
                      "Top 10 Clientes -> Uso", "Lucro dos meus Carros", 
                      "Eliminar Perfil"};
 
@@ -545,17 +558,19 @@ public class App  implements Serializable
            op = m.getOption();
            switch(op)
            {
-               case 1: addVehicle();
+               case 1: printOProfile(o);
+                       break; 
+               case 2: addVehicle();
                        break;       
-               case 2: printVehicles(o);   
+               case 3: printVehicles(o);   
                        break;  
-               case 3: top10clientskm();
+               case 4: top10clientskm();
                        break;
-               case 4: top10clientsx();
+               case 5: top10clientsx();
                        break;
-               case 5: carProfit(o);
+               case 6: carProfit(o);
                        break;
-               case 6: if(deleteOwnerProfile(o) == 1)
+               case 7: if(deleteOwnerProfile(o) == 1)
                              op = 0;
                        break;
            }
@@ -563,6 +578,21 @@ public class App  implements Serializable
        while(op != 0);
    }
    
+   /**
+   * Método que mostra o perfil de um determinado Proprietário
+   * @param    Proprietário com sessão iniciada
+   **/
+   public void printOProfile(Owner o)
+   {
+       out.println("**************************************** "); 
+       out.println(o.toString());
+       out.println("**************************************** \n"); 
+   }
+   
+   /**
+   * Método que imprime a lista de veículos de um determinado Proprietário
+   * @param    Proprietário com sessão iniciada
+   **/
    public void printVehicles(Owner o)
    {
        try
@@ -573,6 +603,8 @@ public class App  implements Serializable
        catch ( UserDoesntExistException e){out.println(e.getMessage());}
        
     }
+    
+    
    /**
    * Método que elimina o perfil de um determinado utilizador da aplicação 
    * @param    Proprietário com sessão iniciada
@@ -583,11 +615,11 @@ public class App  implements Serializable
        Scanner input = new Scanner(System.in);
        String aux;
        int nif;
-       out.println("Tem a certeza que deseja eliminar o seu perfil permanentemente?[sim/nao] ");
+       out.println("Tem a certeza que deseja eliminar o seu perfil permanentemente? [sim/nao] ");
        aux = input.nextLine();
        if(aux.equals("sim"))
        {
-           out.println("Nif: ");
+           out.println("NIF: ");
            nif = input.nextInt();
            if(nif == o.getNif())
            {
@@ -597,7 +629,7 @@ public class App  implements Serializable
            }
            else
            {
-               out.println("Nif incorreto.");
+               out.println("NIF incorreto.");
                input.close();
                return 0;
            }
@@ -625,7 +657,7 @@ public class App  implements Serializable
            type = input.nextLine();
            out.println("Marca:");
            brand = input.nextLine();
-           out.println("Matricula: [xx-xx-xx]");
+           out.println("Matricula: (por ex: [HF-12-45])");
            plate = input.nextLine();
            out.println("NIF:");
            nif = input.nextInt();
@@ -641,8 +673,7 @@ public class App  implements Serializable
            x = input.nextDouble();
            out.println("Coordenada y onde o veículo se encontra: ");
            y = input.nextDouble();
-           
-           
+            
            Vehicle v = umcj.vType(type, brand,plate,nif,speed,price,comsuption,autonomy,x,y);
            {umcj.addVehicleToOwner(nif,v);}
        }
@@ -672,7 +703,7 @@ public class App  implements Serializable
        input.nextLine();
        try
        {
-           out.println("Digite a matricula do veiculo que pretende consultar:");
+           out.println("Digite a matricula do veiculo que pretende consultar: (por ex: [HF-12-45])");
            plate = input.nextLine();
            
            double total = umcj.carProfit(o.getNif(), plate, yi, mi, di, yf, mf, df);

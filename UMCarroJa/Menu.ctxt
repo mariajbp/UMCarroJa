@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Menu
-comment0.text=\r\n\ Esta\ classe\ implementa\ um\ menu\ em\ modo\ texto.\r\n
+comment0.text=\r\n\ Classe\ que\ implementa\ um\ menu\ em\ modo\ texto.\r\n
 comment1.params=options
 comment1.target=Menu(java.lang.String[])
 comment2.params=
