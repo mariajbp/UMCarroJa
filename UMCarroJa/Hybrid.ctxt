@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Hybrid
-comment0.text=\n\ Representa\u00E7\u00E3o\ da\ classe\ Hybrid,\ subclasse\ de\ Vehicle\n
+comment0.text=\r\n\ Representa\u00E7\u00E3o\ da\ classe\ Hybrid,\ subclasse\ de\ Vehicle\r\n
 comment1.params=
 comment1.target=Hybrid()
 comment1.text=Construtor\ vazio\ *

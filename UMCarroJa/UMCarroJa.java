@@ -776,7 +776,7 @@ public class UMCarroJa implements Serializable
    **/
    public void endRide(Client c, int yr, int m, int d, int h, int min, double x, double y, double w, double z, Vehicle v, double kms, 
                                 double timeRide, double custoReal, double custoEst, double a, int classificacao) throws DateException{
-       if(y < 0 || m < 1 || m > 12 || d < 1 || d > 31 || h < 0 || h > 23 || min < 0 || min > 59)
+       if(yr < 0 || m < 1 || m > 12 || d < 1 || d > 31 || h < 0 || h > 23 || min < 0 || min > 59)
            throw new DateException("Formato de data e hora incorreto, por favor tente novamente com uma data e hora válidas.");
        else{
            LocalDateTime date = LocalDateTime.of(yr,m,d, h, min);

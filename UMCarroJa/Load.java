@@ -69,7 +69,7 @@ public class Load
                              break;
                              
            case "Aluguer": Client cl = new Client();
-                           Vehicle vh = new Gas();
+                           Vehicle vh = new Vehicle();
                            double w = Double.parseDouble(snd[1]); 
                            double z = Double.parseDouble(snd[2]);
                            Point2D pf = new Point2D(w,z); //localização final

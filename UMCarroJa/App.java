@@ -656,13 +656,13 @@ public class App  implements Serializable
            email = input.nextLine();
            out.println("Indique o NIF do proprietário: ");
            nif = input.nextInt();
+           input.nextLine();
            out.println("Que tipo de veículo pretende registar? ");
            type = input.nextLine();
            out.println("Marca:");
            brand = input.nextLine();
            out.println("Matricula: (por ex: [HF-12-45])");
            plate = input.nextLine();
-           out.println("NIF:");
 
            out.println("Velocidade média do veículo: ");
            speed = input.nextDouble();
